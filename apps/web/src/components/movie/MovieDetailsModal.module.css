@@ -1,0 +1,142 @@
+.backdropWrap {
+  position: relative;
+  margin: -6px -6px 14px;
+  height: 156px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: linear-gradient(135deg, #1e2235, #111420);
+}
+
+.backdropImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.backdropGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(19, 22, 34, 0.1) 0%, var(--bg-surface) 98%);
+}
+
+.heroRow {
+  display: flex;
+  gap: 14px;
+  margin-top: -54px;
+  position: relative;
+  z-index: 2;
+  align-items: flex-end;
+}
+
+.posterThumb {
+  width: 86px;
+  height: 128px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.16);
+  box-shadow: var(--shadow-elevated);
+  flex-shrink: 0;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding-bottom: 4px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.original {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.statsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.statPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+.section {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.overview {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #dbe2ee;
+}
+
+.genresRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.genreChip {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+.providersBox {
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.providersList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.providerItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-size: 12.5px;
+  font-weight: 500;
+}

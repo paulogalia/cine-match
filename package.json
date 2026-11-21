@@ -1,0 +1,23 @@
+{
+  "name": "cine-match",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently -n server,web -c cyan,magenta \"pnpm --filter @cine-match/server dev\" \"pnpm --filter @cine-match/web dev\"",
+    "dev:server": "pnpm --filter @cine-match/server dev",
+    "dev:web": "pnpm --filter @cine-match/web dev",
+    "build": "pnpm --filter @cine-match/web build && pnpm --filter @cine-match/server build",
+    "start": "pnpm --filter @cine-match/server start",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r --if-present test",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "concurrently": "^9.1.0",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,0 +1,87 @@
+.deckContainer {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 260px;
+  max-height: 580px;
+  margin: 0 auto;
+}
+
+.backCard {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--bg-surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.backCardDim {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 13, 20, 0.34);
+}
+
+.actionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 12px 0 2px;
+  flex-shrink: 0;
+}
+
+.voteBtn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1.5px solid;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 150ms ease, opacity 150ms ease;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.38);
+}
+
+.voteBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.nopeBtn {
+  background: var(--bg-elevated);
+  border-color: rgba(148, 163, 184, 0.32);
+  color: #cbd5e1;
+}
+
+.likeBtn {
+  background: var(--gradient-brand);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  box-shadow: 0 12px 30px rgba(255, 77, 109, 0.38);
+}
+
+.hintText {
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+@media (max-height: 680px) {
+  .actionsRow {
+    padding: 8px 0 0;
+    gap: 24px;
+  }
+
+  .voteBtn {
+    width: 56px;
+    height: 56px;
+  }
+
+  .hintText {
+    display: none;
+  }
+}

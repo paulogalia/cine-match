@@ -1,0 +1,3707 @@
+{
+  "schemaVersion": 1,
+  "savedAt": "2026-11-20T23:41:19.690Z",
+  "activeRooms": {
+    "4Y77FV": {
+      "id": "room_eaf99c47d9bb467495ce86fe8c686366",
+      "code": "4Y77FV",
+      "createdAt": "2026-11-20T23:39:03.711Z",
+      "updatedAt": "2026-11-20T23:39:05.894Z",
+      "expiresAt": "2026-11-21T23:39:05.894Z",
+      "status": "IN_PROGRESS",
+      "stateVersion": 7,
+      "participants": [
+        {
+          "id": "part_cde1ba343705491782c8eee05af40f64",
+          "deviceId": "dev_zqyrvu49a9qekqby",
+          "name": "Paulo",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:39:03.711Z",
+          "lastSeenAt": "2026-11-20T23:39:05.892Z"
+        },
+        {
+          "id": "part_f2a89481a94f41bcacee181f1acb730e",
+          "deviceId": "dev_nbnf3pk67rifdojx",
+          "name": "Maria",
+          "avatarColor": "#8B5CF6",
+          "role": "GUEST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:39:04.779Z",
+          "lastSeenAt": "2026-11-20T23:39:05.894Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 1,
+      "catalogExhausted": false,
+      "moviesById": {
+        "129": {
+          "tmdbId": 129,
+          "title": "A Viagem de Chihiro",
+          "originalTitle": "Sen to Chihiro no Kamikakushi",
+          "overview": "Uma garota entra em um mundo mágico governado por espíritos e precisa salvar seus pais.",
+          "posterPath": "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+          "backdropPath": "/mSDsSDwaP3E7dEfUPWy4J0djt4O.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 16400,
+          "releaseYear": 2001,
+          "genreIds": [
+            16,
+            10751,
+            14
+          ],
+          "originalLanguage": "ja",
+          "runtime": 125
+        },
+        "497": {
+          "tmdbId": 497,
+          "title": "À Espera de um Milagre",
+          "originalTitle": "The Green Mile",
+          "overview": "Um guarda penitenciário descobre que um detento no corredor da morte possui um dom extraordinário.",
+          "posterPath": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+          "backdropPath": "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 17300,
+          "releaseYear": 1999,
+          "genreIds": [
+            14,
+            18,
+            80
+          ],
+          "originalLanguage": "en",
+          "runtime": 189
+        },
+        "27205": {
+          "tmdbId": 27205,
+          "title": "A Origem",
+          "originalTitle": "Inception",
+          "overview": "Um ladrão que invade sonhos recebe a tarefa inversa de plantar uma ideia na mente de um herdeiro.",
+          "posterPath": "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+          "backdropPath": "/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 36000,
+          "releaseYear": 2010,
+          "genreIds": [
+            28,
+            878,
+            12
+          ],
+          "originalLanguage": "en",
+          "runtime": 148
+        },
+        "76341": {
+          "tmdbId": 76341,
+          "title": "Mad Max: Estrada da Fúria",
+          "originalTitle": "Mad Max: Fury Road",
+          "overview": "Em um deserto pós-apocalíptico, uma rebelde e um andarilho lideram uma fuga alucinante contra um tirano.",
+          "posterPath": "/hA2ple9q4qnwxp3hKVNhroipsir.jpg",
+          "backdropPath": "/nlCHUWjY9XWbuEUQauCBgnY8ymF.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 22400,
+          "releaseYear": 2015,
+          "genreIds": [
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 120
+        },
+        "120467": {
+          "tmdbId": 120467,
+          "title": "O Grande Hotel Budapeste",
+          "originalTitle": "The Grand Budapest Hotel",
+          "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+          "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+          "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+          "voteAverage": 8,
+          "voteCount": 14900,
+          "releaseYear": 2014,
+          "genreIds": [
+            35,
+            18
+          ],
+          "originalLanguage": "en",
+          "runtime": 100
+        },
+        "157336": {
+          "tmdbId": 157336,
+          "title": "Interestelar",
+          "originalTitle": "Interstellar",
+          "overview": "Exploradores atravessam um buraco de minhoca em busca de um novo lar para a humanidade.",
+          "posterPath": "/nCbkOyOMTEwlEV0LtCOvCnwEONA.jpg",
+          "backdropPath": "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 35000,
+          "releaseYear": 2014,
+          "genreIds": [
+            12,
+            18,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 169
+        },
+        "244786": {
+          "tmdbId": 244786,
+          "title": "Whiplash: Em Busca da Perfeição",
+          "originalTitle": "Whiplash",
+          "overview": "Um jovem baterista enfrenta os métodos extremos de um maestro obcecado pela perfeição.",
+          "posterPath": "/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+          "backdropPath": "/fRGxZuo7jJUWQsVg9PREb98Aclp.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15000,
+          "releaseYear": 2014,
+          "genreIds": [
+            18,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 107
+        },
+        "313369": {
+          "tmdbId": 313369,
+          "title": "La La Land: Cantando Estações",
+          "originalTitle": "La La Land",
+          "overview": "Um pianista de jazz e uma aspirante a atriz se apaixonam enquanto tentam realizar seus sonhos em Los Angeles.",
+          "posterPath": "/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+          "backdropPath": "/nadTlnTE6DdgmYsN4iWc2a2wiaI.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 16800,
+          "releaseYear": 2016,
+          "genreIds": [
+            35,
+            18,
+            10749,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 128
+        },
+        "324857": {
+          "tmdbId": 324857,
+          "title": "Homem-Aranha no Aranhaverso",
+          "originalTitle": "Spider-Man: Into the Spider-Verse",
+          "overview": "O adolescente Miles Morales ganha poderes e encontra versões do Homem-Aranha de outras dimensões.",
+          "posterPath": "/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+          "backdropPath": "/7d6EY00g1c39SGZOoCJ5Py9nNth.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15500,
+          "releaseYear": 2018,
+          "genreIds": [
+            16,
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 117
+        },
+        "329865": {
+          "tmdbId": 329865,
+          "title": "A Chegada",
+          "originalTitle": "Arrival",
+          "overview": "Uma linguista é recrutada para decifrar a comunicação de naves alienígenas que pousaram na Terra.",
+          "posterPath": "/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg",
+          "backdropPath": "/yIZ1xendyqKvY3FGeeUYUd5X9Mm.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17600,
+          "releaseYear": 2016,
+          "genreIds": [
+            18,
+            878,
+            9648
+          ],
+          "originalLanguage": "en",
+          "runtime": 116
+        },
+        "419430": {
+          "tmdbId": 419430,
+          "title": "Corra!",
+          "originalTitle": "Get Out",
+          "overview": "Um jovem fotógrafo descobre um segredo perturbador ao conhecer a família de sua namorada.",
+          "posterPath": "/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+          "backdropPath": "/o8dPH0ZJpAgXmP5E7D2h3J2v6xL.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17300,
+          "releaseYear": 2017,
+          "genreIds": [
+            9648,
+            53,
+            27
+          ],
+          "originalLanguage": "en",
+          "runtime": 104
+        },
+        "496243": {
+          "tmdbId": 496243,
+          "title": "Parasita",
+          "originalTitle": "Gisaengchung",
+          "overview": "Uma família desempregada se infiltra gradualmente na rotina de uma família rica em Seul.",
+          "posterPath": "/igw938inb6Fy0YVcwIyxQ7Lu5FO.jpg",
+          "backdropPath": "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 18000,
+          "releaseYear": 2019,
+          "genreIds": [
+            35,
+            53,
+            18
+          ],
+          "originalLanguage": "ko",
+          "runtime": 132
+        }
+      },
+      "queues": {
+        "part_cde1ba343705491782c8eee05af40f64": {
+          "participantId": "part_cde1ba343705491782c8eee05af40f64",
+          "movieIds": [
+            120467,
+            419430,
+            244786,
+            76341,
+            496243,
+            329865,
+            157336,
+            324857,
+            27205,
+            129,
+            497
+          ],
+          "cursor": 1
+        },
+        "part_f2a89481a94f41bcacee181f1acb730e": {
+          "participantId": "part_f2a89481a94f41bcacee181f1acb730e",
+          "movieIds": [
+            497,
+            120467,
+            157336,
+            313369,
+            244786,
+            419430,
+            27205,
+            324857,
+            129,
+            76341,
+            329865
+          ],
+          "cursor": 1
+        }
+      },
+      "votes": [
+        {
+          "operationId": "op_00qb5vrvg9wwoi06",
+          "participantId": "part_cde1ba343705491782c8eee05af40f64",
+          "tmdbId": 313369,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:39:05.526Z"
+        },
+        {
+          "operationId": "op_m6sjb5gnd28ul8c8",
+          "participantId": "part_f2a89481a94f41bcacee181f1acb730e",
+          "tmdbId": 496243,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:39:05.785Z"
+        }
+      ],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "JKXK2Y": {
+      "id": "room_c9623892035149bb81067765b250cc86",
+      "code": "JKXK2Y",
+      "createdAt": "2026-11-20T23:39:08.095Z",
+      "updatedAt": "2026-11-20T23:39:10.953Z",
+      "expiresAt": "2026-11-21T23:39:10.953Z",
+      "status": "IN_PROGRESS",
+      "stateVersion": 10,
+      "participants": [
+        {
+          "id": "part_c967f3e9de3845a48c5bbc8f2442f517",
+          "deviceId": "dev_zp6xfl9crqgznwwd",
+          "name": "Ana",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:39:08.095Z",
+          "lastSeenAt": "2026-11-20T23:39:10.936Z"
+        },
+        {
+          "id": "part_d750704876b0442dbf465556232ba7d9",
+          "deviceId": "dev_2yjldssg50tr9if1",
+          "name": "Bruno",
+          "avatarColor": "#8B5CF6",
+          "role": "GUEST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:39:09.277Z",
+          "lastSeenAt": "2026-11-20T23:39:10.953Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 1,
+      "catalogExhausted": false,
+      "moviesById": {
+        "129": {
+          "tmdbId": 129,
+          "title": "A Viagem de Chihiro",
+          "originalTitle": "Sen to Chihiro no Kamikakushi",
+          "overview": "Uma garota entra em um mundo mágico governado por espíritos e precisa salvar seus pais.",
+          "posterPath": "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+          "backdropPath": "/mSDsSDwaP3E7dEfUPWy4J0djt4O.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 16400,
+          "releaseYear": 2001,
+          "genreIds": [
+            16,
+            10751,
+            14
+          ],
+          "originalLanguage": "ja",
+          "runtime": 125
+        },
+        "497": {
+          "tmdbId": 497,
+          "title": "À Espera de um Milagre",
+          "originalTitle": "The Green Mile",
+          "overview": "Um guarda penitenciário descobre que um detento no corredor da morte possui um dom extraordinário.",
+          "posterPath": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+          "backdropPath": "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 17300,
+          "releaseYear": 1999,
+          "genreIds": [
+            14,
+            18,
+            80
+          ],
+          "originalLanguage": "en",
+          "runtime": 189
+        },
+        "27205": {
+          "tmdbId": 27205,
+          "title": "A Origem",
+          "originalTitle": "Inception",
+          "overview": "Um ladrão que invade sonhos recebe a tarefa inversa de plantar uma ideia na mente de um herdeiro.",
+          "posterPath": "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+          "backdropPath": "/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 36000,
+          "releaseYear": 2010,
+          "genreIds": [
+            28,
+            878,
+            12
+          ],
+          "originalLanguage": "en",
+          "runtime": 148
+        },
+        "76341": {
+          "tmdbId": 76341,
+          "title": "Mad Max: Estrada da Fúria",
+          "originalTitle": "Mad Max: Fury Road",
+          "overview": "Em um deserto pós-apocalíptico, uma rebelde e um andarilho lideram uma fuga alucinante contra um tirano.",
+          "posterPath": "/hA2ple9q4qnwxp3hKVNhroipsir.jpg",
+          "backdropPath": "/nlCHUWjY9XWbuEUQauCBgnY8ymF.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 22400,
+          "releaseYear": 2015,
+          "genreIds": [
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 120
+        },
+        "120467": {
+          "tmdbId": 120467,
+          "title": "O Grande Hotel Budapeste",
+          "originalTitle": "The Grand Budapest Hotel",
+          "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+          "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+          "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+          "voteAverage": 8,
+          "voteCount": 14900,
+          "releaseYear": 2014,
+          "genreIds": [
+            35,
+            18
+          ],
+          "originalLanguage": "en",
+          "runtime": 100
+        },
+        "157336": {
+          "tmdbId": 157336,
+          "title": "Interestelar",
+          "originalTitle": "Interstellar",
+          "overview": "Exploradores atravessam um buraco de minhoca em busca de um novo lar para a humanidade.",
+          "posterPath": "/nCbkOyOMTEwlEV0LtCOvCnwEONA.jpg",
+          "backdropPath": "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 35000,
+          "releaseYear": 2014,
+          "genreIds": [
+            12,
+            18,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 169
+        },
+        "244786": {
+          "tmdbId": 244786,
+          "title": "Whiplash: Em Busca da Perfeição",
+          "originalTitle": "Whiplash",
+          "overview": "Um jovem baterista enfrenta os métodos extremos de um maestro obcecado pela perfeição.",
+          "posterPath": "/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+          "backdropPath": "/fRGxZuo7jJUWQsVg9PREb98Aclp.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15000,
+          "releaseYear": 2014,
+          "genreIds": [
+            18,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 107
+        },
+        "313369": {
+          "tmdbId": 313369,
+          "title": "La La Land: Cantando Estações",
+          "originalTitle": "La La Land",
+          "overview": "Um pianista de jazz e uma aspirante a atriz se apaixonam enquanto tentam realizar seus sonhos em Los Angeles.",
+          "posterPath": "/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+          "backdropPath": "/nadTlnTE6DdgmYsN4iWc2a2wiaI.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 16800,
+          "releaseYear": 2016,
+          "genreIds": [
+            35,
+            18,
+            10749,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 128
+        },
+        "324857": {
+          "tmdbId": 324857,
+          "title": "Homem-Aranha no Aranhaverso",
+          "originalTitle": "Spider-Man: Into the Spider-Verse",
+          "overview": "O adolescente Miles Morales ganha poderes e encontra versões do Homem-Aranha de outras dimensões.",
+          "posterPath": "/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+          "backdropPath": "/7d6EY00g1c39SGZOoCJ5Py9nNth.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15500,
+          "releaseYear": 2018,
+          "genreIds": [
+            16,
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 117
+        },
+        "329865": {
+          "tmdbId": 329865,
+          "title": "A Chegada",
+          "originalTitle": "Arrival",
+          "overview": "Uma linguista é recrutada para decifrar a comunicação de naves alienígenas que pousaram na Terra.",
+          "posterPath": "/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg",
+          "backdropPath": "/yIZ1xendyqKvY3FGeeUYUd5X9Mm.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17600,
+          "releaseYear": 2016,
+          "genreIds": [
+            18,
+            878,
+            9648
+          ],
+          "originalLanguage": "en",
+          "runtime": 116
+        },
+        "419430": {
+          "tmdbId": 419430,
+          "title": "Corra!",
+          "originalTitle": "Get Out",
+          "overview": "Um jovem fotógrafo descobre um segredo perturbador ao conhecer a família de sua namorada.",
+          "posterPath": "/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+          "backdropPath": "/o8dPH0ZJpAgXmP5E7D2h3J2v6xL.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17300,
+          "releaseYear": 2017,
+          "genreIds": [
+            9648,
+            53,
+            27
+          ],
+          "originalLanguage": "en",
+          "runtime": 104
+        },
+        "496243": {
+          "tmdbId": 496243,
+          "title": "Parasita",
+          "originalTitle": "Gisaengchung",
+          "overview": "Uma família desempregada se infiltra gradualmente na rotina de uma família rica em Seul.",
+          "posterPath": "/igw938inb6Fy0YVcwIyxQ7Lu5FO.jpg",
+          "backdropPath": "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 18000,
+          "releaseYear": 2019,
+          "genreIds": [
+            35,
+            53,
+            18
+          ],
+          "originalLanguage": "ko",
+          "runtime": 132
+        }
+      },
+      "queues": {
+        "part_c967f3e9de3845a48c5bbc8f2442f517": {
+          "participantId": "part_c967f3e9de3845a48c5bbc8f2442f517",
+          "movieIds": [
+            157336,
+            419430,
+            497,
+            329865,
+            76341,
+            496243,
+            27205,
+            120467,
+            129,
+            324857,
+            244786,
+            313369
+          ],
+          "cursor": 0
+        },
+        "part_d750704876b0442dbf465556232ba7d9": {
+          "participantId": "part_d750704876b0442dbf465556232ba7d9",
+          "movieIds": [
+            129,
+            329865,
+            157336,
+            313369,
+            496243,
+            27205,
+            120467,
+            76341,
+            244786,
+            324857,
+            497
+          ],
+          "cursor": 1
+        }
+      },
+      "votes": [
+        {
+          "operationId": "op_d8iq2v2ezgou3bka",
+          "participantId": "part_d750704876b0442dbf465556232ba7d9",
+          "tmdbId": 419430,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:39:09.605Z"
+        }
+      ],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "PC29MD": {
+      "id": "room_d6e3200b50bb4efca620949a38654d81",
+      "code": "PC29MD",
+      "createdAt": "2026-11-20T23:39:11.911Z",
+      "updatedAt": "2026-11-20T23:39:13.535Z",
+      "expiresAt": "2026-11-21T23:39:13.535Z",
+      "status": "IN_PROGRESS",
+      "stateVersion": 5,
+      "participants": [
+        {
+          "id": "part_b7304f42e5144e4bb5fc0a641e035890",
+          "deviceId": "dev_hq028k56mivuli2f",
+          "name": "Paulo",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:39:11.911Z",
+          "lastSeenAt": "2026-11-20T23:39:13.436Z"
+        },
+        {
+          "id": "part_8121b9b67a1c4290b3d76807bce55633",
+          "deviceId": "dev_o7lwn6m8o6yss1n8",
+          "name": "Maria",
+          "avatarColor": "#8B5CF6",
+          "role": "GUEST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:39:12.945Z",
+          "lastSeenAt": "2026-11-20T23:39:13.535Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 1,
+      "catalogExhausted": false,
+      "moviesById": {
+        "129": {
+          "tmdbId": 129,
+          "title": "A Viagem de Chihiro",
+          "originalTitle": "Sen to Chihiro no Kamikakushi",
+          "overview": "Uma garota entra em um mundo mágico governado por espíritos e precisa salvar seus pais.",
+          "posterPath": "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+          "backdropPath": "/mSDsSDwaP3E7dEfUPWy4J0djt4O.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 16400,
+          "releaseYear": 2001,
+          "genreIds": [
+            16,
+            10751,
+            14
+          ],
+          "originalLanguage": "ja",
+          "runtime": 125
+        },
+        "497": {
+          "tmdbId": 497,
+          "title": "À Espera de um Milagre",
+          "originalTitle": "The Green Mile",
+          "overview": "Um guarda penitenciário descobre que um detento no corredor da morte possui um dom extraordinário.",
+          "posterPath": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+          "backdropPath": "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 17300,
+          "releaseYear": 1999,
+          "genreIds": [
+            14,
+            18,
+            80
+          ],
+          "originalLanguage": "en",
+          "runtime": 189
+        },
+        "27205": {
+          "tmdbId": 27205,
+          "title": "A Origem",
+          "originalTitle": "Inception",
+          "overview": "Um ladrão que invade sonhos recebe a tarefa inversa de plantar uma ideia na mente de um herdeiro.",
+          "posterPath": "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+          "backdropPath": "/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 36000,
+          "releaseYear": 2010,
+          "genreIds": [
+            28,
+            878,
+            12
+          ],
+          "originalLanguage": "en",
+          "runtime": 148
+        },
+        "76341": {
+          "tmdbId": 76341,
+          "title": "Mad Max: Estrada da Fúria",
+          "originalTitle": "Mad Max: Fury Road",
+          "overview": "Em um deserto pós-apocalíptico, uma rebelde e um andarilho lideram uma fuga alucinante contra um tirano.",
+          "posterPath": "/hA2ple9q4qnwxp3hKVNhroipsir.jpg",
+          "backdropPath": "/nlCHUWjY9XWbuEUQauCBgnY8ymF.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 22400,
+          "releaseYear": 2015,
+          "genreIds": [
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 120
+        },
+        "120467": {
+          "tmdbId": 120467,
+          "title": "O Grande Hotel Budapeste",
+          "originalTitle": "The Grand Budapest Hotel",
+          "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+          "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+          "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+          "voteAverage": 8,
+          "voteCount": 14900,
+          "releaseYear": 2014,
+          "genreIds": [
+            35,
+            18
+          ],
+          "originalLanguage": "en",
+          "runtime": 100
+        },
+        "157336": {
+          "tmdbId": 157336,
+          "title": "Interestelar",
+          "originalTitle": "Interstellar",
+          "overview": "Exploradores atravessam um buraco de minhoca em busca de um novo lar para a humanidade.",
+          "posterPath": "/nCbkOyOMTEwlEV0LtCOvCnwEONA.jpg",
+          "backdropPath": "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 35000,
+          "releaseYear": 2014,
+          "genreIds": [
+            12,
+            18,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 169
+        },
+        "244786": {
+          "tmdbId": 244786,
+          "title": "Whiplash: Em Busca da Perfeição",
+          "originalTitle": "Whiplash",
+          "overview": "Um jovem baterista enfrenta os métodos extremos de um maestro obcecado pela perfeição.",
+          "posterPath": "/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+          "backdropPath": "/fRGxZuo7jJUWQsVg9PREb98Aclp.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15000,
+          "releaseYear": 2014,
+          "genreIds": [
+            18,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 107
+        },
+        "313369": {
+          "tmdbId": 313369,
+          "title": "La La Land: Cantando Estações",
+          "originalTitle": "La La Land",
+          "overview": "Um pianista de jazz e uma aspirante a atriz se apaixonam enquanto tentam realizar seus sonhos em Los Angeles.",
+          "posterPath": "/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+          "backdropPath": "/nadTlnTE6DdgmYsN4iWc2a2wiaI.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 16800,
+          "releaseYear": 2016,
+          "genreIds": [
+            35,
+            18,
+            10749,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 128
+        },
+        "324857": {
+          "tmdbId": 324857,
+          "title": "Homem-Aranha no Aranhaverso",
+          "originalTitle": "Spider-Man: Into the Spider-Verse",
+          "overview": "O adolescente Miles Morales ganha poderes e encontra versões do Homem-Aranha de outras dimensões.",
+          "posterPath": "/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+          "backdropPath": "/7d6EY00g1c39SGZOoCJ5Py9nNth.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15500,
+          "releaseYear": 2018,
+          "genreIds": [
+            16,
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 117
+        },
+        "329865": {
+          "tmdbId": 329865,
+          "title": "A Chegada",
+          "originalTitle": "Arrival",
+          "overview": "Uma linguista é recrutada para decifrar a comunicação de naves alienígenas que pousaram na Terra.",
+          "posterPath": "/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg",
+          "backdropPath": "/yIZ1xendyqKvY3FGeeUYUd5X9Mm.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17600,
+          "releaseYear": 2016,
+          "genreIds": [
+            18,
+            878,
+            9648
+          ],
+          "originalLanguage": "en",
+          "runtime": 116
+        },
+        "419430": {
+          "tmdbId": 419430,
+          "title": "Corra!",
+          "originalTitle": "Get Out",
+          "overview": "Um jovem fotógrafo descobre um segredo perturbador ao conhecer a família de sua namorada.",
+          "posterPath": "/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+          "backdropPath": "/o8dPH0ZJpAgXmP5E7D2h3J2v6xL.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17300,
+          "releaseYear": 2017,
+          "genreIds": [
+            9648,
+            53,
+            27
+          ],
+          "originalLanguage": "en",
+          "runtime": 104
+        },
+        "496243": {
+          "tmdbId": 496243,
+          "title": "Parasita",
+          "originalTitle": "Gisaengchung",
+          "overview": "Uma família desempregada se infiltra gradualmente na rotina de uma família rica em Seul.",
+          "posterPath": "/igw938inb6Fy0YVcwIyxQ7Lu5FO.jpg",
+          "backdropPath": "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 18000,
+          "releaseYear": 2019,
+          "genreIds": [
+            35,
+            53,
+            18
+          ],
+          "originalLanguage": "ko",
+          "runtime": 132
+        }
+      },
+      "queues": {
+        "part_b7304f42e5144e4bb5fc0a641e035890": {
+          "participantId": "part_b7304f42e5144e4bb5fc0a641e035890",
+          "movieIds": [
+            244786,
+            329865,
+            497,
+            129,
+            324857,
+            419430,
+            157336,
+            27205,
+            76341,
+            313369,
+            496243,
+            120467
+          ],
+          "cursor": 0
+        },
+        "part_8121b9b67a1c4290b3d76807bce55633": {
+          "participantId": "part_8121b9b67a1c4290b3d76807bce55633",
+          "movieIds": [
+            129,
+            419430,
+            120467,
+            496243,
+            157336,
+            329865,
+            76341,
+            324857,
+            27205,
+            497,
+            244786,
+            313369
+          ],
+          "cursor": 0
+        }
+      },
+      "votes": [],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "DYFVB4": {
+      "id": "room_03080d1e3cea405990dcf9b085c6144d",
+      "code": "DYFVB4",
+      "createdAt": "2026-11-20T23:39:14.361Z",
+      "updatedAt": "2026-11-20T23:39:15.912Z",
+      "expiresAt": "2026-11-21T23:39:15.912Z",
+      "status": "IN_PROGRESS",
+      "stateVersion": 5,
+      "participants": [
+        {
+          "id": "part_a9347fdab5e64e67a2b5a0a3c570a052",
+          "deviceId": "dev_tiwpa4m331lckd3k",
+          "name": "Paulo",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:39:14.361Z",
+          "lastSeenAt": "2026-11-20T23:39:15.903Z"
+        },
+        {
+          "id": "part_9ef1ba3b25f743d686f29e4e08af4a9a",
+          "deviceId": "dev_0miuaim9bh4p1snx",
+          "name": "Maria",
+          "avatarColor": "#8B5CF6",
+          "role": "GUEST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:39:15.446Z",
+          "lastSeenAt": "2026-11-20T23:39:15.912Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 1,
+      "catalogExhausted": false,
+      "moviesById": {
+        "129": {
+          "tmdbId": 129,
+          "title": "A Viagem de Chihiro",
+          "originalTitle": "Sen to Chihiro no Kamikakushi",
+          "overview": "Uma garota entra em um mundo mágico governado por espíritos e precisa salvar seus pais.",
+          "posterPath": "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+          "backdropPath": "/mSDsSDwaP3E7dEfUPWy4J0djt4O.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 16400,
+          "releaseYear": 2001,
+          "genreIds": [
+            16,
+            10751,
+            14
+          ],
+          "originalLanguage": "ja",
+          "runtime": 125
+        },
+        "497": {
+          "tmdbId": 497,
+          "title": "À Espera de um Milagre",
+          "originalTitle": "The Green Mile",
+          "overview": "Um guarda penitenciário descobre que um detento no corredor da morte possui um dom extraordinário.",
+          "posterPath": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+          "backdropPath": "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 17300,
+          "releaseYear": 1999,
+          "genreIds": [
+            14,
+            18,
+            80
+          ],
+          "originalLanguage": "en",
+          "runtime": 189
+        },
+        "27205": {
+          "tmdbId": 27205,
+          "title": "A Origem",
+          "originalTitle": "Inception",
+          "overview": "Um ladrão que invade sonhos recebe a tarefa inversa de plantar uma ideia na mente de um herdeiro.",
+          "posterPath": "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+          "backdropPath": "/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 36000,
+          "releaseYear": 2010,
+          "genreIds": [
+            28,
+            878,
+            12
+          ],
+          "originalLanguage": "en",
+          "runtime": 148
+        },
+        "76341": {
+          "tmdbId": 76341,
+          "title": "Mad Max: Estrada da Fúria",
+          "originalTitle": "Mad Max: Fury Road",
+          "overview": "Em um deserto pós-apocalíptico, uma rebelde e um andarilho lideram uma fuga alucinante contra um tirano.",
+          "posterPath": "/hA2ple9q4qnwxp3hKVNhroipsir.jpg",
+          "backdropPath": "/nlCHUWjY9XWbuEUQauCBgnY8ymF.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 22400,
+          "releaseYear": 2015,
+          "genreIds": [
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 120
+        },
+        "120467": {
+          "tmdbId": 120467,
+          "title": "O Grande Hotel Budapeste",
+          "originalTitle": "The Grand Budapest Hotel",
+          "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+          "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+          "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+          "voteAverage": 8,
+          "voteCount": 14900,
+          "releaseYear": 2014,
+          "genreIds": [
+            35,
+            18
+          ],
+          "originalLanguage": "en",
+          "runtime": 100
+        },
+        "157336": {
+          "tmdbId": 157336,
+          "title": "Interestelar",
+          "originalTitle": "Interstellar",
+          "overview": "Exploradores atravessam um buraco de minhoca em busca de um novo lar para a humanidade.",
+          "posterPath": "/nCbkOyOMTEwlEV0LtCOvCnwEONA.jpg",
+          "backdropPath": "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 35000,
+          "releaseYear": 2014,
+          "genreIds": [
+            12,
+            18,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 169
+        },
+        "244786": {
+          "tmdbId": 244786,
+          "title": "Whiplash: Em Busca da Perfeição",
+          "originalTitle": "Whiplash",
+          "overview": "Um jovem baterista enfrenta os métodos extremos de um maestro obcecado pela perfeição.",
+          "posterPath": "/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+          "backdropPath": "/fRGxZuo7jJUWQsVg9PREb98Aclp.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15000,
+          "releaseYear": 2014,
+          "genreIds": [
+            18,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 107
+        },
+        "313369": {
+          "tmdbId": 313369,
+          "title": "La La Land: Cantando Estações",
+          "originalTitle": "La La Land",
+          "overview": "Um pianista de jazz e uma aspirante a atriz se apaixonam enquanto tentam realizar seus sonhos em Los Angeles.",
+          "posterPath": "/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+          "backdropPath": "/nadTlnTE6DdgmYsN4iWc2a2wiaI.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 16800,
+          "releaseYear": 2016,
+          "genreIds": [
+            35,
+            18,
+            10749,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 128
+        },
+        "324857": {
+          "tmdbId": 324857,
+          "title": "Homem-Aranha no Aranhaverso",
+          "originalTitle": "Spider-Man: Into the Spider-Verse",
+          "overview": "O adolescente Miles Morales ganha poderes e encontra versões do Homem-Aranha de outras dimensões.",
+          "posterPath": "/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+          "backdropPath": "/7d6EY00g1c39SGZOoCJ5Py9nNth.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15500,
+          "releaseYear": 2018,
+          "genreIds": [
+            16,
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 117
+        },
+        "329865": {
+          "tmdbId": 329865,
+          "title": "A Chegada",
+          "originalTitle": "Arrival",
+          "overview": "Uma linguista é recrutada para decifrar a comunicação de naves alienígenas que pousaram na Terra.",
+          "posterPath": "/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg",
+          "backdropPath": "/yIZ1xendyqKvY3FGeeUYUd5X9Mm.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17600,
+          "releaseYear": 2016,
+          "genreIds": [
+            18,
+            878,
+            9648
+          ],
+          "originalLanguage": "en",
+          "runtime": 116
+        },
+        "419430": {
+          "tmdbId": 419430,
+          "title": "Corra!",
+          "originalTitle": "Get Out",
+          "overview": "Um jovem fotógrafo descobre um segredo perturbador ao conhecer a família de sua namorada.",
+          "posterPath": "/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+          "backdropPath": "/o8dPH0ZJpAgXmP5E7D2h3J2v6xL.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17300,
+          "releaseYear": 2017,
+          "genreIds": [
+            9648,
+            53,
+            27
+          ],
+          "originalLanguage": "en",
+          "runtime": 104
+        },
+        "496243": {
+          "tmdbId": 496243,
+          "title": "Parasita",
+          "originalTitle": "Gisaengchung",
+          "overview": "Uma família desempregada se infiltra gradualmente na rotina de uma família rica em Seul.",
+          "posterPath": "/igw938inb6Fy0YVcwIyxQ7Lu5FO.jpg",
+          "backdropPath": "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 18000,
+          "releaseYear": 2019,
+          "genreIds": [
+            35,
+            53,
+            18
+          ],
+          "originalLanguage": "ko",
+          "runtime": 132
+        }
+      },
+      "queues": {
+        "part_a9347fdab5e64e67a2b5a0a3c570a052": {
+          "participantId": "part_a9347fdab5e64e67a2b5a0a3c570a052",
+          "movieIds": [
+            76341,
+            329865,
+            496243,
+            313369,
+            324857,
+            120467,
+            27205,
+            129,
+            244786,
+            419430,
+            497,
+            157336
+          ],
+          "cursor": 0
+        },
+        "part_9ef1ba3b25f743d686f29e4e08af4a9a": {
+          "participantId": "part_9ef1ba3b25f743d686f29e4e08af4a9a",
+          "movieIds": [
+            496243,
+            329865,
+            497,
+            76341,
+            419430,
+            27205,
+            313369,
+            157336,
+            120467,
+            244786,
+            324857,
+            129
+          ],
+          "cursor": 0
+        }
+      },
+      "votes": [],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "FFDXFH": {
+      "id": "room_f37306d3707c40fa904f2fa19bb15cc5",
+      "code": "FFDXFH",
+      "createdAt": "2026-11-20T23:39:16.828Z",
+      "updatedAt": "2026-11-20T23:39:18.378Z",
+      "expiresAt": "2026-11-21T23:39:18.378Z",
+      "status": "IN_PROGRESS",
+      "stateVersion": 5,
+      "participants": [
+        {
+          "id": "part_366f6b5694c94ac1a4ff7d256153f564",
+          "deviceId": "dev_82f5v9g0xa8ag5lp",
+          "name": "Paulo",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:39:16.828Z",
+          "lastSeenAt": "2026-11-20T23:39:18.370Z"
+        },
+        {
+          "id": "part_7ee835522c1d4bffa7b09a4211a87184",
+          "deviceId": "dev_j3lwoarp96waa8xr",
+          "name": "Maria",
+          "avatarColor": "#8B5CF6",
+          "role": "GUEST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:39:17.878Z",
+          "lastSeenAt": "2026-11-20T23:39:18.378Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 1,
+      "catalogExhausted": false,
+      "moviesById": {
+        "129": {
+          "tmdbId": 129,
+          "title": "A Viagem de Chihiro",
+          "originalTitle": "Sen to Chihiro no Kamikakushi",
+          "overview": "Uma garota entra em um mundo mágico governado por espíritos e precisa salvar seus pais.",
+          "posterPath": "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+          "backdropPath": "/mSDsSDwaP3E7dEfUPWy4J0djt4O.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 16400,
+          "releaseYear": 2001,
+          "genreIds": [
+            16,
+            10751,
+            14
+          ],
+          "originalLanguage": "ja",
+          "runtime": 125
+        },
+        "497": {
+          "tmdbId": 497,
+          "title": "À Espera de um Milagre",
+          "originalTitle": "The Green Mile",
+          "overview": "Um guarda penitenciário descobre que um detento no corredor da morte possui um dom extraordinário.",
+          "posterPath": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+          "backdropPath": "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 17300,
+          "releaseYear": 1999,
+          "genreIds": [
+            14,
+            18,
+            80
+          ],
+          "originalLanguage": "en",
+          "runtime": 189
+        },
+        "27205": {
+          "tmdbId": 27205,
+          "title": "A Origem",
+          "originalTitle": "Inception",
+          "overview": "Um ladrão que invade sonhos recebe a tarefa inversa de plantar uma ideia na mente de um herdeiro.",
+          "posterPath": "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+          "backdropPath": "/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 36000,
+          "releaseYear": 2010,
+          "genreIds": [
+            28,
+            878,
+            12
+          ],
+          "originalLanguage": "en",
+          "runtime": 148
+        },
+        "76341": {
+          "tmdbId": 76341,
+          "title": "Mad Max: Estrada da Fúria",
+          "originalTitle": "Mad Max: Fury Road",
+          "overview": "Em um deserto pós-apocalíptico, uma rebelde e um andarilho lideram uma fuga alucinante contra um tirano.",
+          "posterPath": "/hA2ple9q4qnwxp3hKVNhroipsir.jpg",
+          "backdropPath": "/nlCHUWjY9XWbuEUQauCBgnY8ymF.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 22400,
+          "releaseYear": 2015,
+          "genreIds": [
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 120
+        },
+        "120467": {
+          "tmdbId": 120467,
+          "title": "O Grande Hotel Budapeste",
+          "originalTitle": "The Grand Budapest Hotel",
+          "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+          "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+          "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+          "voteAverage": 8,
+          "voteCount": 14900,
+          "releaseYear": 2014,
+          "genreIds": [
+            35,
+            18
+          ],
+          "originalLanguage": "en",
+          "runtime": 100
+        },
+        "157336": {
+          "tmdbId": 157336,
+          "title": "Interestelar",
+          "originalTitle": "Interstellar",
+          "overview": "Exploradores atravessam um buraco de minhoca em busca de um novo lar para a humanidade.",
+          "posterPath": "/nCbkOyOMTEwlEV0LtCOvCnwEONA.jpg",
+          "backdropPath": "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 35000,
+          "releaseYear": 2014,
+          "genreIds": [
+            12,
+            18,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 169
+        },
+        "244786": {
+          "tmdbId": 244786,
+          "title": "Whiplash: Em Busca da Perfeição",
+          "originalTitle": "Whiplash",
+          "overview": "Um jovem baterista enfrenta os métodos extremos de um maestro obcecado pela perfeição.",
+          "posterPath": "/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+          "backdropPath": "/fRGxZuo7jJUWQsVg9PREb98Aclp.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15000,
+          "releaseYear": 2014,
+          "genreIds": [
+            18,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 107
+        },
+        "313369": {
+          "tmdbId": 313369,
+          "title": "La La Land: Cantando Estações",
+          "originalTitle": "La La Land",
+          "overview": "Um pianista de jazz e uma aspirante a atriz se apaixonam enquanto tentam realizar seus sonhos em Los Angeles.",
+          "posterPath": "/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+          "backdropPath": "/nadTlnTE6DdgmYsN4iWc2a2wiaI.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 16800,
+          "releaseYear": 2016,
+          "genreIds": [
+            35,
+            18,
+            10749,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 128
+        },
+        "324857": {
+          "tmdbId": 324857,
+          "title": "Homem-Aranha no Aranhaverso",
+          "originalTitle": "Spider-Man: Into the Spider-Verse",
+          "overview": "O adolescente Miles Morales ganha poderes e encontra versões do Homem-Aranha de outras dimensões.",
+          "posterPath": "/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+          "backdropPath": "/7d6EY00g1c39SGZOoCJ5Py9nNth.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15500,
+          "releaseYear": 2018,
+          "genreIds": [
+            16,
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 117
+        },
+        "329865": {
+          "tmdbId": 329865,
+          "title": "A Chegada",
+          "originalTitle": "Arrival",
+          "overview": "Uma linguista é recrutada para decifrar a comunicação de naves alienígenas que pousaram na Terra.",
+          "posterPath": "/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg",
+          "backdropPath": "/yIZ1xendyqKvY3FGeeUYUd5X9Mm.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17600,
+          "releaseYear": 2016,
+          "genreIds": [
+            18,
+            878,
+            9648
+          ],
+          "originalLanguage": "en",
+          "runtime": 116
+        },
+        "419430": {
+          "tmdbId": 419430,
+          "title": "Corra!",
+          "originalTitle": "Get Out",
+          "overview": "Um jovem fotógrafo descobre um segredo perturbador ao conhecer a família de sua namorada.",
+          "posterPath": "/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+          "backdropPath": "/o8dPH0ZJpAgXmP5E7D2h3J2v6xL.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17300,
+          "releaseYear": 2017,
+          "genreIds": [
+            9648,
+            53,
+            27
+          ],
+          "originalLanguage": "en",
+          "runtime": 104
+        },
+        "496243": {
+          "tmdbId": 496243,
+          "title": "Parasita",
+          "originalTitle": "Gisaengchung",
+          "overview": "Uma família desempregada se infiltra gradualmente na rotina de uma família rica em Seul.",
+          "posterPath": "/igw938inb6Fy0YVcwIyxQ7Lu5FO.jpg",
+          "backdropPath": "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 18000,
+          "releaseYear": 2019,
+          "genreIds": [
+            35,
+            53,
+            18
+          ],
+          "originalLanguage": "ko",
+          "runtime": 132
+        }
+      },
+      "queues": {
+        "part_366f6b5694c94ac1a4ff7d256153f564": {
+          "participantId": "part_366f6b5694c94ac1a4ff7d256153f564",
+          "movieIds": [
+            157336,
+            313369,
+            129,
+            324857,
+            76341,
+            244786,
+            27205,
+            120467,
+            419430,
+            496243,
+            497,
+            329865
+          ],
+          "cursor": 0
+        },
+        "part_7ee835522c1d4bffa7b09a4211a87184": {
+          "participantId": "part_7ee835522c1d4bffa7b09a4211a87184",
+          "movieIds": [
+            76341,
+            244786,
+            157336,
+            497,
+            329865,
+            120467,
+            324857,
+            129,
+            419430,
+            496243,
+            313369,
+            27205
+          ],
+          "cursor": 0
+        }
+      },
+      "votes": [],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "MZWB2W": {
+      "id": "room_6945f59841984e4099dd8ac1f09b7b7f",
+      "code": "MZWB2W",
+      "createdAt": "2026-11-20T23:39:19.327Z",
+      "updatedAt": "2026-11-20T23:39:20.460Z",
+      "expiresAt": "2026-11-21T23:39:20.460Z",
+      "status": "IN_PROGRESS",
+      "stateVersion": 3,
+      "participants": [
+        {
+          "id": "part_48f0c8309d114eb5bd637adbc8c7041b",
+          "deviceId": "dev_jan9t3xq1y860lgt",
+          "name": "Paulo",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:39:19.327Z",
+          "lastSeenAt": "2026-11-20T23:39:19.327Z"
+        },
+        {
+          "id": "part_600d5802108f467b9322dc915715e034",
+          "deviceId": "dev_bea030s80ebhsebl",
+          "name": "Maria",
+          "avatarColor": "#8B5CF6",
+          "role": "GUEST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:39:20.411Z",
+          "lastSeenAt": "2026-11-20T23:39:20.411Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 1,
+      "catalogExhausted": false,
+      "moviesById": {
+        "129": {
+          "tmdbId": 129,
+          "title": "A Viagem de Chihiro",
+          "originalTitle": "Sen to Chihiro no Kamikakushi",
+          "overview": "Uma garota entra em um mundo mágico governado por espíritos e precisa salvar seus pais.",
+          "posterPath": "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+          "backdropPath": "/mSDsSDwaP3E7dEfUPWy4J0djt4O.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 16400,
+          "releaseYear": 2001,
+          "genreIds": [
+            16,
+            10751,
+            14
+          ],
+          "originalLanguage": "ja",
+          "runtime": 125
+        },
+        "497": {
+          "tmdbId": 497,
+          "title": "À Espera de um Milagre",
+          "originalTitle": "The Green Mile",
+          "overview": "Um guarda penitenciário descobre que um detento no corredor da morte possui um dom extraordinário.",
+          "posterPath": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+          "backdropPath": "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 17300,
+          "releaseYear": 1999,
+          "genreIds": [
+            14,
+            18,
+            80
+          ],
+          "originalLanguage": "en",
+          "runtime": 189
+        },
+        "27205": {
+          "tmdbId": 27205,
+          "title": "A Origem",
+          "originalTitle": "Inception",
+          "overview": "Um ladrão que invade sonhos recebe a tarefa inversa de plantar uma ideia na mente de um herdeiro.",
+          "posterPath": "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+          "backdropPath": "/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 36000,
+          "releaseYear": 2010,
+          "genreIds": [
+            28,
+            878,
+            12
+          ],
+          "originalLanguage": "en",
+          "runtime": 148
+        },
+        "76341": {
+          "tmdbId": 76341,
+          "title": "Mad Max: Estrada da Fúria",
+          "originalTitle": "Mad Max: Fury Road",
+          "overview": "Em um deserto pós-apocalíptico, uma rebelde e um andarilho lideram uma fuga alucinante contra um tirano.",
+          "posterPath": "/hA2ple9q4qnwxp3hKVNhroipsir.jpg",
+          "backdropPath": "/nlCHUWjY9XWbuEUQauCBgnY8ymF.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 22400,
+          "releaseYear": 2015,
+          "genreIds": [
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 120
+        },
+        "120467": {
+          "tmdbId": 120467,
+          "title": "O Grande Hotel Budapeste",
+          "originalTitle": "The Grand Budapest Hotel",
+          "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+          "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+          "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+          "voteAverage": 8,
+          "voteCount": 14900,
+          "releaseYear": 2014,
+          "genreIds": [
+            35,
+            18
+          ],
+          "originalLanguage": "en",
+          "runtime": 100
+        },
+        "157336": {
+          "tmdbId": 157336,
+          "title": "Interestelar",
+          "originalTitle": "Interstellar",
+          "overview": "Exploradores atravessam um buraco de minhoca em busca de um novo lar para a humanidade.",
+          "posterPath": "/nCbkOyOMTEwlEV0LtCOvCnwEONA.jpg",
+          "backdropPath": "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 35000,
+          "releaseYear": 2014,
+          "genreIds": [
+            12,
+            18,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 169
+        },
+        "244786": {
+          "tmdbId": 244786,
+          "title": "Whiplash: Em Busca da Perfeição",
+          "originalTitle": "Whiplash",
+          "overview": "Um jovem baterista enfrenta os métodos extremos de um maestro obcecado pela perfeição.",
+          "posterPath": "/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+          "backdropPath": "/fRGxZuo7jJUWQsVg9PREb98Aclp.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15000,
+          "releaseYear": 2014,
+          "genreIds": [
+            18,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 107
+        },
+        "313369": {
+          "tmdbId": 313369,
+          "title": "La La Land: Cantando Estações",
+          "originalTitle": "La La Land",
+          "overview": "Um pianista de jazz e uma aspirante a atriz se apaixonam enquanto tentam realizar seus sonhos em Los Angeles.",
+          "posterPath": "/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+          "backdropPath": "/nadTlnTE6DdgmYsN4iWc2a2wiaI.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 16800,
+          "releaseYear": 2016,
+          "genreIds": [
+            35,
+            18,
+            10749,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 128
+        },
+        "324857": {
+          "tmdbId": 324857,
+          "title": "Homem-Aranha no Aranhaverso",
+          "originalTitle": "Spider-Man: Into the Spider-Verse",
+          "overview": "O adolescente Miles Morales ganha poderes e encontra versões do Homem-Aranha de outras dimensões.",
+          "posterPath": "/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+          "backdropPath": "/7d6EY00g1c39SGZOoCJ5Py9nNth.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15500,
+          "releaseYear": 2018,
+          "genreIds": [
+            16,
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 117
+        },
+        "329865": {
+          "tmdbId": 329865,
+          "title": "A Chegada",
+          "originalTitle": "Arrival",
+          "overview": "Uma linguista é recrutada para decifrar a comunicação de naves alienígenas que pousaram na Terra.",
+          "posterPath": "/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg",
+          "backdropPath": "/yIZ1xendyqKvY3FGeeUYUd5X9Mm.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17600,
+          "releaseYear": 2016,
+          "genreIds": [
+            18,
+            878,
+            9648
+          ],
+          "originalLanguage": "en",
+          "runtime": 116
+        },
+        "419430": {
+          "tmdbId": 419430,
+          "title": "Corra!",
+          "originalTitle": "Get Out",
+          "overview": "Um jovem fotógrafo descobre um segredo perturbador ao conhecer a família de sua namorada.",
+          "posterPath": "/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+          "backdropPath": "/o8dPH0ZJpAgXmP5E7D2h3J2v6xL.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17300,
+          "releaseYear": 2017,
+          "genreIds": [
+            9648,
+            53,
+            27
+          ],
+          "originalLanguage": "en",
+          "runtime": 104
+        },
+        "496243": {
+          "tmdbId": 496243,
+          "title": "Parasita",
+          "originalTitle": "Gisaengchung",
+          "overview": "Uma família desempregada se infiltra gradualmente na rotina de uma família rica em Seul.",
+          "posterPath": "/igw938inb6Fy0YVcwIyxQ7Lu5FO.jpg",
+          "backdropPath": "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 18000,
+          "releaseYear": 2019,
+          "genreIds": [
+            35,
+            53,
+            18
+          ],
+          "originalLanguage": "ko",
+          "runtime": 132
+        }
+      },
+      "queues": {
+        "part_48f0c8309d114eb5bd637adbc8c7041b": {
+          "participantId": "part_48f0c8309d114eb5bd637adbc8c7041b",
+          "movieIds": [
+            27205,
+            329865,
+            313369,
+            244786,
+            157336,
+            497,
+            419430,
+            129,
+            324857,
+            496243,
+            76341,
+            120467
+          ],
+          "cursor": 0
+        },
+        "part_600d5802108f467b9322dc915715e034": {
+          "participantId": "part_600d5802108f467b9322dc915715e034",
+          "movieIds": [
+            76341,
+            27205,
+            419430,
+            120467,
+            324857,
+            244786,
+            313369,
+            497,
+            496243,
+            329865,
+            157336,
+            129
+          ],
+          "cursor": 0
+        }
+      },
+      "votes": [],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "JJUENG": {
+      "id": "room_7352566e003a4346a57862a055b29ba0",
+      "code": "JJUENG",
+      "createdAt": "2026-11-20T23:40:58.590Z",
+      "updatedAt": "2026-11-20T23:41:05.022Z",
+      "expiresAt": "2026-11-21T23:41:05.022Z",
+      "status": "FINISHED",
+      "stateVersion": 11,
+      "participants": [
+        {
+          "id": "part_54c6c4f5795a46e8890a50487cb096cc",
+          "deviceId": "dev_pws9m5wbt3q4rpv5",
+          "name": "Paulo",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:40:58.590Z",
+          "lastSeenAt": "2026-11-20T23:41:05.011Z"
+        },
+        {
+          "id": "part_03646878fe3345b1939fba7f13dd50fd",
+          "deviceId": "dev_i3q4xtvkrldurcj2",
+          "name": "Maria",
+          "avatarColor": "#8B5CF6",
+          "role": "GUEST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:40:59.627Z",
+          "lastSeenAt": "2026-11-20T23:41:05.022Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 1,
+      "catalogExhausted": false,
+      "moviesById": {
+        "129": {
+          "tmdbId": 129,
+          "title": "A Viagem de Chihiro",
+          "originalTitle": "Sen to Chihiro no Kamikakushi",
+          "overview": "Uma garota entra em um mundo mágico governado por espíritos e precisa salvar seus pais.",
+          "posterPath": "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+          "backdropPath": "/mSDsSDwaP3E7dEfUPWy4J0djt4O.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 16400,
+          "releaseYear": 2001,
+          "genreIds": [
+            16,
+            10751,
+            14
+          ],
+          "originalLanguage": "ja",
+          "runtime": 125
+        },
+        "497": {
+          "tmdbId": 497,
+          "title": "À Espera de um Milagre",
+          "originalTitle": "The Green Mile",
+          "overview": "Um guarda penitenciário descobre que um detento no corredor da morte possui um dom extraordinário.",
+          "posterPath": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+          "backdropPath": "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 17300,
+          "releaseYear": 1999,
+          "genreIds": [
+            14,
+            18,
+            80
+          ],
+          "originalLanguage": "en",
+          "runtime": 189
+        },
+        "27205": {
+          "tmdbId": 27205,
+          "title": "A Origem",
+          "originalTitle": "Inception",
+          "overview": "Um ladrão que invade sonhos recebe a tarefa inversa de plantar uma ideia na mente de um herdeiro.",
+          "posterPath": "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+          "backdropPath": "/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 36000,
+          "releaseYear": 2010,
+          "genreIds": [
+            28,
+            878,
+            12
+          ],
+          "originalLanguage": "en",
+          "runtime": 148
+        },
+        "76341": {
+          "tmdbId": 76341,
+          "title": "Mad Max: Estrada da Fúria",
+          "originalTitle": "Mad Max: Fury Road",
+          "overview": "Em um deserto pós-apocalíptico, uma rebelde e um andarilho lideram uma fuga alucinante contra um tirano.",
+          "posterPath": "/hA2ple9q4qnwxp3hKVNhroipsir.jpg",
+          "backdropPath": "/nlCHUWjY9XWbuEUQauCBgnY8ymF.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 22400,
+          "releaseYear": 2015,
+          "genreIds": [
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 120
+        },
+        "120467": {
+          "tmdbId": 120467,
+          "title": "O Grande Hotel Budapeste",
+          "originalTitle": "The Grand Budapest Hotel",
+          "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+          "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+          "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+          "voteAverage": 8,
+          "voteCount": 14900,
+          "releaseYear": 2014,
+          "genreIds": [
+            35,
+            18
+          ],
+          "originalLanguage": "en",
+          "runtime": 100
+        },
+        "157336": {
+          "tmdbId": 157336,
+          "title": "Interestelar",
+          "originalTitle": "Interstellar",
+          "overview": "Exploradores atravessam um buraco de minhoca em busca de um novo lar para a humanidade.",
+          "posterPath": "/nCbkOyOMTEwlEV0LtCOvCnwEONA.jpg",
+          "backdropPath": "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 35000,
+          "releaseYear": 2014,
+          "genreIds": [
+            12,
+            18,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 169
+        },
+        "244786": {
+          "tmdbId": 244786,
+          "title": "Whiplash: Em Busca da Perfeição",
+          "originalTitle": "Whiplash",
+          "overview": "Um jovem baterista enfrenta os métodos extremos de um maestro obcecado pela perfeição.",
+          "posterPath": "/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+          "backdropPath": "/fRGxZuo7jJUWQsVg9PREb98Aclp.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15000,
+          "releaseYear": 2014,
+          "genreIds": [
+            18,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 107
+        },
+        "313369": {
+          "tmdbId": 313369,
+          "title": "La La Land: Cantando Estações",
+          "originalTitle": "La La Land",
+          "overview": "Um pianista de jazz e uma aspirante a atriz se apaixonam enquanto tentam realizar seus sonhos em Los Angeles.",
+          "posterPath": "/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+          "backdropPath": "/nadTlnTE6DdgmYsN4iWc2a2wiaI.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 16800,
+          "releaseYear": 2016,
+          "genreIds": [
+            35,
+            18,
+            10749,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 128
+        },
+        "324857": {
+          "tmdbId": 324857,
+          "title": "Homem-Aranha no Aranhaverso",
+          "originalTitle": "Spider-Man: Into the Spider-Verse",
+          "overview": "O adolescente Miles Morales ganha poderes e encontra versões do Homem-Aranha de outras dimensões.",
+          "posterPath": "/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+          "backdropPath": "/7d6EY00g1c39SGZOoCJ5Py9nNth.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15500,
+          "releaseYear": 2018,
+          "genreIds": [
+            16,
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 117
+        },
+        "329865": {
+          "tmdbId": 329865,
+          "title": "A Chegada",
+          "originalTitle": "Arrival",
+          "overview": "Uma linguista é recrutada para decifrar a comunicação de naves alienígenas que pousaram na Terra.",
+          "posterPath": "/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg",
+          "backdropPath": "/yIZ1xendyqKvY3FGeeUYUd5X9Mm.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17600,
+          "releaseYear": 2016,
+          "genreIds": [
+            18,
+            878,
+            9648
+          ],
+          "originalLanguage": "en",
+          "runtime": 116
+        },
+        "419430": {
+          "tmdbId": 419430,
+          "title": "Corra!",
+          "originalTitle": "Get Out",
+          "overview": "Um jovem fotógrafo descobre um segredo perturbador ao conhecer a família de sua namorada.",
+          "posterPath": "/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+          "backdropPath": "/o8dPH0ZJpAgXmP5E7D2h3J2v6xL.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17300,
+          "releaseYear": 2017,
+          "genreIds": [
+            9648,
+            53,
+            27
+          ],
+          "originalLanguage": "en",
+          "runtime": 104
+        },
+        "496243": {
+          "tmdbId": 496243,
+          "title": "Parasita",
+          "originalTitle": "Gisaengchung",
+          "overview": "Uma família desempregada se infiltra gradualmente na rotina de uma família rica em Seul.",
+          "posterPath": "/igw938inb6Fy0YVcwIyxQ7Lu5FO.jpg",
+          "backdropPath": "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 18000,
+          "releaseYear": 2019,
+          "genreIds": [
+            35,
+            53,
+            18
+          ],
+          "originalLanguage": "ko",
+          "runtime": 132
+        }
+      },
+      "queues": {
+        "part_54c6c4f5795a46e8890a50487cb096cc": {
+          "participantId": "part_54c6c4f5795a46e8890a50487cb096cc",
+          "movieIds": [
+            313369,
+            497,
+            329865,
+            244786,
+            324857,
+            157336,
+            129,
+            76341,
+            496243,
+            419430,
+            27205
+          ],
+          "cursor": 1
+        },
+        "part_03646878fe3345b1939fba7f13dd50fd": {
+          "participantId": "part_03646878fe3345b1939fba7f13dd50fd",
+          "movieIds": [
+            329865,
+            313369,
+            244786,
+            76341,
+            497,
+            419430,
+            27205,
+            129,
+            496243,
+            157336
+          ],
+          "cursor": 2
+        }
+      },
+      "votes": [
+        {
+          "operationId": "op_k7d9921j4g1zkri8",
+          "participantId": "part_54c6c4f5795a46e8890a50487cb096cc",
+          "tmdbId": 120467,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:41:00.371Z"
+        },
+        {
+          "operationId": "op_7esumbicl0hnnvi1",
+          "participantId": "part_03646878fe3345b1939fba7f13dd50fd",
+          "tmdbId": 324857,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:41:00.699Z"
+        },
+        {
+          "operationId": "op_a5wlznlzb8n0pujh",
+          "participantId": "part_03646878fe3345b1939fba7f13dd50fd",
+          "tmdbId": 120467,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:41:01.139Z"
+        }
+      ],
+      "matches": {
+        "120467": {
+          "tmdbId": 120467,
+          "matchedAt": "2026-11-20T23:41:01.139Z",
+          "status": "CHOSEN"
+        }
+      },
+      "finalProposal": {
+        "tmdbId": 120467,
+        "proposedBy": "part_54c6c4f5795a46e8890a50487cb096cc",
+        "proposedAt": "2026-11-20T23:41:04.422Z",
+        "confirmedBy": [
+          "part_54c6c4f5795a46e8890a50487cb096cc",
+          "part_03646878fe3345b1939fba7f13dd50fd"
+        ]
+      },
+      "chosenMovieId": 120467
+    },
+    "CARV32": {
+      "id": "room_67be84fefc664bf7a4f2850c77c02bd2",
+      "code": "CARV32",
+      "createdAt": "2026-11-20T23:41:05.923Z",
+      "updatedAt": "2026-11-20T23:41:09.115Z",
+      "expiresAt": "2026-11-21T23:41:09.115Z",
+      "status": "IN_PROGRESS",
+      "stateVersion": 9,
+      "participants": [
+        {
+          "id": "part_25020f41ec2d49aba18035c3c0fceca9",
+          "deviceId": "dev_w12yrzov308y4kvd",
+          "name": "Ana",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:41:05.923Z",
+          "lastSeenAt": "2026-11-20T23:41:09.115Z"
+        },
+        {
+          "id": "part_0986dc4942434f368c6e284bdf6a69d3",
+          "deviceId": "dev_0iuhm23lw7xyuy20",
+          "name": "Bruno",
+          "avatarColor": "#8B5CF6",
+          "role": "GUEST",
+          "connectionStatus": "ONLINE",
+          "socketId": "vwr9v1y1FenTCLtIAAAK",
+          "joinedAt": "2026-11-20T23:41:07.039Z",
+          "lastSeenAt": "2026-11-20T23:41:09.037Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 1,
+      "catalogExhausted": false,
+      "moviesById": {
+        "129": {
+          "tmdbId": 129,
+          "title": "A Viagem de Chihiro",
+          "originalTitle": "Sen to Chihiro no Kamikakushi",
+          "overview": "Uma garota entra em um mundo mágico governado por espíritos e precisa salvar seus pais.",
+          "posterPath": "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+          "backdropPath": "/mSDsSDwaP3E7dEfUPWy4J0djt4O.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 16400,
+          "releaseYear": 2001,
+          "genreIds": [
+            16,
+            10751,
+            14
+          ],
+          "originalLanguage": "ja",
+          "runtime": 125
+        },
+        "497": {
+          "tmdbId": 497,
+          "title": "À Espera de um Milagre",
+          "originalTitle": "The Green Mile",
+          "overview": "Um guarda penitenciário descobre que um detento no corredor da morte possui um dom extraordinário.",
+          "posterPath": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+          "backdropPath": "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 17300,
+          "releaseYear": 1999,
+          "genreIds": [
+            14,
+            18,
+            80
+          ],
+          "originalLanguage": "en",
+          "runtime": 189
+        },
+        "27205": {
+          "tmdbId": 27205,
+          "title": "A Origem",
+          "originalTitle": "Inception",
+          "overview": "Um ladrão que invade sonhos recebe a tarefa inversa de plantar uma ideia na mente de um herdeiro.",
+          "posterPath": "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+          "backdropPath": "/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 36000,
+          "releaseYear": 2010,
+          "genreIds": [
+            28,
+            878,
+            12
+          ],
+          "originalLanguage": "en",
+          "runtime": 148
+        },
+        "76341": {
+          "tmdbId": 76341,
+          "title": "Mad Max: Estrada da Fúria",
+          "originalTitle": "Mad Max: Fury Road",
+          "overview": "Em um deserto pós-apocalíptico, uma rebelde e um andarilho lideram uma fuga alucinante contra um tirano.",
+          "posterPath": "/hA2ple9q4qnwxp3hKVNhroipsir.jpg",
+          "backdropPath": "/nlCHUWjY9XWbuEUQauCBgnY8ymF.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 22400,
+          "releaseYear": 2015,
+          "genreIds": [
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 120
+        },
+        "120467": {
+          "tmdbId": 120467,
+          "title": "O Grande Hotel Budapeste",
+          "originalTitle": "The Grand Budapest Hotel",
+          "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+          "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+          "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+          "voteAverage": 8,
+          "voteCount": 14900,
+          "releaseYear": 2014,
+          "genreIds": [
+            35,
+            18
+          ],
+          "originalLanguage": "en",
+          "runtime": 100
+        },
+        "157336": {
+          "tmdbId": 157336,
+          "title": "Interestelar",
+          "originalTitle": "Interstellar",
+          "overview": "Exploradores atravessam um buraco de minhoca em busca de um novo lar para a humanidade.",
+          "posterPath": "/nCbkOyOMTEwlEV0LtCOvCnwEONA.jpg",
+          "backdropPath": "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 35000,
+          "releaseYear": 2014,
+          "genreIds": [
+            12,
+            18,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 169
+        },
+        "244786": {
+          "tmdbId": 244786,
+          "title": "Whiplash: Em Busca da Perfeição",
+          "originalTitle": "Whiplash",
+          "overview": "Um jovem baterista enfrenta os métodos extremos de um maestro obcecado pela perfeição.",
+          "posterPath": "/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+          "backdropPath": "/fRGxZuo7jJUWQsVg9PREb98Aclp.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15000,
+          "releaseYear": 2014,
+          "genreIds": [
+            18,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 107
+        },
+        "313369": {
+          "tmdbId": 313369,
+          "title": "La La Land: Cantando Estações",
+          "originalTitle": "La La Land",
+          "overview": "Um pianista de jazz e uma aspirante a atriz se apaixonam enquanto tentam realizar seus sonhos em Los Angeles.",
+          "posterPath": "/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+          "backdropPath": "/nadTlnTE6DdgmYsN4iWc2a2wiaI.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 16800,
+          "releaseYear": 2016,
+          "genreIds": [
+            35,
+            18,
+            10749,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 128
+        },
+        "324857": {
+          "tmdbId": 324857,
+          "title": "Homem-Aranha no Aranhaverso",
+          "originalTitle": "Spider-Man: Into the Spider-Verse",
+          "overview": "O adolescente Miles Morales ganha poderes e encontra versões do Homem-Aranha de outras dimensões.",
+          "posterPath": "/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+          "backdropPath": "/7d6EY00g1c39SGZOoCJ5Py9nNth.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15500,
+          "releaseYear": 2018,
+          "genreIds": [
+            16,
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 117
+        },
+        "329865": {
+          "tmdbId": 329865,
+          "title": "A Chegada",
+          "originalTitle": "Arrival",
+          "overview": "Uma linguista é recrutada para decifrar a comunicação de naves alienígenas que pousaram na Terra.",
+          "posterPath": "/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg",
+          "backdropPath": "/yIZ1xendyqKvY3FGeeUYUd5X9Mm.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17600,
+          "releaseYear": 2016,
+          "genreIds": [
+            18,
+            878,
+            9648
+          ],
+          "originalLanguage": "en",
+          "runtime": 116
+        },
+        "419430": {
+          "tmdbId": 419430,
+          "title": "Corra!",
+          "originalTitle": "Get Out",
+          "overview": "Um jovem fotógrafo descobre um segredo perturbador ao conhecer a família de sua namorada.",
+          "posterPath": "/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+          "backdropPath": "/o8dPH0ZJpAgXmP5E7D2h3J2v6xL.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17300,
+          "releaseYear": 2017,
+          "genreIds": [
+            9648,
+            53,
+            27
+          ],
+          "originalLanguage": "en",
+          "runtime": 104
+        },
+        "496243": {
+          "tmdbId": 496243,
+          "title": "Parasita",
+          "originalTitle": "Gisaengchung",
+          "overview": "Uma família desempregada se infiltra gradualmente na rotina de uma família rica em Seul.",
+          "posterPath": "/igw938inb6Fy0YVcwIyxQ7Lu5FO.jpg",
+          "backdropPath": "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 18000,
+          "releaseYear": 2019,
+          "genreIds": [
+            35,
+            53,
+            18
+          ],
+          "originalLanguage": "ko",
+          "runtime": 132
+        }
+      },
+      "queues": {
+        "part_25020f41ec2d49aba18035c3c0fceca9": {
+          "participantId": "part_25020f41ec2d49aba18035c3c0fceca9",
+          "movieIds": [
+            129,
+            324857,
+            27205,
+            496243,
+            329865,
+            76341,
+            419430,
+            157336,
+            313369,
+            244786,
+            497,
+            120467
+          ],
+          "cursor": 0
+        },
+        "part_0986dc4942434f368c6e284bdf6a69d3": {
+          "participantId": "part_0986dc4942434f368c6e284bdf6a69d3",
+          "movieIds": [
+            129,
+            27205,
+            496243,
+            497,
+            419430,
+            157336,
+            313369,
+            329865,
+            324857,
+            120467,
+            244786
+          ],
+          "cursor": 1
+        }
+      },
+      "votes": [
+        {
+          "operationId": "op_5azkjmiz9a0wlpfd",
+          "participantId": "part_0986dc4942434f368c6e284bdf6a69d3",
+          "tmdbId": 76341,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:41:07.364Z"
+        }
+      ],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "7JSVPY": {
+      "id": "room_eb4f22f232c14d70aaa7f436d37f6933",
+      "code": "7JSVPY",
+      "createdAt": "2026-11-20T23:41:10.040Z",
+      "updatedAt": "2026-11-20T23:41:11.599Z",
+      "expiresAt": "2026-11-21T23:41:11.599Z",
+      "status": "IN_PROGRESS",
+      "stateVersion": 5,
+      "participants": [
+        {
+          "id": "part_eeb0a1477eb14992bd50c3c8592bacad",
+          "deviceId": "dev_sbos4eirc2dt1nry",
+          "name": "Paulo",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:41:10.040Z",
+          "lastSeenAt": "2026-11-20T23:41:11.587Z"
+        },
+        {
+          "id": "part_de09b259e4d3445f8f0928658e4739d6",
+          "deviceId": "dev_u88a4n8f2ipd5uzp",
+          "name": "Maria",
+          "avatarColor": "#8B5CF6",
+          "role": "GUEST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:41:11.075Z",
+          "lastSeenAt": "2026-11-20T23:41:11.598Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 1,
+      "catalogExhausted": false,
+      "moviesById": {
+        "129": {
+          "tmdbId": 129,
+          "title": "A Viagem de Chihiro",
+          "originalTitle": "Sen to Chihiro no Kamikakushi",
+          "overview": "Uma garota entra em um mundo mágico governado por espíritos e precisa salvar seus pais.",
+          "posterPath": "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+          "backdropPath": "/mSDsSDwaP3E7dEfUPWy4J0djt4O.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 16400,
+          "releaseYear": 2001,
+          "genreIds": [
+            16,
+            10751,
+            14
+          ],
+          "originalLanguage": "ja",
+          "runtime": 125
+        },
+        "497": {
+          "tmdbId": 497,
+          "title": "À Espera de um Milagre",
+          "originalTitle": "The Green Mile",
+          "overview": "Um guarda penitenciário descobre que um detento no corredor da morte possui um dom extraordinário.",
+          "posterPath": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+          "backdropPath": "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 17300,
+          "releaseYear": 1999,
+          "genreIds": [
+            14,
+            18,
+            80
+          ],
+          "originalLanguage": "en",
+          "runtime": 189
+        },
+        "27205": {
+          "tmdbId": 27205,
+          "title": "A Origem",
+          "originalTitle": "Inception",
+          "overview": "Um ladrão que invade sonhos recebe a tarefa inversa de plantar uma ideia na mente de um herdeiro.",
+          "posterPath": "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+          "backdropPath": "/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 36000,
+          "releaseYear": 2010,
+          "genreIds": [
+            28,
+            878,
+            12
+          ],
+          "originalLanguage": "en",
+          "runtime": 148
+        },
+        "76341": {
+          "tmdbId": 76341,
+          "title": "Mad Max: Estrada da Fúria",
+          "originalTitle": "Mad Max: Fury Road",
+          "overview": "Em um deserto pós-apocalíptico, uma rebelde e um andarilho lideram uma fuga alucinante contra um tirano.",
+          "posterPath": "/hA2ple9q4qnwxp3hKVNhroipsir.jpg",
+          "backdropPath": "/nlCHUWjY9XWbuEUQauCBgnY8ymF.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 22400,
+          "releaseYear": 2015,
+          "genreIds": [
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 120
+        },
+        "120467": {
+          "tmdbId": 120467,
+          "title": "O Grande Hotel Budapeste",
+          "originalTitle": "The Grand Budapest Hotel",
+          "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+          "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+          "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+          "voteAverage": 8,
+          "voteCount": 14900,
+          "releaseYear": 2014,
+          "genreIds": [
+            35,
+            18
+          ],
+          "originalLanguage": "en",
+          "runtime": 100
+        },
+        "157336": {
+          "tmdbId": 157336,
+          "title": "Interestelar",
+          "originalTitle": "Interstellar",
+          "overview": "Exploradores atravessam um buraco de minhoca em busca de um novo lar para a humanidade.",
+          "posterPath": "/nCbkOyOMTEwlEV0LtCOvCnwEONA.jpg",
+          "backdropPath": "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 35000,
+          "releaseYear": 2014,
+          "genreIds": [
+            12,
+            18,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 169
+        },
+        "244786": {
+          "tmdbId": 244786,
+          "title": "Whiplash: Em Busca da Perfeição",
+          "originalTitle": "Whiplash",
+          "overview": "Um jovem baterista enfrenta os métodos extremos de um maestro obcecado pela perfeição.",
+          "posterPath": "/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+          "backdropPath": "/fRGxZuo7jJUWQsVg9PREb98Aclp.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15000,
+          "releaseYear": 2014,
+          "genreIds": [
+            18,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 107
+        },
+        "313369": {
+          "tmdbId": 313369,
+          "title": "La La Land: Cantando Estações",
+          "originalTitle": "La La Land",
+          "overview": "Um pianista de jazz e uma aspirante a atriz se apaixonam enquanto tentam realizar seus sonhos em Los Angeles.",
+          "posterPath": "/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+          "backdropPath": "/nadTlnTE6DdgmYsN4iWc2a2wiaI.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 16800,
+          "releaseYear": 2016,
+          "genreIds": [
+            35,
+            18,
+            10749,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 128
+        },
+        "324857": {
+          "tmdbId": 324857,
+          "title": "Homem-Aranha no Aranhaverso",
+          "originalTitle": "Spider-Man: Into the Spider-Verse",
+          "overview": "O adolescente Miles Morales ganha poderes e encontra versões do Homem-Aranha de outras dimensões.",
+          "posterPath": "/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+          "backdropPath": "/7d6EY00g1c39SGZOoCJ5Py9nNth.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15500,
+          "releaseYear": 2018,
+          "genreIds": [
+            16,
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 117
+        },
+        "329865": {
+          "tmdbId": 329865,
+          "title": "A Chegada",
+          "originalTitle": "Arrival",
+          "overview": "Uma linguista é recrutada para decifrar a comunicação de naves alienígenas que pousaram na Terra.",
+          "posterPath": "/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg",
+          "backdropPath": "/yIZ1xendyqKvY3FGeeUYUd5X9Mm.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17600,
+          "releaseYear": 2016,
+          "genreIds": [
+            18,
+            878,
+            9648
+          ],
+          "originalLanguage": "en",
+          "runtime": 116
+        },
+        "419430": {
+          "tmdbId": 419430,
+          "title": "Corra!",
+          "originalTitle": "Get Out",
+          "overview": "Um jovem fotógrafo descobre um segredo perturbador ao conhecer a família de sua namorada.",
+          "posterPath": "/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+          "backdropPath": "/o8dPH0ZJpAgXmP5E7D2h3J2v6xL.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17300,
+          "releaseYear": 2017,
+          "genreIds": [
+            9648,
+            53,
+            27
+          ],
+          "originalLanguage": "en",
+          "runtime": 104
+        },
+        "496243": {
+          "tmdbId": 496243,
+          "title": "Parasita",
+          "originalTitle": "Gisaengchung",
+          "overview": "Uma família desempregada se infiltra gradualmente na rotina de uma família rica em Seul.",
+          "posterPath": "/igw938inb6Fy0YVcwIyxQ7Lu5FO.jpg",
+          "backdropPath": "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 18000,
+          "releaseYear": 2019,
+          "genreIds": [
+            35,
+            53,
+            18
+          ],
+          "originalLanguage": "ko",
+          "runtime": 132
+        }
+      },
+      "queues": {
+        "part_eeb0a1477eb14992bd50c3c8592bacad": {
+          "participantId": "part_eeb0a1477eb14992bd50c3c8592bacad",
+          "movieIds": [
+            324857,
+            76341,
+            313369,
+            496243,
+            120467,
+            419430,
+            244786,
+            27205,
+            129,
+            497,
+            157336,
+            329865
+          ],
+          "cursor": 0
+        },
+        "part_de09b259e4d3445f8f0928658e4739d6": {
+          "participantId": "part_de09b259e4d3445f8f0928658e4739d6",
+          "movieIds": [
+            324857,
+            129,
+            120467,
+            76341,
+            313369,
+            329865,
+            419430,
+            244786,
+            497,
+            157336,
+            27205,
+            496243
+          ],
+          "cursor": 0
+        }
+      },
+      "votes": [],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "YH9QNJ": {
+      "id": "room_5fd8b379da3d425c874d6c228304b261",
+      "code": "YH9QNJ",
+      "createdAt": "2026-11-20T23:41:12.522Z",
+      "updatedAt": "2026-11-20T23:41:14.138Z",
+      "expiresAt": "2026-11-21T23:41:14.138Z",
+      "status": "IN_PROGRESS",
+      "stateVersion": 5,
+      "participants": [
+        {
+          "id": "part_2cbaf5279fe64ac1890b79dd3f41a13b",
+          "deviceId": "dev_ym445iwtf4s4by10",
+          "name": "Paulo",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:41:12.522Z",
+          "lastSeenAt": "2026-11-20T23:41:14.107Z"
+        },
+        {
+          "id": "part_b7d303a68fc84df79fdc7f7539911782",
+          "deviceId": "dev_37zn6vh2x1v60eol",
+          "name": "Maria",
+          "avatarColor": "#8B5CF6",
+          "role": "GUEST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:41:13.558Z",
+          "lastSeenAt": "2026-11-20T23:41:14.138Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 1,
+      "catalogExhausted": false,
+      "moviesById": {
+        "129": {
+          "tmdbId": 129,
+          "title": "A Viagem de Chihiro",
+          "originalTitle": "Sen to Chihiro no Kamikakushi",
+          "overview": "Uma garota entra em um mundo mágico governado por espíritos e precisa salvar seus pais.",
+          "posterPath": "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+          "backdropPath": "/mSDsSDwaP3E7dEfUPWy4J0djt4O.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 16400,
+          "releaseYear": 2001,
+          "genreIds": [
+            16,
+            10751,
+            14
+          ],
+          "originalLanguage": "ja",
+          "runtime": 125
+        },
+        "497": {
+          "tmdbId": 497,
+          "title": "À Espera de um Milagre",
+          "originalTitle": "The Green Mile",
+          "overview": "Um guarda penitenciário descobre que um detento no corredor da morte possui um dom extraordinário.",
+          "posterPath": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+          "backdropPath": "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 17300,
+          "releaseYear": 1999,
+          "genreIds": [
+            14,
+            18,
+            80
+          ],
+          "originalLanguage": "en",
+          "runtime": 189
+        },
+        "27205": {
+          "tmdbId": 27205,
+          "title": "A Origem",
+          "originalTitle": "Inception",
+          "overview": "Um ladrão que invade sonhos recebe a tarefa inversa de plantar uma ideia na mente de um herdeiro.",
+          "posterPath": "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+          "backdropPath": "/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 36000,
+          "releaseYear": 2010,
+          "genreIds": [
+            28,
+            878,
+            12
+          ],
+          "originalLanguage": "en",
+          "runtime": 148
+        },
+        "76341": {
+          "tmdbId": 76341,
+          "title": "Mad Max: Estrada da Fúria",
+          "originalTitle": "Mad Max: Fury Road",
+          "overview": "Em um deserto pós-apocalíptico, uma rebelde e um andarilho lideram uma fuga alucinante contra um tirano.",
+          "posterPath": "/hA2ple9q4qnwxp3hKVNhroipsir.jpg",
+          "backdropPath": "/nlCHUWjY9XWbuEUQauCBgnY8ymF.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 22400,
+          "releaseYear": 2015,
+          "genreIds": [
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 120
+        },
+        "120467": {
+          "tmdbId": 120467,
+          "title": "O Grande Hotel Budapeste",
+          "originalTitle": "The Grand Budapest Hotel",
+          "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+          "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+          "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+          "voteAverage": 8,
+          "voteCount": 14900,
+          "releaseYear": 2014,
+          "genreIds": [
+            35,
+            18
+          ],
+          "originalLanguage": "en",
+          "runtime": 100
+        },
+        "157336": {
+          "tmdbId": 157336,
+          "title": "Interestelar",
+          "originalTitle": "Interstellar",
+          "overview": "Exploradores atravessam um buraco de minhoca em busca de um novo lar para a humanidade.",
+          "posterPath": "/nCbkOyOMTEwlEV0LtCOvCnwEONA.jpg",
+          "backdropPath": "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 35000,
+          "releaseYear": 2014,
+          "genreIds": [
+            12,
+            18,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 169
+        },
+        "244786": {
+          "tmdbId": 244786,
+          "title": "Whiplash: Em Busca da Perfeição",
+          "originalTitle": "Whiplash",
+          "overview": "Um jovem baterista enfrenta os métodos extremos de um maestro obcecado pela perfeição.",
+          "posterPath": "/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+          "backdropPath": "/fRGxZuo7jJUWQsVg9PREb98Aclp.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15000,
+          "releaseYear": 2014,
+          "genreIds": [
+            18,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 107
+        },
+        "313369": {
+          "tmdbId": 313369,
+          "title": "La La Land: Cantando Estações",
+          "originalTitle": "La La Land",
+          "overview": "Um pianista de jazz e uma aspirante a atriz se apaixonam enquanto tentam realizar seus sonhos em Los Angeles.",
+          "posterPath": "/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+          "backdropPath": "/nadTlnTE6DdgmYsN4iWc2a2wiaI.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 16800,
+          "releaseYear": 2016,
+          "genreIds": [
+            35,
+            18,
+            10749,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 128
+        },
+        "324857": {
+          "tmdbId": 324857,
+          "title": "Homem-Aranha no Aranhaverso",
+          "originalTitle": "Spider-Man: Into the Spider-Verse",
+          "overview": "O adolescente Miles Morales ganha poderes e encontra versões do Homem-Aranha de outras dimensões.",
+          "posterPath": "/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+          "backdropPath": "/7d6EY00g1c39SGZOoCJ5Py9nNth.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15500,
+          "releaseYear": 2018,
+          "genreIds": [
+            16,
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 117
+        },
+        "329865": {
+          "tmdbId": 329865,
+          "title": "A Chegada",
+          "originalTitle": "Arrival",
+          "overview": "Uma linguista é recrutada para decifrar a comunicação de naves alienígenas que pousaram na Terra.",
+          "posterPath": "/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg",
+          "backdropPath": "/yIZ1xendyqKvY3FGeeUYUd5X9Mm.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17600,
+          "releaseYear": 2016,
+          "genreIds": [
+            18,
+            878,
+            9648
+          ],
+          "originalLanguage": "en",
+          "runtime": 116
+        },
+        "419430": {
+          "tmdbId": 419430,
+          "title": "Corra!",
+          "originalTitle": "Get Out",
+          "overview": "Um jovem fotógrafo descobre um segredo perturbador ao conhecer a família de sua namorada.",
+          "posterPath": "/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+          "backdropPath": "/o8dPH0ZJpAgXmP5E7D2h3J2v6xL.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17300,
+          "releaseYear": 2017,
+          "genreIds": [
+            9648,
+            53,
+            27
+          ],
+          "originalLanguage": "en",
+          "runtime": 104
+        },
+        "496243": {
+          "tmdbId": 496243,
+          "title": "Parasita",
+          "originalTitle": "Gisaengchung",
+          "overview": "Uma família desempregada se infiltra gradualmente na rotina de uma família rica em Seul.",
+          "posterPath": "/igw938inb6Fy0YVcwIyxQ7Lu5FO.jpg",
+          "backdropPath": "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 18000,
+          "releaseYear": 2019,
+          "genreIds": [
+            35,
+            53,
+            18
+          ],
+          "originalLanguage": "ko",
+          "runtime": 132
+        }
+      },
+      "queues": {
+        "part_2cbaf5279fe64ac1890b79dd3f41a13b": {
+          "participantId": "part_2cbaf5279fe64ac1890b79dd3f41a13b",
+          "movieIds": [
+            497,
+            27205,
+            157336,
+            313369,
+            419430,
+            120467,
+            244786,
+            129,
+            324857,
+            329865,
+            76341,
+            496243
+          ],
+          "cursor": 0
+        },
+        "part_b7d303a68fc84df79fdc7f7539911782": {
+          "participantId": "part_b7d303a68fc84df79fdc7f7539911782",
+          "movieIds": [
+            313369,
+            27205,
+            129,
+            324857,
+            157336,
+            244786,
+            496243,
+            419430,
+            497,
+            76341,
+            329865,
+            120467
+          ],
+          "cursor": 0
+        }
+      },
+      "votes": [],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "RKC9UN": {
+      "id": "room_98dc1184523e4b84845fed184d8159fc",
+      "code": "RKC9UN",
+      "createdAt": "2026-11-20T23:41:15.186Z",
+      "updatedAt": "2026-11-20T23:41:16.977Z",
+      "expiresAt": "2026-11-21T23:41:16.977Z",
+      "status": "IN_PROGRESS",
+      "stateVersion": 5,
+      "participants": [
+        {
+          "id": "part_f4f8c4a98c1a402194085d91f2362988",
+          "deviceId": "dev_djyqumq0fksf6jgz",
+          "name": "Paulo",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:41:15.186Z",
+          "lastSeenAt": "2026-11-20T23:41:16.958Z"
+        },
+        {
+          "id": "part_af40f84453fa4213914f673c92edae7a",
+          "deviceId": "dev_t6n02f6ps623meb0",
+          "name": "Maria",
+          "avatarColor": "#8B5CF6",
+          "role": "GUEST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:41:16.410Z",
+          "lastSeenAt": "2026-11-20T23:41:16.977Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 1,
+      "catalogExhausted": false,
+      "moviesById": {
+        "129": {
+          "tmdbId": 129,
+          "title": "A Viagem de Chihiro",
+          "originalTitle": "Sen to Chihiro no Kamikakushi",
+          "overview": "Uma garota entra em um mundo mágico governado por espíritos e precisa salvar seus pais.",
+          "posterPath": "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+          "backdropPath": "/mSDsSDwaP3E7dEfUPWy4J0djt4O.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 16400,
+          "releaseYear": 2001,
+          "genreIds": [
+            16,
+            10751,
+            14
+          ],
+          "originalLanguage": "ja",
+          "runtime": 125
+        },
+        "497": {
+          "tmdbId": 497,
+          "title": "À Espera de um Milagre",
+          "originalTitle": "The Green Mile",
+          "overview": "Um guarda penitenciário descobre que um detento no corredor da morte possui um dom extraordinário.",
+          "posterPath": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+          "backdropPath": "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 17300,
+          "releaseYear": 1999,
+          "genreIds": [
+            14,
+            18,
+            80
+          ],
+          "originalLanguage": "en",
+          "runtime": 189
+        },
+        "27205": {
+          "tmdbId": 27205,
+          "title": "A Origem",
+          "originalTitle": "Inception",
+          "overview": "Um ladrão que invade sonhos recebe a tarefa inversa de plantar uma ideia na mente de um herdeiro.",
+          "posterPath": "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+          "backdropPath": "/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 36000,
+          "releaseYear": 2010,
+          "genreIds": [
+            28,
+            878,
+            12
+          ],
+          "originalLanguage": "en",
+          "runtime": 148
+        },
+        "76341": {
+          "tmdbId": 76341,
+          "title": "Mad Max: Estrada da Fúria",
+          "originalTitle": "Mad Max: Fury Road",
+          "overview": "Em um deserto pós-apocalíptico, uma rebelde e um andarilho lideram uma fuga alucinante contra um tirano.",
+          "posterPath": "/hA2ple9q4qnwxp3hKVNhroipsir.jpg",
+          "backdropPath": "/nlCHUWjY9XWbuEUQauCBgnY8ymF.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 22400,
+          "releaseYear": 2015,
+          "genreIds": [
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 120
+        },
+        "120467": {
+          "tmdbId": 120467,
+          "title": "O Grande Hotel Budapeste",
+          "originalTitle": "The Grand Budapest Hotel",
+          "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+          "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+          "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+          "voteAverage": 8,
+          "voteCount": 14900,
+          "releaseYear": 2014,
+          "genreIds": [
+            35,
+            18
+          ],
+          "originalLanguage": "en",
+          "runtime": 100
+        },
+        "157336": {
+          "tmdbId": 157336,
+          "title": "Interestelar",
+          "originalTitle": "Interstellar",
+          "overview": "Exploradores atravessam um buraco de minhoca em busca de um novo lar para a humanidade.",
+          "posterPath": "/nCbkOyOMTEwlEV0LtCOvCnwEONA.jpg",
+          "backdropPath": "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 35000,
+          "releaseYear": 2014,
+          "genreIds": [
+            12,
+            18,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 169
+        },
+        "244786": {
+          "tmdbId": 244786,
+          "title": "Whiplash: Em Busca da Perfeição",
+          "originalTitle": "Whiplash",
+          "overview": "Um jovem baterista enfrenta os métodos extremos de um maestro obcecado pela perfeição.",
+          "posterPath": "/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+          "backdropPath": "/fRGxZuo7jJUWQsVg9PREb98Aclp.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15000,
+          "releaseYear": 2014,
+          "genreIds": [
+            18,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 107
+        },
+        "313369": {
+          "tmdbId": 313369,
+          "title": "La La Land: Cantando Estações",
+          "originalTitle": "La La Land",
+          "overview": "Um pianista de jazz e uma aspirante a atriz se apaixonam enquanto tentam realizar seus sonhos em Los Angeles.",
+          "posterPath": "/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+          "backdropPath": "/nadTlnTE6DdgmYsN4iWc2a2wiaI.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 16800,
+          "releaseYear": 2016,
+          "genreIds": [
+            35,
+            18,
+            10749,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 128
+        },
+        "324857": {
+          "tmdbId": 324857,
+          "title": "Homem-Aranha no Aranhaverso",
+          "originalTitle": "Spider-Man: Into the Spider-Verse",
+          "overview": "O adolescente Miles Morales ganha poderes e encontra versões do Homem-Aranha de outras dimensões.",
+          "posterPath": "/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+          "backdropPath": "/7d6EY00g1c39SGZOoCJ5Py9nNth.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15500,
+          "releaseYear": 2018,
+          "genreIds": [
+            16,
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 117
+        },
+        "329865": {
+          "tmdbId": 329865,
+          "title": "A Chegada",
+          "originalTitle": "Arrival",
+          "overview": "Uma linguista é recrutada para decifrar a comunicação de naves alienígenas que pousaram na Terra.",
+          "posterPath": "/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg",
+          "backdropPath": "/yIZ1xendyqKvY3FGeeUYUd5X9Mm.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17600,
+          "releaseYear": 2016,
+          "genreIds": [
+            18,
+            878,
+            9648
+          ],
+          "originalLanguage": "en",
+          "runtime": 116
+        },
+        "419430": {
+          "tmdbId": 419430,
+          "title": "Corra!",
+          "originalTitle": "Get Out",
+          "overview": "Um jovem fotógrafo descobre um segredo perturbador ao conhecer a família de sua namorada.",
+          "posterPath": "/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+          "backdropPath": "/o8dPH0ZJpAgXmP5E7D2h3J2v6xL.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17300,
+          "releaseYear": 2017,
+          "genreIds": [
+            9648,
+            53,
+            27
+          ],
+          "originalLanguage": "en",
+          "runtime": 104
+        },
+        "496243": {
+          "tmdbId": 496243,
+          "title": "Parasita",
+          "originalTitle": "Gisaengchung",
+          "overview": "Uma família desempregada se infiltra gradualmente na rotina de uma família rica em Seul.",
+          "posterPath": "/igw938inb6Fy0YVcwIyxQ7Lu5FO.jpg",
+          "backdropPath": "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 18000,
+          "releaseYear": 2019,
+          "genreIds": [
+            35,
+            53,
+            18
+          ],
+          "originalLanguage": "ko",
+          "runtime": 132
+        }
+      },
+      "queues": {
+        "part_f4f8c4a98c1a402194085d91f2362988": {
+          "participantId": "part_f4f8c4a98c1a402194085d91f2362988",
+          "movieIds": [
+            27205,
+            313369,
+            329865,
+            157336,
+            497,
+            244786,
+            419430,
+            324857,
+            129,
+            496243,
+            120467,
+            76341
+          ],
+          "cursor": 0
+        },
+        "part_af40f84453fa4213914f673c92edae7a": {
+          "participantId": "part_af40f84453fa4213914f673c92edae7a",
+          "movieIds": [
+            313369,
+            129,
+            419430,
+            27205,
+            497,
+            496243,
+            244786,
+            120467,
+            157336,
+            324857,
+            76341,
+            329865
+          ],
+          "cursor": 0
+        }
+      },
+      "votes": [],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "RTACB6": {
+      "id": "room_dddcaa9f2b2e493eb06f93cf5654d0d7",
+      "code": "RTACB6",
+      "createdAt": "2026-11-20T23:41:18.371Z",
+      "updatedAt": "2026-11-20T23:41:19.606Z",
+      "expiresAt": "2026-11-21T23:41:19.606Z",
+      "status": "IN_PROGRESS",
+      "stateVersion": 3,
+      "participants": [
+        {
+          "id": "part_726870be76b0430da86fe7ce54a97ce1",
+          "deviceId": "dev_7hnr8ou3pdw0f7x5",
+          "name": "Paulo",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "ONLINE",
+          "socketId": "WiIOszOSUuRMq_iEAAAY",
+          "joinedAt": "2026-11-20T23:41:18.371Z",
+          "lastSeenAt": "2026-11-20T23:41:18.371Z"
+        },
+        {
+          "id": "part_bae66686f1984154b29c30e3fbbceaca",
+          "deviceId": "dev_ndb310zucex8gr6q",
+          "name": "Maria",
+          "avatarColor": "#8B5CF6",
+          "role": "GUEST",
+          "connectionStatus": "ONLINE",
+          "socketId": "24ySoQ9ME65nhHsJAAAa",
+          "joinedAt": "2026-11-20T23:41:19.540Z",
+          "lastSeenAt": "2026-11-20T23:41:19.540Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 1,
+      "catalogExhausted": false,
+      "moviesById": {
+        "129": {
+          "tmdbId": 129,
+          "title": "A Viagem de Chihiro",
+          "originalTitle": "Sen to Chihiro no Kamikakushi",
+          "overview": "Uma garota entra em um mundo mágico governado por espíritos e precisa salvar seus pais.",
+          "posterPath": "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+          "backdropPath": "/mSDsSDwaP3E7dEfUPWy4J0djt4O.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 16400,
+          "releaseYear": 2001,
+          "genreIds": [
+            16,
+            10751,
+            14
+          ],
+          "originalLanguage": "ja",
+          "runtime": 125
+        },
+        "497": {
+          "tmdbId": 497,
+          "title": "À Espera de um Milagre",
+          "originalTitle": "The Green Mile",
+          "overview": "Um guarda penitenciário descobre que um detento no corredor da morte possui um dom extraordinário.",
+          "posterPath": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+          "backdropPath": "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 17300,
+          "releaseYear": 1999,
+          "genreIds": [
+            14,
+            18,
+            80
+          ],
+          "originalLanguage": "en",
+          "runtime": 189
+        },
+        "27205": {
+          "tmdbId": 27205,
+          "title": "A Origem",
+          "originalTitle": "Inception",
+          "overview": "Um ladrão que invade sonhos recebe a tarefa inversa de plantar uma ideia na mente de um herdeiro.",
+          "posterPath": "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+          "backdropPath": "/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 36000,
+          "releaseYear": 2010,
+          "genreIds": [
+            28,
+            878,
+            12
+          ],
+          "originalLanguage": "en",
+          "runtime": 148
+        },
+        "76341": {
+          "tmdbId": 76341,
+          "title": "Mad Max: Estrada da Fúria",
+          "originalTitle": "Mad Max: Fury Road",
+          "overview": "Em um deserto pós-apocalíptico, uma rebelde e um andarilho lideram uma fuga alucinante contra um tirano.",
+          "posterPath": "/hA2ple9q4qnwxp3hKVNhroipsir.jpg",
+          "backdropPath": "/nlCHUWjY9XWbuEUQauCBgnY8ymF.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 22400,
+          "releaseYear": 2015,
+          "genreIds": [
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 120
+        },
+        "120467": {
+          "tmdbId": 120467,
+          "title": "O Grande Hotel Budapeste",
+          "originalTitle": "The Grand Budapest Hotel",
+          "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+          "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+          "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+          "voteAverage": 8,
+          "voteCount": 14900,
+          "releaseYear": 2014,
+          "genreIds": [
+            35,
+            18
+          ],
+          "originalLanguage": "en",
+          "runtime": 100
+        },
+        "157336": {
+          "tmdbId": 157336,
+          "title": "Interestelar",
+          "originalTitle": "Interstellar",
+          "overview": "Exploradores atravessam um buraco de minhoca em busca de um novo lar para a humanidade.",
+          "posterPath": "/nCbkOyOMTEwlEV0LtCOvCnwEONA.jpg",
+          "backdropPath": "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 35000,
+          "releaseYear": 2014,
+          "genreIds": [
+            12,
+            18,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 169
+        },
+        "244786": {
+          "tmdbId": 244786,
+          "title": "Whiplash: Em Busca da Perfeição",
+          "originalTitle": "Whiplash",
+          "overview": "Um jovem baterista enfrenta os métodos extremos de um maestro obcecado pela perfeição.",
+          "posterPath": "/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+          "backdropPath": "/fRGxZuo7jJUWQsVg9PREb98Aclp.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15000,
+          "releaseYear": 2014,
+          "genreIds": [
+            18,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 107
+        },
+        "313369": {
+          "tmdbId": 313369,
+          "title": "La La Land: Cantando Estações",
+          "originalTitle": "La La Land",
+          "overview": "Um pianista de jazz e uma aspirante a atriz se apaixonam enquanto tentam realizar seus sonhos em Los Angeles.",
+          "posterPath": "/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+          "backdropPath": "/nadTlnTE6DdgmYsN4iWc2a2wiaI.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 16800,
+          "releaseYear": 2016,
+          "genreIds": [
+            35,
+            18,
+            10749,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 128
+        },
+        "324857": {
+          "tmdbId": 324857,
+          "title": "Homem-Aranha no Aranhaverso",
+          "originalTitle": "Spider-Man: Into the Spider-Verse",
+          "overview": "O adolescente Miles Morales ganha poderes e encontra versões do Homem-Aranha de outras dimensões.",
+          "posterPath": "/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+          "backdropPath": "/7d6EY00g1c39SGZOoCJ5Py9nNth.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15500,
+          "releaseYear": 2018,
+          "genreIds": [
+            16,
+            28,
+            12,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 117
+        },
+        "329865": {
+          "tmdbId": 329865,
+          "title": "A Chegada",
+          "originalTitle": "Arrival",
+          "overview": "Uma linguista é recrutada para decifrar a comunicação de naves alienígenas que pousaram na Terra.",
+          "posterPath": "/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg",
+          "backdropPath": "/yIZ1xendyqKvY3FGeeUYUd5X9Mm.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17600,
+          "releaseYear": 2016,
+          "genreIds": [
+            18,
+            878,
+            9648
+          ],
+          "originalLanguage": "en",
+          "runtime": 116
+        },
+        "419430": {
+          "tmdbId": 419430,
+          "title": "Corra!",
+          "originalTitle": "Get Out",
+          "overview": "Um jovem fotógrafo descobre um segredo perturbador ao conhecer a família de sua namorada.",
+          "posterPath": "/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+          "backdropPath": "/o8dPH0ZJpAgXmP5E7D2h3J2v6xL.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17300,
+          "releaseYear": 2017,
+          "genreIds": [
+            9648,
+            53,
+            27
+          ],
+          "originalLanguage": "en",
+          "runtime": 104
+        },
+        "496243": {
+          "tmdbId": 496243,
+          "title": "Parasita",
+          "originalTitle": "Gisaengchung",
+          "overview": "Uma família desempregada se infiltra gradualmente na rotina de uma família rica em Seul.",
+          "posterPath": "/igw938inb6Fy0YVcwIyxQ7Lu5FO.jpg",
+          "backdropPath": "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 18000,
+          "releaseYear": 2019,
+          "genreIds": [
+            35,
+            53,
+            18
+          ],
+          "originalLanguage": "ko",
+          "runtime": 132
+        }
+      },
+      "queues": {
+        "part_726870be76b0430da86fe7ce54a97ce1": {
+          "participantId": "part_726870be76b0430da86fe7ce54a97ce1",
+          "movieIds": [
+            419430,
+            329865,
+            324857,
+            27205,
+            157336,
+            120467,
+            76341,
+            496243,
+            129,
+            244786,
+            497,
+            313369
+          ],
+          "cursor": 0
+        },
+        "part_bae66686f1984154b29c30e3fbbceaca": {
+          "participantId": "part_bae66686f1984154b29c30e3fbbceaca",
+          "movieIds": [
+            27205,
+            129,
+            324857,
+            419430,
+            120467,
+            497,
+            76341,
+            313369,
+            329865,
+            157336,
+            496243,
+            244786
+          ],
+          "cursor": 0
+        }
+      },
+      "votes": [],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    }
+  },
+  "history": [
+    {
+      "roomId": "room_7352566e003a4346a57862a055b29ba0",
+      "roomCode": "JJUENG",
+      "createdAt": "2026-11-20T23:40:58.590Z",
+      "finishedAt": "2026-11-20T23:41:04.690Z",
+      "participantNames": [
+        "Paulo",
+        "Maria"
+      ],
+      "totalVotes": 3,
+      "matches": [
+        {
+          "movie": {
+            "tmdbId": 120467,
+            "title": "O Grande Hotel Budapeste",
+            "originalTitle": "The Grand Budapest Hotel",
+            "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+            "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+            "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+            "voteAverage": 8,
+            "voteCount": 14900,
+            "releaseYear": 2014,
+            "genreIds": [
+              35,
+              18
+            ],
+            "originalLanguage": "en",
+            "runtime": 100
+          },
+          "matchedAt": "2026-11-20T23:41:01.139Z",
+          "status": "CHOSEN"
+        }
+      ],
+      "chosenMovie": {
+        "tmdbId": 120467,
+        "title": "O Grande Hotel Budapeste",
+        "originalTitle": "The Grand Budapest Hotel",
+        "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+        "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+        "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+        "voteAverage": 8,
+        "voteCount": 14900,
+        "releaseYear": 2014,
+        "genreIds": [
+          35,
+          18
+        ],
+        "originalLanguage": "en",
+        "runtime": 100
+      }
+    }
+  ]
+}

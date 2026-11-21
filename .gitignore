@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+data/*.json
+data/*.tmp
+playwright-report/
+test-results/
+.DS_Store
+*.log
+setup-etapa2.sh
+setup-etapa*.sh

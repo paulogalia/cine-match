@@ -1,0 +1,1814 @@
+{
+  "schemaVersion": 1,
+  "savedAt": "2026-11-20T23:36:12.148Z",
+  "activeRooms": {
+    "FGZMFC": {
+      "id": "room_e58f98a90cb84570882a6dacfcd57fc4",
+      "code": "FGZMFC",
+      "createdAt": "2026-11-20T22:24:51.114Z",
+      "updatedAt": "2026-11-20T22:24:51.114Z",
+      "expiresAt": "2026-11-21T00:24:51.114Z",
+      "status": "WAITING_PARTICIPANT",
+      "stateVersion": 1,
+      "participants": [
+        {
+          "id": "part_bb3b760f7eaf4507981677eda8de59ec",
+          "deviceId": "dev_elgp1ojjjf4cc1sa",
+          "name": "Host",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T22:24:51.114Z",
+          "lastSeenAt": "2026-11-20T22:24:51.114Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 0,
+      "catalogExhausted": false,
+      "moviesById": {},
+      "queues": {
+        "part_bb3b760f7eaf4507981677eda8de59ec": {
+          "participantId": "part_bb3b760f7eaf4507981677eda8de59ec",
+          "movieIds": [],
+          "cursor": 0
+        }
+      },
+      "votes": [],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "UYTNGW": {
+      "id": "room_5b4a8775ebed491db09502d48b14f5a3",
+      "code": "UYTNGW",
+      "createdAt": "2026-11-20T22:24:55.454Z",
+      "updatedAt": "2026-11-20T22:24:55.454Z",
+      "expiresAt": "2026-11-21T00:24:55.454Z",
+      "status": "WAITING_PARTICIPANT",
+      "stateVersion": 1,
+      "participants": [
+        {
+          "id": "part_7c9d08c9b5404b81893ff7ed10818d2e",
+          "deviceId": "dev_hekvql037qgejb75",
+          "name": "Host",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T22:24:55.454Z",
+          "lastSeenAt": "2026-11-20T22:24:55.454Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 0,
+      "catalogExhausted": false,
+      "moviesById": {},
+      "queues": {
+        "part_7c9d08c9b5404b81893ff7ed10818d2e": {
+          "participantId": "part_7c9d08c9b5404b81893ff7ed10818d2e",
+          "movieIds": [],
+          "cursor": 0
+        }
+      },
+      "votes": [],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "8HVEZ4": {
+      "id": "room_3c3cd35eebae477ea81c7a6750ee183a",
+      "code": "8HVEZ4",
+      "createdAt": "2026-11-20T22:24:58.402Z",
+      "updatedAt": "2026-11-20T22:24:58.402Z",
+      "expiresAt": "2026-11-21T00:24:58.402Z",
+      "status": "WAITING_PARTICIPANT",
+      "stateVersion": 1,
+      "participants": [
+        {
+          "id": "part_ad78abbb2b2f439d94f262c75ffea351",
+          "deviceId": "dev_elgp1ojjjf4cc1sa",
+          "name": "Host",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T22:24:58.402Z",
+          "lastSeenAt": "2026-11-20T22:24:58.402Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 0,
+      "catalogExhausted": false,
+      "moviesById": {},
+      "queues": {
+        "part_ad78abbb2b2f439d94f262c75ffea351": {
+          "participantId": "part_ad78abbb2b2f439d94f262c75ffea351",
+          "movieIds": [],
+          "cursor": 0
+        }
+      },
+      "votes": [],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "DSZCX6": {
+      "id": "room_020a054a4a4a4f3586c33674b491958f",
+      "code": "DSZCX6",
+      "createdAt": "2026-11-20T22:24:59.139Z",
+      "updatedAt": "2026-11-20T22:27:23.914Z",
+      "expiresAt": "2026-11-21T00:27:23.914Z",
+      "status": "WAITING_PARTICIPANT",
+      "stateVersion": 2,
+      "participants": [
+        {
+          "id": "part_afac1d2a042442b38f3efa6211c8a7ce",
+          "deviceId": "dev_elgp1ojjjf4cc1sa",
+          "name": "Host",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T22:24:59.139Z",
+          "lastSeenAt": "2026-11-20T22:27:23.914Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 0,
+      "catalogExhausted": false,
+      "moviesById": {},
+      "queues": {
+        "part_afac1d2a042442b38f3efa6211c8a7ce": {
+          "participantId": "part_afac1d2a042442b38f3efa6211c8a7ce",
+          "movieIds": [],
+          "cursor": 0
+        }
+      },
+      "votes": [],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "PDWW6B": {
+      "id": "room_9f2a8e35ef1d45ec82011e041d7b136b",
+      "code": "PDWW6B",
+      "createdAt": "2026-11-20T22:25:00.125Z",
+      "updatedAt": "2026-11-20T22:33:40.993Z",
+      "expiresAt": "2026-11-21T00:33:40.993Z",
+      "status": "WAITING_PARTICIPANT",
+      "stateVersion": 2,
+      "participants": [
+        {
+          "id": "part_7dd123a30431415181c96f2a32f45fbd",
+          "deviceId": "dev_hekvql037qgejb75",
+          "name": "Host",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T22:25:00.125Z",
+          "lastSeenAt": "2026-11-20T22:33:40.993Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 0,
+      "catalogExhausted": false,
+      "moviesById": {},
+      "queues": {
+        "part_7dd123a30431415181c96f2a32f45fbd": {
+          "participantId": "part_7dd123a30431415181c96f2a32f45fbd",
+          "movieIds": [],
+          "cursor": 0
+        }
+      },
+      "votes": [],
+      "matches": {},
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "DDAUGD": {
+      "id": "room_b8d9fab4978f437fbbd13e01dc24b6c9",
+      "code": "DDAUGD",
+      "createdAt": "2026-11-20T22:34:25.646Z",
+      "updatedAt": "2026-11-20T23:27:16.513Z",
+      "expiresAt": "2026-11-21T23:27:16.513Z",
+      "status": "FINISHED",
+      "stateVersion": 48,
+      "participants": [
+        {
+          "id": "part_c7db2244262449ceaba6e012830de693",
+          "deviceId": "dev_hekvql037qgejb75",
+          "name": "Paulo",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T22:34:25.646Z",
+          "lastSeenAt": "2026-11-20T23:26:49.530Z"
+        },
+        {
+          "id": "part_c27021cf9023449bba9b95b1dec86637",
+          "deviceId": "dev_elgp1ojjjf4cc1sa",
+          "name": "Jade",
+          "avatarColor": "#8B5CF6",
+          "role": "GUEST",
+          "connectionStatus": "ONLINE",
+          "socketId": "ZC-eP973ujajWAGAAAAI",
+          "joinedAt": "2026-11-20T22:34:43.861Z",
+          "lastSeenAt": "2026-11-20T23:27:16.513Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [
+          35,
+          18
+        ],
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 2,
+      "catalogExhausted": true,
+      "moviesById": {
+        "38": {
+          "tmdbId": 38,
+          "title": "Brilho Eterno de uma Mente sem Lembranças",
+          "originalTitle": "Eternal Sunshine of the Spotless Mind",
+          "overview": "Após um término doloroso, um casal recorre a um procedimento para apagar as memórias um do outro.",
+          "posterPath": "/5MwkWH9tYHv3mV9OdYTMR5qreIz.jpg",
+          "backdropPath": "/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",
+          "voteAverage": 8.1,
+          "voteCount": 14800,
+          "releaseYear": 2004,
+          "genreIds": [
+            878,
+            18,
+            10749
+          ],
+          "originalLanguage": "en",
+          "runtime": 108
+        },
+        "76": {
+          "tmdbId": 76,
+          "title": "Antes do Amanhecer",
+          "originalTitle": "Before Sunrise",
+          "overview": "Um jovem americano e uma estudante francesa se conhecem em um trem e passam uma noite inesquecível em Viena.",
+          "posterPath": "/kf1Jb1c2JAOqjuzA3H4oDM263uB.jpg",
+          "backdropPath": "/qA2Jm6y0F7x2s4p8k9n3v1b2m5k.jpg",
+          "voteAverage": 8,
+          "voteCount": 4200,
+          "releaseYear": 1995,
+          "genreIds": [
+            18,
+            10749
+          ],
+          "originalLanguage": "en",
+          "runtime": 101
+        },
+        "194": {
+          "tmdbId": 194,
+          "title": "O Fabuloso Destino de Amélie Poulain",
+          "originalTitle": "Le Fabuleux Destin d'Amélie Poulain",
+          "overview": "Uma jovem garçonete parisiense decide transformar discretamente a vida das pessoas ao seu redor.",
+          "posterPath": "/nSxDa3M9aMvGVLoItzWTepQ5h5d.jpg",
+          "backdropPath": "/5q2n9p8x3k7v1m4b6c2r5t8w1y9.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 11400,
+          "releaseYear": 2001,
+          "genreIds": [
+            35,
+            10749
+          ],
+          "originalLanguage": "fr",
+          "runtime": 122
+        },
+        "497": {
+          "tmdbId": 497,
+          "title": "À Espera de um Milagre",
+          "originalTitle": "The Green Mile",
+          "overview": "Um guarda penitenciário descobre que um detento no corredor da morte possui um dom extraordinário.",
+          "posterPath": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+          "backdropPath": "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 17300,
+          "releaseYear": 1999,
+          "genreIds": [
+            14,
+            18,
+            80
+          ],
+          "originalLanguage": "en",
+          "runtime": 189
+        },
+        "598": {
+          "tmdbId": 598,
+          "title": "Cidade de Deus",
+          "originalTitle": "Cidade de Deus",
+          "overview": "A ascensão do crime organizado em uma comunidade do Rio de Janeiro sob o olhar de um jovem fotógrafo.",
+          "posterPath": "/gfnXixcGC060khG6gkOTAQz3r0P.jpg",
+          "backdropPath": "/uPYa165sraN2c8gZBM9C47g3JoU.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 7300,
+          "releaseYear": 2002,
+          "genreIds": [
+            18,
+            80
+          ],
+          "originalLanguage": "pt",
+          "runtime": 130
+        },
+        "666": {
+          "tmdbId": 666,
+          "title": "Central do Brasil",
+          "originalTitle": "Central do Brasil",
+          "overview": "Uma ex-professora escreve cartas na estação Central do Brasil e embarca em uma jornada com um menino à procura do pai.",
+          "posterPath": "/f6yW7D4X3R2b8n5k4j9p7s2m3v1.jpg",
+          "backdropPath": "/x9k2v5p3m8n4b7c1q6w3e8r2t5y.jpg",
+          "voteAverage": 8.1,
+          "voteCount": 950,
+          "releaseYear": 1998,
+          "genreIds": [
+            18
+          ],
+          "originalLanguage": "pt",
+          "runtime": 113
+        },
+        "2757": {
+          "tmdbId": 2757,
+          "title": "Adaptação",
+          "originalTitle": "Adaptation.",
+          "overview": "Um roteirista em crise criativa tenta adaptar um livro sobre orquídeas enquanto lida com seu irmão gêmeo.",
+          "posterPath": "/s2s421kG2M91u5y7K8S4n9D0P9r.jpg",
+          "backdropPath": "/r5c48kF7xH3l7M5l7Y2r3u4k5m6.jpg",
+          "voteAverage": 7.4,
+          "voteCount": 2500,
+          "releaseYear": 2002,
+          "genreIds": [
+            35,
+            80,
+            18
+          ],
+          "originalLanguage": "en",
+          "runtime": 115
+        },
+        "11216": {
+          "tmdbId": 11216,
+          "title": "Cinema Paradiso",
+          "originalTitle": "Nuovo Cinema Paradiso",
+          "overview": "Um cineasta recorda sua infância em uma pequena vila italiana e a amizade com o projecionista local.",
+          "posterPath": "/8SRUfRUi6x4O68n0VCbDNRa6iGL.jpg",
+          "backdropPath": "/g6h8j9k2l4m5n6b7v8c9x1z2a3s.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 4300,
+          "releaseYear": 1988,
+          "genreIds": [
+            18,
+            10749
+          ],
+          "originalLanguage": "it",
+          "runtime": 124
+        },
+        "40096": {
+          "tmdbId": 40096,
+          "title": "O Auto da Compadecida",
+          "originalTitle": "O Auto da Compadecida",
+          "overview": "As aventuras de João Grilo e Chicó tentando sobreviver com astúcia no sertão nordestino.",
+          "posterPath": "/imcOp1kJsCsAFCoAgY5OnPaLDnj.jpg",
+          "backdropPath": "/alQqTpmEkxSLgajfEYTsTH6nAKB.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 1100,
+          "releaseYear": 2000,
+          "genreIds": [
+            12,
+            35,
+            18,
+            14
+          ],
+          "originalLanguage": "pt",
+          "runtime": 104
+        },
+        "120467": {
+          "tmdbId": 120467,
+          "title": "O Grande Hotel Budapeste",
+          "originalTitle": "The Grand Budapest Hotel",
+          "overview": "As aventuras de um lendário concierge e seu jovem ajudante durante o roubo de uma pintura renascentista.",
+          "posterPath": "/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+          "backdropPath": "/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+          "voteAverage": 8,
+          "voteCount": 14900,
+          "releaseYear": 2014,
+          "genreIds": [
+            35,
+            18
+          ],
+          "originalLanguage": "en",
+          "runtime": 100
+        },
+        "157336": {
+          "tmdbId": 157336,
+          "title": "Interestelar",
+          "originalTitle": "Interstellar",
+          "overview": "Exploradores atravessam um buraco de minhoca em busca de um novo lar para a humanidade.",
+          "posterPath": "/nCbkOyOMTEwlEV0LtCOvCnwEONA.jpg",
+          "backdropPath": "/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 35000,
+          "releaseYear": 2014,
+          "genreIds": [
+            12,
+            18,
+            878
+          ],
+          "originalLanguage": "en",
+          "runtime": 169
+        },
+        "244786": {
+          "tmdbId": 244786,
+          "title": "Whiplash: Em Busca da Perfeição",
+          "originalTitle": "Whiplash",
+          "overview": "Um jovem baterista enfrenta os métodos extremos de um maestro obcecado pela perfeição.",
+          "posterPath": "/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+          "backdropPath": "/fRGxZuo7jJUWQsVg9PREb98Aclp.jpg",
+          "voteAverage": 8.4,
+          "voteCount": 15000,
+          "releaseYear": 2014,
+          "genreIds": [
+            18,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 107
+        },
+        "313369": {
+          "tmdbId": 313369,
+          "title": "La La Land: Cantando Estações",
+          "originalTitle": "La La Land",
+          "overview": "Um pianista de jazz e uma aspirante a atriz se apaixonam enquanto tentam realizar seus sonhos em Los Angeles.",
+          "posterPath": "/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+          "backdropPath": "/nadTlnTE6DdgmYsN4iWc2a2wiaI.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 16800,
+          "releaseYear": 2016,
+          "genreIds": [
+            35,
+            18,
+            10749,
+            10402
+          ],
+          "originalLanguage": "en",
+          "runtime": 128
+        },
+        "329865": {
+          "tmdbId": 329865,
+          "title": "A Chegada",
+          "originalTitle": "Arrival",
+          "overview": "Uma linguista é recrutada para decifrar a comunicação de naves alienígenas que pousaram na Terra.",
+          "posterPath": "/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg",
+          "backdropPath": "/yIZ1xendyqKvY3FGeeUYUd5X9Mm.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 17600,
+          "releaseYear": 2016,
+          "genreIds": [
+            18,
+            878,
+            9648
+          ],
+          "originalLanguage": "en",
+          "runtime": 116
+        },
+        "496243": {
+          "tmdbId": 496243,
+          "title": "Parasita",
+          "originalTitle": "Gisaengchung",
+          "overview": "Uma família desempregada se infiltra gradualmente na rotina de uma família rica em Seul.",
+          "posterPath": "/igw938inb6Fy0YVcwIyxQ7Lu5FO.jpg",
+          "backdropPath": "/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 18000,
+          "releaseYear": 2019,
+          "genreIds": [
+            35,
+            53,
+            18
+          ],
+          "originalLanguage": "ko",
+          "runtime": 132
+        },
+        "546554": {
+          "tmdbId": 546554,
+          "title": "Entre Facas e Segredos",
+          "originalTitle": "Knives Out",
+          "overview": "Um detetive excêntrico investiga a morte misteriosa do patriarca de uma família excêntrica.",
+          "posterPath": "/pThyQovXQrw2m0s9x82twj48Jq4.jpg",
+          "backdropPath": "/4HWAQu28e2yaWrtupFPGFkdNU7V.jpg",
+          "voteAverage": 7.8,
+          "voteCount": 12300,
+          "releaseYear": 2019,
+          "genreIds": [
+            35,
+            80,
+            9648
+          ],
+          "originalLanguage": "en",
+          "runtime": 130
+        },
+        "666277": {
+          "tmdbId": 666277,
+          "title": "Vidas Passadas",
+          "originalTitle": "Past Lives",
+          "overview": "Dois amigos de infância de Seul se reencontram duas décadas depois em Nova York.",
+          "posterPath": "/k3waqVXSnvCZWfJYNtdamTgTtTA.jpg",
+          "backdropPath": "/7fN5kc5h2C4zP3fP7k5p1s6m2wQ.jpg",
+          "voteAverage": 7.8,
+          "voteCount": 1900,
+          "releaseYear": 2023,
+          "genreIds": [
+            18,
+            10749
+          ],
+          "originalLanguage": "en",
+          "runtime": 106
+        },
+        "872585": {
+          "tmdbId": 872585,
+          "title": "Oppenheimer",
+          "originalTitle": "Oppenheimer",
+          "overview": "A trajetória do físico J. Robert Oppenheimer à frente do Projeto Manhattan durante a Segunda Guerra.",
+          "posterPath": "/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+          "backdropPath": "/fm6KqXpk3M2HVveHwCrBSSBaO0V.jpg",
+          "voteAverage": 8.1,
+          "voteCount": 9100,
+          "releaseYear": 2023,
+          "genreIds": [
+            18,
+            36
+          ],
+          "originalLanguage": "en",
+          "runtime": 181
+        }
+      },
+      "queues": {
+        "part_c7db2244262449ceaba6e012830de693": {
+          "participantId": "part_c7db2244262449ceaba6e012830de693",
+          "movieIds": [
+            120467,
+            598,
+            38,
+            496243,
+            313369,
+            2757,
+            76,
+            666,
+            40096,
+            11216,
+            666277
+          ],
+          "cursor": 7
+        },
+        "part_c27021cf9023449bba9b95b1dec86637": {
+          "participantId": "part_c27021cf9023449bba9b95b1dec86637",
+          "movieIds": [
+            244786,
+            872585,
+            157336,
+            546554,
+            40096,
+            666,
+            2757,
+            666277,
+            76,
+            11216
+          ],
+          "cursor": 8
+        }
+      },
+      "votes": [
+        {
+          "operationId": "op_2hf7fe40b6oqzv4v",
+          "participantId": "part_c27021cf9023449bba9b95b1dec86637",
+          "tmdbId": 598,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T22:46:09.700Z"
+        },
+        {
+          "operationId": "op_taihn203c69afpq6",
+          "participantId": "part_c7db2244262449ceaba6e012830de693",
+          "tmdbId": 872585,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T22:46:12.729Z"
+        },
+        {
+          "operationId": "op_w2zmfazhaboe5ut3",
+          "participantId": "part_c7db2244262449ceaba6e012830de693",
+          "tmdbId": 497,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T22:46:14.588Z"
+        },
+        {
+          "operationId": "op_4nzgi1gxbfdsi2eh",
+          "participantId": "part_c27021cf9023449bba9b95b1dec86637",
+          "tmdbId": 496243,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T22:46:16.389Z"
+        },
+        {
+          "operationId": "op_sqesgk31y10vhhqc",
+          "participantId": "part_c27021cf9023449bba9b95b1dec86637",
+          "tmdbId": 313369,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T22:46:17.661Z"
+        },
+        {
+          "operationId": "op_o3jabu43i06dybow",
+          "participantId": "part_c27021cf9023449bba9b95b1dec86637",
+          "tmdbId": 120467,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T22:46:19.212Z"
+        },
+        {
+          "operationId": "op_w8d7hrmyhoy78ciq",
+          "participantId": "part_c27021cf9023449bba9b95b1dec86637",
+          "tmdbId": 38,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T22:46:20.583Z"
+        },
+        {
+          "operationId": "op_fq5k2zwxh6z1lwmf",
+          "participantId": "part_c27021cf9023449bba9b95b1dec86637",
+          "tmdbId": 329865,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T22:46:21.710Z"
+        },
+        {
+          "operationId": "op_iseij1o804z8wnky",
+          "participantId": "part_c27021cf9023449bba9b95b1dec86637",
+          "tmdbId": 194,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T22:46:23.492Z"
+        },
+        {
+          "operationId": "op_qy4pcrj2saa79i92",
+          "participantId": "part_c27021cf9023449bba9b95b1dec86637",
+          "tmdbId": 497,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T22:46:25.596Z"
+        },
+        {
+          "operationId": "op_xnhjpoiikihseyjk",
+          "participantId": "part_c7db2244262449ceaba6e012830de693",
+          "tmdbId": 546554,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T22:46:39.648Z"
+        },
+        {
+          "operationId": "op_f0n9o2sjd9t3y50e",
+          "participantId": "part_c7db2244262449ceaba6e012830de693",
+          "tmdbId": 194,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T22:46:40.548Z"
+        },
+        {
+          "operationId": "op_7z0l31nglerjjard",
+          "participantId": "part_c7db2244262449ceaba6e012830de693",
+          "tmdbId": 329865,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T22:46:41.637Z"
+        },
+        {
+          "operationId": "op_mkj2vw35ymi6cmmz",
+          "participantId": "part_c7db2244262449ceaba6e012830de693",
+          "tmdbId": 244786,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T22:46:42.669Z"
+        },
+        {
+          "operationId": "op_88mp9p9o2hpz0bia",
+          "participantId": "part_c7db2244262449ceaba6e012830de693",
+          "tmdbId": 157336,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T22:46:46.136Z"
+        }
+      ],
+      "matches": {
+        "497": {
+          "tmdbId": 497,
+          "matchedAt": "2026-11-20T22:46:25.596Z",
+          "status": "ACTIVE"
+        }
+      },
+      "finalProposal": null,
+      "chosenMovieId": null
+    },
+    "YAJSA8": {
+      "id": "room_3a58ef76b73c4490b204374bc8ab77af",
+      "code": "YAJSA8",
+      "createdAt": "2026-11-20T23:27:01.524Z",
+      "updatedAt": "2026-11-20T23:36:11.998Z",
+      "expiresAt": "2026-11-21T23:36:11.998Z",
+      "status": "IN_PROGRESS",
+      "stateVersion": 60,
+      "participants": [
+        {
+          "id": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "deviceId": "dev_hekvql037qgejb75",
+          "name": "Paulo",
+          "avatarColor": "#FF4D6D",
+          "role": "HOST",
+          "connectionStatus": "ONLINE",
+          "socketId": "LMHbCSSjLC_wx-YqAAAE",
+          "joinedAt": "2026-11-20T23:27:01.524Z",
+          "lastSeenAt": "2026-11-20T23:34:12.595Z"
+        },
+        {
+          "id": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "deviceId": "dev_elgp1ojjjf4cc1sa",
+          "name": "Jade",
+          "avatarColor": "#8B5CF6",
+          "role": "GUEST",
+          "connectionStatus": "OFFLINE",
+          "socketId": null,
+          "joinedAt": "2026-11-20T23:27:24.179Z",
+          "lastSeenAt": "2026-11-20T23:36:11.998Z"
+        }
+      ],
+      "filters": {
+        "genreIds": [
+          28,
+          12,
+          16,
+          14
+        ],
+        "yearFrom": 1970,
+        "yearTo": 1999,
+        "minRating": 7,
+        "sortBy": "popularity.desc"
+      },
+      "catalogPage": 1,
+      "catalogExhausted": false,
+      "moviesById": {
+        "11": {
+          "tmdbId": 11,
+          "title": "Guerra nas Estrelas",
+          "originalTitle": "Star Wars",
+          "overview": "A princesa Leia é mantida refém pelas forças imperiais comandadas por Darth Vader. Luke Skywalker e Han Solo precisam libertá-la e restaurar a liberdade e a justiça na galáxia.",
+          "posterPath": "/dw7X9YPjjAfIxKHW04V64Bb9TB0.jpg",
+          "backdropPath": "/4qCqAdHcNKeAHcK8tJ8wNJZa9cx.jpg",
+          "voteAverage": 8.2,
+          "voteCount": 23199,
+          "releaseYear": 1977,
+          "genreIds": [
+            12,
+            28,
+            878
+          ],
+          "originalLanguage": "en"
+        },
+        "81": {
+          "tmdbId": 81,
+          "title": "Nausicaä do Vale do Vento",
+          "originalTitle": "風の谷のナウシカ",
+          "overview": "Após os Sete Dias de Fogo, uma guerra que destruiu a civilização humana e a maior parte do ecossistema da Terra, surge uma floresta que exala gases venenosos. Apenas insetos e seres conhecidos como Ohms vivem por lá. Nausicaä, filha do rei do Vale do Vento, tem o estranho poder de conseguir sentir o que a floresta sente e se vê obrigada a sair em uma jornada para tentar evitar outra guerra devastadora.",
+          "posterPath": "/UkCcG94fX1fKIu6DWzwEfpbxL9.jpg",
+          "backdropPath": "/z2jsAbXWGdJvadhovznjGg33VND.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 4282,
+          "releaseYear": 2025,
+          "genreIds": [
+            12,
+            16,
+            14
+          ],
+          "originalLanguage": "ja"
+        },
+        "101": {
+          "tmdbId": 101,
+          "title": "O Profissional",
+          "originalTitle": "Léon",
+          "overview": "Mathilda tem apenas 12 anos de idade mas já conhece o lado obscuro da vida: seu pai abusivo guarda drogas para policiais corruptos e a mãe a negligencia. O vizinho Léon gosta de cuidar de plantas, mas é um assassino de aluguel para o gângster Tony. Quando sua família é assassinada por um agente antidrogas desonesto, Mathilda se une a um relutante Léon para aprender o negócio mortal e vingar a morte da família.",
+          "posterPath": "/lNyuX5XibtzRImuhACGy42jHXIs.jpg",
+          "backdropPath": "/fj0hwDJEOOHllRim2BMt5L7tbjf.jpg",
+          "voteAverage": 8.3,
+          "voteCount": 16823,
+          "releaseYear": 1995,
+          "genreIds": [
+            80,
+            18,
+            28
+          ],
+          "originalLanguage": "fr"
+        },
+        "105": {
+          "tmdbId": 105,
+          "title": "De Volta para o Futuro",
+          "originalTitle": "Back to the Future",
+          "overview": "Marty McFly, um típico adolescente americano dos anos 80, acidentalmente é enviado de volta ao ano de 1955 em um carro modificado para ser uma máquino do tempo, inventada por um cientista louco. Durante sua fantástica e maluca viagem no tempo, McFly tem que fazer com que seus futuros pais se encontrem e se apaixonem, para que assim ele possa ir de volta para o futuro.",
+          "posterPath": "/i996T0lI1fGtFEowiH3V6eZthL0.jpg",
+          "backdropPath": "/5bzPWQ2dFUl2aZKkp7ILJVVkRed.jpg",
+          "voteAverage": 8.3,
+          "voteCount": 22800,
+          "releaseYear": 1985,
+          "genreIds": [
+            12,
+            35,
+            878
+          ],
+          "originalLanguage": "en"
+        },
+        "111": {
+          "tmdbId": 111,
+          "title": "Scarface",
+          "originalTitle": "Scarface",
+          "overview": "Após receber residência permanente nos EUA em troca do assassinato de um oficial do governo cubano, Tony Montana se torna chefe do tráfico de drogas em Miami. A pressão da polícia, as guerras com cartéis colombianos e sua própria paranoia servem para alimentar as chamas de sua eventual queda.",
+          "posterPath": "/b089YkBDJjOGDQxXkOXBR06Lz2Y.jpg",
+          "backdropPath": "/cCvp5Sni75agCtyJkNOMapORUQV.jpg",
+          "voteAverage": 8.2,
+          "voteCount": 13711,
+          "releaseYear": 1984,
+          "genreIds": [
+            28,
+            80,
+            18
+          ],
+          "originalLanguage": "en"
+        },
+        "128": {
+          "tmdbId": 128,
+          "title": "Princesa Mononoke",
+          "originalTitle": "もののけ姫",
+          "overview": "Um príncipe infectado por uma doença sabe que irá morrer, a menos que encontre a cura. Sendo a sua última esperança, segue para o leste e, durante o caminho, encontra animais da floresta lutando contra a sua exploração, liderados pela princesa Mononoke.",
+          "posterPath": "/7EadOwHmyQgOnlghRiWBygNtnjl.jpg",
+          "backdropPath": "/gl0jzn4BupSbL2qMVeqrjKkF9Js.jpg",
+          "voteAverage": 8.3,
+          "voteCount": 9480,
+          "releaseYear": 1999,
+          "genreIds": [
+            12,
+            14,
+            16
+          ],
+          "originalLanguage": "ja"
+        },
+        "218": {
+          "tmdbId": 218,
+          "title": "O Exterminador do Futuro",
+          "originalTitle": "The Terminator",
+          "overview": "Em um futuro próximo, a guerra entre humanos e máquinas foi iniciada. Com a tecnologia a seu dispor, um plano inusitado é arquitetado pelas máquinas ao enviar para o passado um andróide com a missão de matar a mãe daquele que viria a se transformar num líder e seu pior inimigo. Contudo, os humanos também conseguem enviar seu representante para proteger a mulher e tentar garantir o futuro da humanidade.",
+          "posterPath": "/fo4SSoNT1ASI4JP7dOLrosWNWKa.jpg",
+          "backdropPath": "/ffdqHMWkh1h9MABwIfbfRJhgFW6.jpg",
+          "voteAverage": 7.7,
+          "voteCount": 15459,
+          "releaseYear": 1985,
+          "genreIds": [
+            28,
+            53,
+            878
+          ],
+          "originalLanguage": "en"
+        },
+        "280": {
+          "tmdbId": 280,
+          "title": "O Exterminador do Futuro 2: O Julgamento Final",
+          "originalTitle": "Terminator 2: Judgment Day",
+          "overview": "O jovem John Connor é a chave para a vitória da civilização sobre uma rebelião de robôs do futuro. No entanto, ele torna-se alvo de T-1000, um exterminador que pode assumir a forma que desejar e que foi enviado do futuro para matá-lo. Outro exterminador, o renovado T-800, também é enviado de volta ao passado para proteger o garoto. Quando John e sua mãe embarcam na fuga com T-800, o menino cria um vínculo forte e inesperado com o robô.",
+          "posterPath": "/eTIY2LO5cDclxgKtCHuvIKdF3c3.jpg",
+          "backdropPath": "/izkMjmhauFx9DjoBQqM5sM5WAwE.jpg",
+          "voteAverage": 8.2,
+          "voteCount": 15218,
+          "releaseYear": 1991,
+          "genreIds": [
+            28,
+            53,
+            878
+          ],
+          "originalLanguage": "en"
+        },
+        "497": {
+          "tmdbId": 497,
+          "title": "À Espera de um Milagre",
+          "originalTitle": "The Green Mile",
+          "overview": "Milagres acontecem em lugares inesperados, mesmo no bloco de celas para o corredor da morte na Penitenciária Cold Mountain. Lá, John Coffey, um gentil e gigante prisioneiro com poderes sobrenaturais, traz um senso de espírito e humanidade aos seus guardas e colegas de cela.",
+          "posterPath": "/etnQFCNnTbXAi1wWB6WCWWzetjL.jpg",
+          "backdropPath": "/amZavErrjrdgDwhsIdpWxHNenIx.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 20167,
+          "releaseYear": 2000,
+          "genreIds": [
+            14,
+            18,
+            80
+          ],
+          "originalLanguage": "en"
+        },
+        "562": {
+          "tmdbId": 562,
+          "title": "Duro de Matar",
+          "originalTitle": "Die Hard",
+          "overview": "O policial de Nova York John McClane está visitando sua família no Natal. Ele participa de uma confraternização de fim de ano na sede da empresa japonesa em que a esposa trabalha. A festa é interrompida por terroristas que invadem o edifício de luxo. McClane não demora a perceber que não há ninguém para salvá-los, a não ser ele próprio.",
+          "posterPath": "/2PD0HHoyVVAEUhep9JhlKtgyl8m.jpg",
+          "backdropPath": "/bvk2AAH64lP2YZs02Q3jskfHT8j.jpg",
+          "voteAverage": 7.8,
+          "voteCount": 12893,
+          "releaseYear": 1988,
+          "genreIds": [
+            28,
+            53
+          ],
+          "originalLanguage": "en"
+        },
+        "603": {
+          "tmdbId": 603,
+          "title": "Matrix",
+          "originalTitle": "The Matrix",
+          "overview": "O jovem programador Thomas Anderson é atormentado por estranhos pesadelos em que está sempre conectado por cabos a um imenso sistema de computadores do futuro. À medida que o sonho se repete, ele começa a desconfiar da realidade. Thomas conhece os misteriosos Morpheus e Trinity e descobre que é vítima de um sistema inteligente e artificial chamado Matrix, que manipula a mente das pessoas e cria a ilusão de um mundo real enquanto usa os cérebros e corpos dos indivíduos para produzir energia.",
+          "posterPath": "/lDqMDI3xpbB9UQRyeXfei0MXhqb.jpg",
+          "backdropPath": "/tlm8UkiQsitc8rSuIAscQDCnP8d.jpg",
+          "voteAverage": 8.3,
+          "voteCount": 29311,
+          "releaseYear": 1999,
+          "genreIds": [
+            28,
+            878
+          ],
+          "originalLanguage": "en"
+        },
+        "862": {
+          "tmdbId": 862,
+          "title": "Toy Story: Um Mundo de Aventuras",
+          "originalTitle": "Toy Story",
+          "overview": "Buzz Lightyear é o novo e sofisticado astronauta de brinquedo do garoto Andy. Buzz não imaginava que encontraria um rival: Woody, um cowboy de brinquedo que, dominado pelo ciúme, acredita ter perdido um lugar precioso no coração do seu dono. Os dois brinquedos vivem brigando até que vão parar nas garras do vizinho, um verdadeiro destruidor de brinquedos. Agora, mais do que nunca, Buzz e Woody precisam precisam se unir para escapar do perigo. Com a ajuda de seus amigos da caixa de brinquedos, eles vão viver uma incrível aventura.",
+          "posterPath": "/686F0CEPmI4ZXjFbWtIHQOBwnfI.jpg",
+          "backdropPath": "/8AqWECiUHnz1Crj69uB9vhiK9Le.jpg",
+          "voteAverage": 8,
+          "voteCount": 20856,
+          "releaseYear": 1996,
+          "genreIds": [
+            10751,
+            35,
+            16,
+            12
+          ],
+          "originalLanguage": "en"
+        },
+        "863": {
+          "tmdbId": 863,
+          "title": "Toy Story 2",
+          "originalTitle": "Toy Story 2",
+          "overview": "Quando Andy viaja para um acampamento de verão, Woody é sequestrado por Al, um ambiocioso colecionador, que precisa do brinquedo favorito de Andy para completar sua coleção da Gangue do Rodeio. Junto com Jessie, Bala no Alvo e Mineiro, Woody corre o risco de ter que passar o resto de sua vida em exposição num museu. Agora, Buzz, Sr. Cabeça de Batata, Porquinho, Rex e Slinky terão que salvar seu amigo e trazê-lo de volta à vida de brinquedos.",
+          "posterPath": "/xVhEI1WCgNCCa5I86AqiwuZoog3.jpg",
+          "backdropPath": "/nsfVr4QbbunUrHINN9N7JdVAMTf.jpg",
+          "voteAverage": 7.6,
+          "voteCount": 15605,
+          "releaseYear": 1999,
+          "genreIds": [
+            16,
+            35,
+            10751
+          ],
+          "originalLanguage": "en"
+        },
+        "949": {
+          "tmdbId": 949,
+          "title": "Fogo Contra Fogo",
+          "originalTitle": "Heat",
+          "overview": "O ladrão obsessivo Neil McCauley lidera uma equipe de primeira linha em vários assaltos ousados ​​por Los Angeles, enquanto o determinado detetive Vincent Hanna o persegue sem descanso. Cada homem reconhece e respeita a capacidade e a dedicação do outro, mesmo sabendo que o seu jogo de gato e rato pode terminar em violência.",
+          "posterPath": "/fv2mQTMJxjMY5EKG3epvjuVUVKJ.jpg",
+          "backdropPath": "/uI22JkEMediWyiRqhllNqeeGtW0.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 8919,
+          "releaseYear": 1996,
+          "genreIds": [
+            80,
+            18,
+            28
+          ],
+          "originalLanguage": "en"
+        },
+        "1726": {
+          "tmdbId": 1726,
+          "title": "Homem de Ferro",
+          "originalTitle": "Iron Man",
+          "overview": "Tony Stark é um industrial bilionário, que também é um brilhante inventor. Ao ser sequestrado ele é obrigado por terroristas a construir uma arma devastadora mas, ao invés disto, constrói uma armadura de alta tecnologia que permite que fuja de seu cativeiro. A partir de então ele passa a usá-la para combater o crime, sob o alter ego do Homem de Ferro.",
+          "posterPath": "/mqN7RxojEiPoh3FTSTwOtwg7KAu.jpg",
+          "backdropPath": "/cKvDv2LpwVEqbdXWoQl4XgGN6le.jpg",
+          "voteAverage": 7.7,
+          "voteCount": 29224,
+          "releaseYear": 2008,
+          "genreIds": [
+            28,
+            878,
+            12
+          ],
+          "originalLanguage": "en"
+        },
+        "8392": {
+          "tmdbId": 8392,
+          "title": "Meu Amigo Totoro",
+          "originalTitle": "となりのトトロ",
+          "overview": "Duas irmãs se mudam para o campo com o pai para ficarem mais próximas da mãe hospitalizada e descobrem que as árvores ao redor são habitadas por Totoros, espíritos mágicos da floresta. Quando a mais nova foge de casa, a irmã mais velha busca a ajuda dos espíritos para encontrá-la.",
+          "posterPath": "/23KKTxDg6rxZVc66bloQQdPSr29.jpg",
+          "backdropPath": "/zkThiZAaAie8Lw7RAc5yPTOewBV.jpg",
+          "voteAverage": 8.1,
+          "voteCount": 9265,
+          "releaseYear": 2025,
+          "genreIds": [
+            14,
+            16,
+            10751
+          ],
+          "originalLanguage": "ja"
+        },
+        "8587": {
+          "tmdbId": 8587,
+          "title": "O Rei Leão",
+          "originalTitle": "The Lion King",
+          "overview": "Mufasa, o Rei Leão, e a rainha Sarabi apresentam ao reino o herdeiro do trono, Simba. O recém-nascido recebe a bênção do sábio babuíno Rafiki, mas ao crescer é envolvido nas artimanhas de seu tio Scar, o invejoso e maquiavélico irmão de Mufasa, que planeja livrar-se do sobrinho e herdar o trono.",
+          "posterPath": "/8aIvm8OaJISOpVTt7rMIh7X35G5.jpg",
+          "backdropPath": "/wXsQvli6tWqja51pYxXNG1LFIGV.jpg",
+          "voteAverage": 8.3,
+          "voteCount": 20437,
+          "releaseYear": 1994,
+          "genreIds": [
+            16,
+            10751,
+            18
+          ],
+          "originalLanguage": "en"
+        },
+        "9479": {
+          "tmdbId": 9479,
+          "title": "O Estranho Mundo de Jack",
+          "originalTitle": "The Nightmare Before Christmas",
+          "overview": "Jack Skellington, o Rei das Abóboras, se cansa de fazer o Dia das Bruxas todos os anos e deixa os limites da cidade. Por acaso, acaba atravessando o portal do Natal, onde vê a alegria do espírito natalino. Ao retornar para a Cidade do Halloween, sem ter compreendido o que viu, ele começa a convencer os cidadãos a sequestrarem o Papai Noel e fazerem seu próprio Natal. Apesar de sua leal namorada Sally ser contra, o Papai Noel é capturado e os fatos mostrarão que Sally estava certa o tempo todo.",
+          "posterPath": "/g6zcll9bcAmoVNiMxt4wmVwTl5f.jpg",
+          "backdropPath": "/dSfrsjhqC6lYe7LYDYnzWeXZmEl.jpg",
+          "voteAverage": 7.9,
+          "voteCount": 10958,
+          "releaseYear": 1993,
+          "genreIds": [
+            14,
+            16,
+            10751
+          ],
+          "originalLanguage": "en"
+        },
+        "9495": {
+          "tmdbId": 9495,
+          "title": "O Corvo",
+          "originalTitle": "The Crow",
+          "overview": "O roqueiro Eric Draven está morto... Mas, estranhamente, ele ainda vive. Ele ainda não pode descansar em paz. Não enquanto os vermes responsáveis por sua morte e também pelo assassinato de sua noiva permanecerem vivos. Assim, Draven retorna de seu túmulo para submeter seus matadores à uma implacável vingança. E ele não está sozinho. Um amedrontador corvo do outro mundo guia Draven em sua jornada.",
+          "posterPath": "/41JAMG1NlbfhKJ9Hh5Um9e3YXfW.jpg",
+          "backdropPath": "/2VN9umruwVZsT1Pr1NMCV71HpUu.jpg",
+          "voteAverage": 7.5,
+          "voteCount": 4790,
+          "releaseYear": 1994,
+          "genreIds": [
+            14,
+            28,
+            53
+          ],
+          "originalLanguage": "en"
+        },
+        "10020": {
+          "tmdbId": 10020,
+          "title": "A Bela e a Fera",
+          "originalTitle": "Beauty and the Beast",
+          "overview": "Em uma pequena aldeia da França vive Bela, uma jovem inteligente que é considerada estranha pelo moradores da localidade, e seu pai, Maurice, um inventor que é visto como um louco. Ela é cortejada por Gaston, que quer casar com ela. Mas apesar de todas as jovens do lugarejo o acharem um homem bonito, Bela não o suporta, pois vê nele uma pessoa primitiva e convencida. Quando o pai de Bela vai para uma feira demonstrar sua nova invenção, ele acaba se perdendo na floresta e é atacado por lobos. Desesperado, Maurice procura abrigo em um castelo, mas acaba se tornando prisioneiro da Fera, o senhor do castelo, que na verdade é um príncipe que foi amaldiçoado por uma feiticeira quando negou abrigo a ela.",
+          "posterPath": "/is4c02QuP70BCVLp27SSlDeByoe.jpg",
+          "backdropPath": "/fW4ZCoEZRBqLAJGFQ2g5AdAfPQR.jpg",
+          "voteAverage": 7.7,
+          "voteCount": 11053,
+          "releaseYear": 1991,
+          "genreIds": [
+            10749,
+            10751,
+            16,
+            14
+          ],
+          "originalLanguage": "en"
+        },
+        "16859": {
+          "tmdbId": 16859,
+          "title": "O Serviço de Entregas da Kiki",
+          "originalTitle": "魔女の宅急便",
+          "overview": "Ao completar 13 anos, seguindo a tradição de todas as bruxas, Kiki deve se mudar para uma cidade na qual não haja nenhuma bruxa e passar lá um ano morando sozinha em uma espécie de “treinamento”. Após achar uma bela cidade à beira mar, Kiki e seu gatinho Jiji tentam se adaptar à nova vida.",
+          "posterPath": "/eM4mDoXpOTwqMldmCy76cftok9m.jpg",
+          "backdropPath": "/ooGaNXI2OYszAajCFdIXLr73E1S.jpg",
+          "voteAverage": 7.8,
+          "voteCount": 4844,
+          "releaseYear": 2025,
+          "genreIds": [
+            16,
+            10751,
+            14
+          ],
+          "originalLanguage": "ja"
+        },
+        "656908": {
+          "tmdbId": 656908,
+          "title": "Ramayana: O Nascimento de uma Lenda",
+          "originalTitle": "रामायणम्",
+          "overview": "Rama é um príncipe cujo destino é marcado pelo sacrifício, enquanto Ravana é um rei imortal movido pela vingança. Uma profecia une os destinos dos dois.",
+          "posterPath": "/lV7b3n4tqwlKGUsl72r3fI7COH1.jpg",
+          "backdropPath": "/yHVZncPRZr63mezRX20IyKLrSkv.jpg",
+          "voteAverage": 7.4,
+          "voteCount": 62,
+          "releaseYear": 2026,
+          "genreIds": [
+            14,
+            28,
+            12
+          ],
+          "originalLanguage": "hi"
+        },
+        "687163": {
+          "tmdbId": 687163,
+          "title": "Devoradores de Estrelas",
+          "originalTitle": "Project Hail Mary",
+          "overview": "O professor de ciências Ryland Grace acorda em uma espaçonave a anos-luz de casa, sem nenhuma lembrança de quem é ou como chegou ali. À medida que sua memória retorna, ele começa a descobrir sua missão: resolver o enigma de uma substância misteriosa que está fazendo o Sol morrer. Ele precisará recorrer ao seu conhecimento científico e a ideias nada convencionais para salvar tudo na Terra da extinção… mas uma amizade inesperada pode significar que ele não terá que fazer isso sozinho.",
+          "posterPath": "/2i8uru7rlbHKaoIbC2V4FZLT7uW.jpg",
+          "backdropPath": "/2I1OFQJ0L9T0dpU6FobKFWV2PxX.jpg",
+          "voteAverage": 8.6,
+          "voteCount": 8972,
+          "releaseYear": 2026,
+          "genreIds": [
+            878,
+            12
+          ],
+          "originalLanguage": "en"
+        },
+        "791523": {
+          "tmdbId": 791523,
+          "title": "O Bosque Selvagem",
+          "originalTitle": "Wildwood",
+          "overview": "A determinada adolescente Prue McKeel embarca em uma missão desesperada de resgate depois que seu irmão caçula é sequestrado por um bando de corvos. Acompanhada por seu colega de classe desajeitado, mas leal, Curtis Mehlberg, Prue navega por um mundo habitado por animais falantes, bandidos e figuras poderosas movidas pela dor e pela ambição. À medida que a dupla é arrastada para um conflito que ameaça o equilíbrio da própria floresta, Prue precisa descobrir uma força e uma crença que jamais soube que possuía.",
+          "posterPath": "/mcuUYNWGJHPEaRumOlgSZCzMRPc.jpg",
+          "backdropPath": "/sl5NJ1vtyhP9Vr88bB4blULsJYp.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 306,
+          "releaseYear": 2026,
+          "genreIds": [
+            16,
+            12,
+            18,
+            14
+          ],
+          "originalLanguage": "en"
+        },
+        "969681": {
+          "tmdbId": 969681,
+          "title": "Homem-Aranha: Um Novo Dia",
+          "originalTitle": "Spider-Man: Brand New Day",
+          "overview": "É um novo dia para Peter Parker. Combatendo o crime em tempo integral como Homem-Aranha em um mundo que não se lembra mais dele e lidando com a pressão de ver seus antigos amigos seguirem em frente sem sua presença, Peter passa por uma mudança que talvez nem ele tenha o poder de controlar. Mas essa transformação também pode ser a única coisa capaz de deter uma surpreendente nova ameaça à cidade e às pessoas que ele ama: um poderoso vilão que ninguém sequer consegue enxergar.",
+          "posterPath": "/x0nvYzQpyJc5pdT9lMnkMuYAg0O.jpg",
+          "backdropPath": "/r08LxMJCbf1SiJIWeyH9aJmdqwC.jpg",
+          "voteAverage": 8.5,
+          "voteCount": 7002,
+          "releaseYear": 2026,
+          "genreIds": [
+            878,
+            28,
+            12
+          ],
+          "originalLanguage": "en"
+        },
+        "1058424": {
+          "tmdbId": 1058424,
+          "title": "Hope: O Primeiro Impacto",
+          "originalTitle": "호프",
+          "overview": "A polícia investiga a presença de uma criatura misteriosa que vem causando tumulto na remota vila de Hope Harbor. Ao seguir os rastros do animal, um grupo de caçadores acaba se tornando sua presa involuntária, dando início a um conflito que se transforma em uma tragédia de proporções cósmicas.",
+          "posterPath": "/yfWe8Vaac8b8f9dagmzBWOroUcg.jpg",
+          "backdropPath": "/qqHFLg90IUSoTmSMpKOOW5RyqN3.jpg",
+          "voteAverage": 6.8,
+          "voteCount": 740,
+          "releaseYear": 2026,
+          "genreIds": [
+            878,
+            9648,
+            28
+          ],
+          "originalLanguage": "ko"
+        },
+        "1153576": {
+          "tmdbId": 1153576,
+          "title": "Street Fighter",
+          "originalTitle": "Street Fighter",
+          "overview": "Em 1993, os lutadores Ryu e Ken Masters são colocados de volta no combate quando a misteriosa Chun-Li os recruta para o próximo Torneio Street Fighter: uma brutal briga de socos, destino e fúria. Entretanto, por trás desse campeonato, se esconde uma conspiração mortal que os força a encarar um ao outro e os demônios do passado. E se eles não fizerem, é game over!",
+          "posterPath": "/6gWmrC2GyDbUM1ET5EBg9lxBi7S.jpg",
+          "backdropPath": "/zDE9hd1SG9695YncbZGjSf7Z9Jk.jpg",
+          "voteAverage": 6.2,
+          "voteCount": 257,
+          "releaseYear": 2026,
+          "genreIds": [
+            28,
+            35,
+            14
+          ],
+          "originalLanguage": "en"
+        },
+        "1228834": {
+          "tmdbId": 1228834,
+          "title": "The Fix",
+          "originalTitle": "The Fix",
+          "overview": "Desiludidos com o fim da guerra no Afeganistão, um grupo de ex-agentes da CIA, em desgraça e marcados pela guerra, parte para Teerã com o objetivo de realizar um golpe que mudará suas vidas.",
+          "posterPath": "/a1j5writymMPFPyOhBT7s1xX6v6.jpg",
+          "backdropPath": "/dJTWIecL2vxsCRl5G0lRhPsfrhc.jpg",
+          "voteAverage": 5.8,
+          "voteCount": 97,
+          "releaseYear": 2026,
+          "genreIds": [
+            28,
+            53
+          ],
+          "originalLanguage": "en"
+        },
+        "1244523": {
+          "tmdbId": 1244523,
+          "title": "Boiúna - Terror no Amazonas",
+          "originalTitle": "Beware Boiúna",
+          "overview": "Um grupo de jovens médicos embarca em missão humanitária na Amazônia, cada um com seus próprios interesses ocultos. No entanto, nem todos recebem bem a chegada do grupo, e a visita deles desperta um predador ancestral: a Boiúna. A criatura mítica retorna para defender seu território. Em meio à selva densa, trava-se uma luta pela sobrevivência, e as fronteiras entre caçador e presa, herói e vilão, tornam-se cada vez mais tênues.",
+          "posterPath": "/mCyttsR7mW91v2Mpy5AXMCtWKAK.jpg",
+          "backdropPath": "/9nU0FKNefmhbgi2xXlvZchZsqwm.jpg",
+          "voteAverage": 5.9,
+          "voteCount": 69,
+          "releaseYear": 2026,
+          "genreIds": [
+            12,
+            27,
+            53
+          ],
+          "originalLanguage": "en"
+        },
+        "1263337": {
+          "tmdbId": 1263337,
+          "title": "Coração Selvagem",
+          "originalTitle": "Heart of the Beast",
+          "overview": "Um ex-soldado ferido e seu cão de guerra aposentado lutam para sobreviver na região do Alasca e encontrar o caminho de volta para casa após um acidente aéreo na mata.",
+          "posterPath": "/n4PJa4xVo4SjIsBvTA0yGMKjTBh.jpg",
+          "backdropPath": "/yE766yhgg98tKwTKd8CyNvAtmn6.jpg",
+          "voteAverage": 7.8,
+          "voteCount": 1078,
+          "releaseYear": 2026,
+          "genreIds": [
+            12,
+            53
+          ],
+          "originalLanguage": "en"
+        },
+        "1294189": {
+          "tmdbId": 1294189,
+          "title": "Fuga Mortal",
+          "originalTitle": "The Mongoose",
+          "overview": "Um herói de guerra falsamente acusado, sem nada a perder, lidera a polícia em uma épica perseguição televisiva de carro pelo país, ajudado por membros de seu antigo batalhão das Forças Especiais do Exército e monitorado de perto por um público fascinado que torce por sua fuga segura.",
+          "posterPath": "/3QX08keJGtcIJsCyy4Mdaq28ZGq.jpg",
+          "backdropPath": "/bySCyjQXNPgsnLTlgJpSMnRazPD.jpg",
+          "voteAverage": 6.4,
+          "voteCount": 225,
+          "releaseYear": 2026,
+          "genreIds": [
+            28,
+            53
+          ],
+          "originalLanguage": "en"
+        },
+        "1300968": {
+          "tmdbId": 1300968,
+          "title": "Jogos Vorazes: Amanhecer na Colheita",
+          "originalTitle": "The Hunger Games: Sunrise on the Reaping",
+          "overview": "Revisite o mundo de Panem 24 anos antes dos eventos de Jogos Vorazes, começando na manhã da colheita dos 50º Jogos Vorazes, também conhecida como o Segundo Massacre Quaternário.",
+          "posterPath": "/ibZ6GSHtCeC7fLDJ2uyXNemgYwr.jpg",
+          "backdropPath": "/aqFZcr2dxSZ2UwWSo1WC6C0rwDf.jpg",
+          "voteAverage": 7.4,
+          "voteCount": 115,
+          "releaseYear": 2026,
+          "genreIds": [
+            878,
+            28,
+            12
+          ],
+          "originalLanguage": "en"
+        },
+        "1368337": {
+          "tmdbId": 1368337,
+          "title": "A Odisseia",
+          "originalTitle": "The Odyssey",
+          "overview": "Acompanhe o rei grego Odisseu em sua perigosa jornada de 20 anos para voltar a Ítaca após a Guerra de Troia, enfrentando monstros e deuses enquanto sua esposa Penélope resiste em seu reino.",
+          "posterPath": "/m0ehGErq8GTLK4WZxaq9QLGAR3u.jpg",
+          "backdropPath": "/dZI4Ek4qc2Fib2G1zFkGhKKuc6j.jpg",
+          "voteAverage": 8,
+          "voteCount": 5223,
+          "releaseYear": 2026,
+          "genreIds": [
+            12,
+            28,
+            14
+          ],
+          "originalLanguage": "en"
+        },
+        "1381071": {
+          "tmdbId": 1381071,
+          "title": "Godzilla Minus Zero",
+          "originalTitle": "ゴジラ-0.0",
+          "overview": "A guerra reduziu o Japão a zero, e o Godzilla mergulhou-o no negativo. Passaram-se dois anos desde então, e o país tem enfrentado lutas agonizantes para alcançar a recuperação e, finalmente, voltar à vida normal. No momento em que a humanidade conseguiu se agarrar a uma paz conquistada com dificuldade, surge uma nova ameaça, esmagando a esperança num instante.",
+          "posterPath": "/ebVZ8n64rtHsSItTei4EgTKzPVu.jpg",
+          "backdropPath": "/oqrYIDH4tvfEzPe1yqT4jzmAWHQ.jpg",
+          "voteAverage": 7.7,
+          "voteCount": 274,
+          "releaseYear": 2026,
+          "genreIds": [
+            878,
+            27,
+            28
+          ],
+          "originalLanguage": "ja"
+        },
+        "1423191": {
+          "tmdbId": 1423191,
+          "title": "Resident Evil",
+          "originalTitle": "Resident Evil",
+          "overview": "Bryan, um tranquilo entregador de órgãos, é enviado para uma entrega noturna no Hospital Geral de Raccoon City. No caminho por uma estrada montanhosa coberta de neve, ele acidentalmente atropela uma mulher desconhecida. Ela sobrevive, mas algo está muito errado. Ao tentar ajudar, Bryan se depara com um surto em larga escala envolvendo mutações horríveis com tentáculos e monstruosidades bioengenheiradas.",
+          "posterPath": "/bvBTdNaWVPrHKjyPFnsigZJsKdD.jpg",
+          "backdropPath": "/3icyRAqgakNcQn6aDVz9libFmBA.jpg",
+          "voteAverage": 7.5,
+          "voteCount": 2413,
+          "releaseYear": 2026,
+          "genreIds": [
+            27,
+            878,
+            12
+          ],
+          "originalLanguage": "en"
+        },
+        "1507696": {
+          "tmdbId": 1507696,
+          "title": "Apocalipse Z: Novo Mundo",
+          "originalTitle": "Apocalipsis Z: Nuevo mundo",
+          "overview": "Após o surto do vírus TSJ, as Ilhas Canárias se tornaram o último refúgio da Europa. Quando uma missão parte rumo a Madri em busca de suprimentos, Roberto se junta à equipe com intenções duvidosas. Cercados por infectados e divididos por lealdades conflitantes, eles precisam lutar pela sobrevivência e enfrentar um dilema moral: salvar a própria pele ou arriscar tudo pelo que resta da humanidade.",
+          "posterPath": "/tzk90shtAI6WaoDIjLLVten7oov.jpg",
+          "backdropPath": "/o3XwuDUj0n8qnK91p6q8LKfr6rj.jpg",
+          "voteAverage": 6.2,
+          "voteCount": 239,
+          "releaseYear": 2026,
+          "genreIds": [
+            28,
+            53,
+            27
+          ],
+          "originalLanguage": "es"
+        },
+        "1514026": {
+          "tmdbId": 1514026,
+          "title": "Buddy",
+          "originalTitle": "Buddy",
+          "overview": "Lembra de BUDDY, o unicórnio laranja vibrante e estrela daquele clássico programa de televisão infantil que levava alegria e lições de vida para a sala de estar? Dentro do mundo colorido de It's Buddy!, um grupo de crianças passa os dias cantando, dançando e ajudando Buddy a espalhar felicidade. Mas, quando uma das crianças se recusa a participar da brincadeira, Buddy não fica nada satisfeito, e rachaduras começam a surgir nesse mundo aparentemente perfeito.",
+          "posterPath": "/29QY0eScq4chCvZNBx3BIxNdbml.jpg",
+          "backdropPath": "/sMmG82PtjK8A9rVc34gwKQtCm3A.jpg",
+          "voteAverage": 6.8,
+          "voteCount": 297,
+          "releaseYear": 2026,
+          "genreIds": [
+            27,
+            35,
+            14
+          ],
+          "originalLanguage": "en"
+        },
+        "1562642": {
+          "tmdbId": 1562642,
+          "title": "Ghost Soldier",
+          "originalTitle": "Ghost Soldier",
+          "overview": "Um engenheiro de sistemas de armas e ex-boina verde protege seus vizinhos em Wyoming contra uma corporação implacável que ameaça sua comunidade rural.",
+          "posterPath": "/h1MUn834b2u1FDQWObUBwp5jlHJ.jpg",
+          "backdropPath": "/ggqvhSdAASrseKuMlzk51sbvbE8.jpg",
+          "voteAverage": 8.9,
+          "voteCount": 33,
+          "releaseYear": 2026,
+          "genreIds": [
+            28,
+            53
+          ],
+          "originalLanguage": "en"
+        },
+        "1567605": {
+          "tmdbId": 1567605,
+          "title": "Ebenezer e os Fantasmas do Natal",
+          "originalTitle": "Ebenezer",
+          "overview": "Ebenezer Scrooge é um velho avarento que recebe a visita do fantasma de seu antigo sócio, Jacob Marley, e dos Espíritos do Natal Passado, Presente e Futuro. Os encontros o força a confrontar o próprio passado e a lutar por uma segunda chance de ser feliz.",
+          "posterPath": "/7MBeM27NNcCYUszjTNYJUycPDhV.jpg",
+          "backdropPath": "/274ahmbkJSzdmcWrWSTu9DFv5rp.jpg",
+          "voteAverage": 7.5,
+          "voteCount": 136,
+          "releaseYear": 2026,
+          "genreIds": [
+            14,
+            35
+          ],
+          "originalLanguage": "en"
+        },
+        "1616687": {
+          "tmdbId": 1616687,
+          "title": "Sem Desistir",
+          "originalTitle": "Serangan Balik",
+          "overview": "Depois que uma gangue violenta invade sua casa isolada, um veterano atormentado pela culpa e os netos que ele mal conhece precisam unir forças para sobreviver.",
+          "posterPath": "/k0f4a5RVBwLJUq3UYXnfcOaXjCu.jpg",
+          "backdropPath": "/bjt53Hjqwl9VrtJkDv39GwmE1QN.jpg",
+          "voteAverage": 6.8,
+          "voteCount": 57,
+          "releaseYear": 2026,
+          "genreIds": [
+            28,
+            80,
+            53
+          ],
+          "originalLanguage": "id"
+        }
+      },
+      "queues": {
+        "part_a68fdd6c0af848d88d8c9f3695cffb19": {
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "movieIds": [
+            128,
+            863,
+            862,
+            111,
+            10020,
+            603,
+            81,
+            11,
+            280,
+            101,
+            16859,
+            105,
+            562
+          ],
+          "cursor": 14
+        },
+        "part_2d9f6d306e374888b0ce4c3dfedd22ea": {
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "movieIds": [
+            11,
+            863,
+            81,
+            9479,
+            218,
+            8392,
+            280,
+            101,
+            128
+          ],
+          "cursor": 25
+        }
+      },
+      "votes": [
+        {
+          "operationId": "op_qz4o6au0b4eropji",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 1514026,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:27:47.776Z"
+        },
+        {
+          "operationId": "op_cm71hqachkpxouk9",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 1228834,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:27:52.296Z"
+        },
+        {
+          "operationId": "op_ehyg3f3kd00bb4n6",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 1726,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:27:53.817Z"
+        },
+        {
+          "operationId": "op_94gg1tu3xkd6xywf",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 1294189,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:27:55.186Z"
+        },
+        {
+          "operationId": "op_edozxqq1g4ck225y",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 1423191,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:27:56.434Z"
+        },
+        {
+          "operationId": "op_lfe8qc36351d4gds",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 1300968,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:27:58.323Z"
+        },
+        {
+          "operationId": "op_6jynj3hi7em6kqph",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 1368337,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:28:00.067Z"
+        },
+        {
+          "operationId": "op_1ads6mel3ybo8l1x",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 1562642,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:28:01.395Z"
+        },
+        {
+          "operationId": "op_1l7x62oprdfw24nk",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 656908,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:28:02.010Z"
+        },
+        {
+          "operationId": "op_way9tx7fxeytlcfm",
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "tmdbId": 1514026,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:28:03.335Z"
+        },
+        {
+          "operationId": "op_lxnf3b57vry0c89f",
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "tmdbId": 1263337,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:28:04.025Z"
+        },
+        {
+          "operationId": "op_iegqetb5d0219sci",
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "tmdbId": 1423191,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:28:04.191Z"
+        },
+        {
+          "operationId": "op_8lyrwl3pk5kv5xy9",
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "tmdbId": 1228834,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:28:05.416Z"
+        },
+        {
+          "operationId": "op_zay835g2wyufs4vz",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 969681,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:28:16.496Z"
+        },
+        {
+          "operationId": "op_38v4481glrcft5x8",
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "tmdbId": 1294189,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:28:16.626Z"
+        },
+        {
+          "operationId": "op_sp3dwt9ydn5coahb",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 1058424,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:28:18.495Z"
+        },
+        {
+          "operationId": "op_98pmmumyzqmm70qk",
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "tmdbId": 1381071,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:28:19.206Z"
+        },
+        {
+          "operationId": "op_orxl309swl7ru9j2",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 1244523,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:28:19.230Z"
+        },
+        {
+          "operationId": "op_838jfjvza8xq9hz2",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 1616687,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:28:19.485Z"
+        },
+        {
+          "operationId": "op_9nlj0d0piayvc9cp",
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "tmdbId": 1058424,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:28:19.658Z"
+        },
+        {
+          "operationId": "op_eo28gq25npxowh88",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 1153576,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:28:19.673Z"
+        },
+        {
+          "operationId": "op_1743n9fmkefrfl33",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 105,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:29:08.441Z"
+        },
+        {
+          "operationId": "op_v30gpaf6zoex227u",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 862,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:29:10.024Z"
+        },
+        {
+          "operationId": "op_enh9r3s41qizv2cl",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 562,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:29:12.972Z"
+        },
+        {
+          "operationId": "op_puii4mko7lmrbho5",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 8587,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:29:14.093Z"
+        },
+        {
+          "operationId": "op_lnrvfudo6qtcfktk",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 111,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:29:15.021Z"
+        },
+        {
+          "operationId": "op_i22f0xat8cmhrhbr",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 16859,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:29:15.840Z"
+        },
+        {
+          "operationId": "op_ffm8268idsen7gm8",
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "tmdbId": 497,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:29:18.017Z"
+        },
+        {
+          "operationId": "op_qpc2oqqh76zi6w2o",
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "tmdbId": 949,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:29:18.502Z"
+        },
+        {
+          "operationId": "op_eavmzwt7sue9ef01",
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "tmdbId": 9495,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:29:18.823Z"
+        },
+        {
+          "operationId": "op_b1bmzn83fw363gr9",
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "tmdbId": 8587,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:29:19.007Z"
+        },
+        {
+          "operationId": "op_iomjwfogo8mrohas",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 10020,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:30:46.949Z"
+        },
+        {
+          "operationId": "op_3t1mi3g89z7rkybz",
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "tmdbId": 8392,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:32:14.022Z"
+        },
+        {
+          "operationId": "op_tvhqph1zj950ta8q",
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "tmdbId": 9479,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:32:14.798Z"
+        },
+        {
+          "operationId": "op_evkvy4raahcrsanw",
+          "participantId": "part_a68fdd6c0af848d88d8c9f3695cffb19",
+          "tmdbId": 218,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:32:15.910Z"
+        },
+        {
+          "operationId": "op_2bnqgfycoxwgadg9",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 949,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:35:50.457Z"
+        },
+        {
+          "operationId": "op_66ub01rnfbcdrzqr",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 497,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:35:52.819Z"
+        },
+        {
+          "operationId": "op_infrvrlbx1io3s8i",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 603,
+          "decision": "DISLIKE",
+          "createdAt": "2026-11-20T23:35:54.938Z"
+        },
+        {
+          "operationId": "op_vmvyi0v0hbo0dcz3",
+          "participantId": "part_2d9f6d306e374888b0ce4c3dfedd22ea",
+          "tmdbId": 9495,
+          "decision": "LIKE",
+          "createdAt": "2026-11-20T23:35:57.143Z"
+        }
+      ],
+      "matches": {
+        "8587": {
+          "tmdbId": 8587,
+          "matchedAt": "2026-11-20T23:29:19.007Z",
+          "status": "ACTIVE"
+        },
+        "9495": {
+          "tmdbId": 9495,
+          "matchedAt": "2026-11-20T23:35:57.143Z",
+          "status": "ACTIVE"
+        },
+        "1058424": {
+          "tmdbId": 1058424,
+          "matchedAt": "2026-11-20T23:28:19.658Z",
+          "status": "ACTIVE"
+        },
+        "1228834": {
+          "tmdbId": 1228834,
+          "matchedAt": "2026-11-20T23:28:05.416Z",
+          "status": "ACTIVE"
+        }
+      },
+      "finalProposal": null,
+      "chosenMovieId": null
+    }
+  },
+  "history": [
+    {
+      "roomId": "room_b8d9fab4978f437fbbd13e01dc24b6c9",
+      "roomCode": "DDAUGD",
+      "createdAt": "2026-11-20T22:34:25.646Z",
+      "finishedAt": "2026-11-20T23:21:39.088Z",
+      "participantNames": [
+        "Paulo",
+        "Jade"
+      ],
+      "totalVotes": 15,
+      "matches": [
+        {
+          "movie": {
+            "tmdbId": 497,
+            "title": "À Espera de um Milagre",
+            "originalTitle": "The Green Mile",
+            "overview": "Um guarda penitenciário descobre que um detento no corredor da morte possui um dom extraordinário.",
+            "posterPath": "/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+            "backdropPath": "/l6hQWH9eDksNJNiXWYRkWqikOdu.jpg",
+            "voteAverage": 8.5,
+            "voteCount": 17300,
+            "releaseYear": 1999,
+            "genreIds": [
+              14,
+              18,
+              80
+            ],
+            "originalLanguage": "en",
+            "runtime": 189
+          },
+          "matchedAt": "2026-11-20T22:46:25.596Z",
+          "status": "ACTIVE"
+        }
+      ],
+      "chosenMovie": null
+    }
+  ]
+}

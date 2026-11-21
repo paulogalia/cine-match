@@ -1,0 +1,249 @@
+.card {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--bg-surface);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: var(--shadow-card);
+  touch-action: none;
+  user-select: none;
+  will-change: transform, opacity;
+  cursor: grab;
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+.cardDisabled {
+  cursor: default;
+}
+
+.posterLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 13, 20, 0.35) 0%,
+    rgba(11, 13, 20, 0.04) 26%,
+    rgba(11, 13, 20, 0.14) 50%,
+    rgba(11, 13, 20, 0.88) 78%,
+    rgba(11, 13, 20, 0.98) 100%
+  );
+  pointer-events: none;
+}
+
+.topBar {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.ratingPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 11px;
+  border-radius: var(--radius-pill);
+  background: rgba(11, 13, 20, 0.72);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: #fde68a;
+}
+
+.yearPill {
+  padding: 6px 11px;
+  border-radius: var(--radius-pill);
+  background: rgba(11, 13, 20, 0.72);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Selos dinâmicos de voto (GOSTEI / PASSAR) */
+.stamp {
+  position: absolute;
+  top: 62px;
+  z-index: 5;
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: 3px solid;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+}
+
+.stampLike {
+  left: 18px;
+  color: #ff4d6d;
+  border-color: #ff4d6d;
+  background: rgba(255, 77, 109, 0.14);
+  transform: rotate(-12deg);
+}
+
+.stampNope {
+  right: 18px;
+  color: #cbd5e1;
+  border-color: #cbd5e1;
+  background: rgba(15, 23, 42, 0.55);
+  transform: rotate(12deg);
+}
+
+/* Conteúdo inferior sobre o pôster */
+.infoOverlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  padding: 18px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 5.8vw, 26px);
+  font-weight: 800;
+  line-height: 1.12;
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+.expandBtn {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(19, 22, 34, 0.72);
+  backdrop-filter: blur(6px);
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.genreTag {
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(4px);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #f1f5f9;
+}
+
+.runtimeTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-left: 2px;
+}
+
+.synopsis {
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: #cbd5e1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Painel expansível de sinopse completa */
+.expandedSheet {
+  position: absolute;
+  inset: auto 0 0 0;
+  max-height: 74%;
+  overflow-y: auto;
+  z-index: 8;
+  padding: 20px 18px 20px;
+  background: linear-gradient(180deg, rgba(16, 19, 30, 0.94) 0%, rgba(11, 13, 20, 0.99) 100%);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.expandedHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.originalTitle {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.fullOverview {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #e2e8f0;
+}
+
+.oscarPill {
+  position: absolute;
+  top: 52px;
+  left: 14px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.28), rgba(180, 83, 9, 0.45));
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(251, 191, 36, 0.55);
+  color: #fef3c7;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  max-width: calc(100% - 28px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
