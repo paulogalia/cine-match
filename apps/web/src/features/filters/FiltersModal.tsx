@@ -19,6 +19,7 @@ import { Button } from '../../components/ui/Button';
 import { Modal } from '../../components/ui/Modal';
 import { useSessionStore } from '../../stores/sessionStore';
 import { getProviderLogoUrl } from '../../utils/tmdbImages';
+import { PeopleFilterSection } from './PeopleFilterSection';
 
 interface FiltersModalProps {
   open: boolean;
@@ -494,6 +495,20 @@ export function FiltersModal({ open, currentFilters, onClose, onApply }: Filters
             </div>
           )}
         </div>
+
+        {/* 2.5 Diretores & Atores */}
+        <PeopleFilterSection
+          directors={draft.directors ?? []}
+          actors={draft.actors ?? []}
+          onChange={({ directors, actors }) =>
+            setDraft((prev) => ({
+              ...prev,
+              presetId: undefined,
+              directors: directors.length > 0 ? directors : undefined,
+              actors: actors.length > 0 ? actors : undefined,
+            }))
+          }
+        />
 
         {/* 3. Seus Streamings no Brasil */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>

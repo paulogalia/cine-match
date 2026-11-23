@@ -90,8 +90,35 @@ export function createApp(options: CreateAppOptions): AppInstance {
     }
   });
 
+  app.get('/api/people/search', async (req, res) => {
+    const q = typeof req.query.q === 'string' ? req.query.q.trim() : '';
+    const rawRole = typeof req.query.role === 'string' ? req.query.role : undefined;
+    const role = rawRole === 'director' || rawRole === 'actor' ? rawRole : undefined;
+
+    try {
+      const people = await catalogProvider.searchPeople(q, role);
+      res.json({ people, source: catalogProvider.source });
+    } catch {
+      res.status(503).json({ error: 'Busca de diretores e atores temporariamente indisponível.' });
+    }
+  });
+
   app.get('/api/history', (_req, res) => {
     res.json({ history: roomManager.getHistory() });
+  });
+
+  app.get('/api/watched', (_req, res) => {
+    res.json({ watchedMovies: roomManager.getWatchedMovies() });
+  });
+
+  app.delete('/api/watched/:tmdbId', (req, res) => {
+    const tmdbId = Number(req.params.tmdbId);
+    if (!Number.isInteger(tmdbId) || tmdbId <= 0) {
+      res.status(400).json({ error: 'ID do filme inválido.' });
+      return;
+    }
+    const removed = roomManager.unmarkWatchedMovie(tmdbId);
+    res.json({ removed, watchedMovies: roomManager.getWatchedMovies() });
   });
 
   app.get('/api/movies/search', async (req, res) => {
@@ -137,7 +164,15 @@ export function createApp(options: CreateAppOptions): AppInstance {
     const webDistPath = path.resolve(currentDir, '../../web/dist');
 
     if (fs.existsSync(webDistPath)) {
-      app.use(express.static(webDistPath));
+      app.use(
+        express.static(webDistPath, {
+          setHeaders: (res, filePath) => {
+            if (filePath.endsWith("sw.js")) {
+              res.setHeader("Cache-Control", "no-cache");
+            }
+          },
+        }),
+      );
       app.get('*', (req, res, next) => {
         if (req.path.startsWith('/api') || req.path.startsWith('/socket.io')) {
           return next();

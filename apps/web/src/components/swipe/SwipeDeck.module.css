@@ -28,14 +28,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 28px;
+  gap: 16px;
   padding: 12px 0 2px;
   flex-shrink: 0;
 }
 
 .voteBtn {
-  width: 64px;
-  height: 64px;
+  width: 62px;
+  height: 62px;
   border-radius: 50%;
   border: 1.5px solid;
   display: inline-flex;
@@ -45,8 +45,28 @@
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.38);
 }
 
-.voteBtn:disabled {
-  opacity: 0.4;
+.secondaryBtn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 150ms ease, border-color 150ms ease, opacity 150ms ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.32);
+}
+
+.secondaryBtn:not(:disabled):hover {
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.voteBtn:disabled,
+.secondaryBtn:disabled {
+  opacity: 0.36;
   cursor: not-allowed;
 }
 
@@ -63,6 +83,16 @@
   box-shadow: 0 12px 30px rgba(255, 77, 109, 0.38);
 }
 
+.undoBtn:not(:disabled) {
+  color: #fde68a;
+  border-color: rgba(251, 191, 36, 0.35);
+}
+
+.watchedBtn:not(:disabled) {
+  color: #93c5fd;
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
 .hintText {
   text-align: center;
   font-size: 11.5px;
@@ -73,12 +103,17 @@
 @media (max-height: 680px) {
   .actionsRow {
     padding: 8px 0 0;
-    gap: 24px;
+    gap: 14px;
   }
 
   .voteBtn {
-    width: 56px;
-    height: 56px;
+    width: 54px;
+    height: 54px;
+  }
+
+  .secondaryBtn {
+    width: 42px;
+    height: 42px;
   }
 
   .hintText {

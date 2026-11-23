@@ -1,4 +1,4 @@
-import { Heart, Hourglass, RefreshCw, SlidersHorizontal } from 'lucide-react';
+import { Heart, Hourglass, RefreshCw, RotateCcw, SlidersHorizontal } from 'lucide-react';
 import { motion } from 'motion/react';
 import type { ClientRoomSnapshot } from '@cine-match/shared';
 import { Button } from '../../components/ui/Button';
@@ -7,6 +7,8 @@ interface WaitingQueueViewProps {
   snapshot: ClientRoomSnapshot;
   loadingMore: boolean;
   activeMatchesCount: number;
+  canUndo?: boolean;
+  onUndo?: () => Promise<boolean>;
   onRequestMore: () => Promise<void>;
   onOpenMatches: () => void;
   onOpenFilters: () => void;
@@ -16,6 +18,8 @@ export function WaitingQueueView({
   snapshot,
   loadingMore,
   activeMatchesCount,
+  canUndo = false,
+  onUndo,
   onRequestMore,
   onOpenMatches,
   onOpenFilters,
@@ -60,7 +64,7 @@ export function WaitingQueueView({
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6, maxWidth: 320 }}>
         <h2 style={{ fontSize: 22, fontWeight: 700 }}>
           {partnerRemaining > 0
-            ? `Você terminou sua fila!`
+            ? 'Você terminou sua fila!'
             : 'Nenhum filme pendente por aqui'}
         </h2>
         <p style={{ fontSize: 14.5, color: 'var(--text-secondary)', lineHeight: 1.55 }}>
@@ -94,6 +98,17 @@ export function WaitingQueueView({
         >
           Ver matches ({activeMatchesCount})
         </Button>
+
+        {canUndo && onUndo && (
+          <Button
+            variant="secondary"
+            fullWidth
+            icon={<RotateCcw size={16} />}
+            onClick={() => void onUndo()}
+          >
+            Desfazer último voto
+          </Button>
+        )}
 
         <Button
           variant="ghost"

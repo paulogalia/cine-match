@@ -6,6 +6,7 @@ import {
   ERROR_CODES,
   FiltersUpdatePayloadSchema,
   MatchDismissPayloadSchema,
+  MovieWatchedPayloadSchema,
   RoomActionPayloadSchema,
   RoomCreatePayloadSchema,
   RoomJoinPayloadSchema,
@@ -405,6 +406,106 @@ export function createSocketServer(
       }
     });
 
+    socket.on('vote:undo', (rawPayload, ack) => {
+      if (!checkGeneralLimit(socket)) {
+        return fail(ack, ERROR_CODES.RATE_LIMITED, 'Muitas requisições em sequência.');
+      }
+
+      const parsed = RoomActionPayloadSchema.safeParse(rawPayload);
+      if (!parsed.success) {
+        return fail(ack, ERROR_CODES.VALIDATION_ERROR, 'Código da sala inválido.');
+      }
+
+      try {
+        const binding = requireBinding(socket, parsed.data.roomCode);
+        const { room, result } = roomManager.undoLastVote(binding.roomCode, binding.participantId);
+        const snap = roomManager.getClientSnapshot(room, binding.participantId);
+        const matches = roomManager.getClientMatches(room);
+
+        ack?.({
+          ok: true,
+          data: {
+            undoneMovieId: result.undoneVote.tmdbId,
+            matchReverted: result.matchReverted,
+            myVotesCount: snap.myVotesCount,
+            canUndo: Boolean(snap.canUndo),
+            queue: snap.queue,
+            queueTotalRemaining: snap.queueTotalRemaining,
+            catalogExhausted: snap.catalogExhausted,
+            matches,
+            stateVersion: room.stateVersion,
+          },
+        });
+
+        socket
+          .to(room.code)
+          .emit('participant:progress', roomManager.getPartnerProgress(room, binding.participantId));
+
+        if (result.matchReverted) {
+          io.to(room.code).emit('matches:updated', {
+            matches,
+            stateVersion: room.stateVersion,
+          });
+        }
+      } catch (err) {
+        const payload = toErrorPayload(err);
+        fail(ack, payload.code, payload.message);
+      }
+    });
+
+    socket.on('movie:mark_watched', (rawPayload, ack) => {
+      if (!checkGeneralLimit(socket)) {
+        return fail(ack, ERROR_CODES.RATE_LIMITED, 'Muitas requisições em sequência.');
+      }
+
+      const parsed = MovieWatchedPayloadSchema.safeParse(rawPayload);
+      if (!parsed.success) {
+        return fail(ack, ERROR_CODES.VALIDATION_ERROR, 'Dados inválidos para marcar filme.');
+      }
+
+      try {
+        const binding = requireBinding(socket, parsed.data.roomCode);
+        const { room, entry } = roomManager.markMovieWatched(
+          binding.roomCode,
+          binding.participantId,
+          parsed.data.tmdbId,
+        );
+        const matches = roomManager.getClientMatches(room);
+        const mySnap = roomManager.getClientSnapshot(room, binding.participantId);
+
+        ack?.({
+          ok: true,
+          data: {
+            tmdbId: entry.tmdbId,
+            title: entry.title,
+            queue: mySnap.queue,
+            queueTotalRemaining: mySnap.queueTotalRemaining,
+            catalogExhausted: mySnap.catalogExhausted,
+            matches,
+            stateVersion: room.stateVersion,
+          },
+        });
+
+        for (const p of room.participants) {
+          if (p.id === binding.participantId || !p.socketId) continue;
+          const partnerSnap = roomManager.getClientSnapshot(room, p.id);
+          io.to(p.socketId).emit('movie:watched_removed', {
+            tmdbId: entry.tmdbId,
+            title: entry.title,
+            markedBy: entry.markedBy,
+            queue: partnerSnap.queue,
+            queueTotalRemaining: partnerSnap.queueTotalRemaining,
+            catalogExhausted: partnerSnap.catalogExhausted,
+            matches,
+            stateVersion: room.stateVersion,
+          });
+        }
+      } catch (err) {
+        const payload = toErrorPayload(err);
+        fail(ack, payload.code, payload.message);
+      }
+    });
+
     socket.on('match:dismiss', (rawPayload, ack) => {
       const parsed = MatchDismissPayloadSchema.safeParse(rawPayload);
       if (!parsed.success) {
@@ -471,6 +572,38 @@ export function createSocketServer(
         });
         io.to(room.code).emit('decision:proposal_updated', {
           finalProposal: null,
+          stateVersion: room.stateVersion,
+        });
+      } catch (err) {
+        const payload = toErrorPayload(err);
+        fail(ack, payload.code, payload.message);
+      }
+    });
+
+    socket.on('decision:spin_roulette', (rawPayload, ack) => {
+      if (!checkGeneralLimit(socket)) {
+        return fail(ack, ERROR_CODES.RATE_LIMITED, 'Muitas requisições em sequência.');
+      }
+
+      const parsed = RoomActionPayloadSchema.safeParse(rawPayload);
+      if (!parsed.success) {
+        return fail(ack, ERROR_CODES.VALIDATION_ERROR, 'Código da sala inválido.');
+      }
+
+      try {
+        const binding = requireBinding(socket, parsed.data.roomCode);
+        const { room, spin, proposal } = roomManager.spinDecisionRoulette(
+          binding.roomCode,
+          binding.participantId,
+        );
+
+        ack?.({
+          ok: true,
+          data: { spin, finalProposal: proposal, stateVersion: room.stateVersion },
+        });
+        io.to(room.code).emit('decision:roulette_spun', {
+          spin,
+          finalProposal: proposal,
           stateVersion: room.stateVersion,
         });
       } catch (err) {

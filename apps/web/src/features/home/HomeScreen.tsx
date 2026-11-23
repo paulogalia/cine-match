@@ -4,6 +4,7 @@ import { staggerContainer, staggerItem } from '../../animations/presets';
 import { BrandLogo } from '../../components/ui/BrandLogo';
 import { Button } from '../../components/ui/Button';
 import { TmdbAttribution } from '../../components/ui/TmdbAttribution';
+import { InstallPwaButton } from './InstallPwaButton';
 import { useSessionStore } from '../../stores/sessionStore';
 import styles from './HomeScreen.module.css';
 
@@ -82,6 +83,8 @@ export function HomeScreen() {
         >
           Histórico de sessões
         </Button>
+
+        <InstallPwaButton />
 
         <button
           type="button"

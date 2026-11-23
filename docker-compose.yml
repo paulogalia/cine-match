@@ -1,0 +1,15 @@
+services:
+  cine-match:
+    build: .
+    container_name: cine-match
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATA_FILE_PATH: /app/data/sessions.json
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./data:/app/data

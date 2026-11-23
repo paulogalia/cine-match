@@ -9,6 +9,9 @@ Aplicação web local e mobile-first para duas pessoas escolherem filmes juntas 
 - **Swipe físico a 60 FPS + botões acessíveis:** arrasto com inclinação proporcional, selos dinâmicos (`GOSTEI` / `PASSAR`), retorno elástico, atalhos de teclado (`←` / `→`) e feedback tátil quando suportado.
 - **Match simultâneo e sessão contínua:** animação cinematográfica sincronizada nos dois celulares quando ambos dão `LIKE`, com lista compartilhada de matches, remoção da lista de interesse (sem apagar votos originais), tela **"Decidir agora"** com confirmação mútua e histórico de sessões.
 - **Integração com TMDB (`pt-BR`):** catálogo dinâmico, filtros por gênero, ano, duração, nota mínima, ordenação e idioma, cache no backend, detalhes sob demanda e disponibilidade de streaming no Brasil. Funciona também com catálogo local de 24 filmes se a chave do TMDB não estiver configurada.
+- **Descoberta avançada (Oscar, Diretores, Atores, Streamings BR e Vibes):** filtre por categorias e anos do Oscar, pesquise diretores ou atores (com filmografia estrita e cruzamento de colaborações), filtre pelos seus streamings no Brasil, ative descoberta aleatória e pule filmes do histórico.
+- **Trailers, Undo, "Já assistimos" e Roleta de desempate:** assista a trailers oficiais nos detalhes com direção/elenco clicáveis, desfaça o último swipe, oculte permanentemente filmes já vistos e use a roleta sincronizada quando houver empate entre matches.
+- **Experiência nativa (PWA + Som + Vibração):** pronto para adicionar à tela inicial do celular em tela cheia, com micro-sons opcionais (Web Audio) e feedback tátil.
 - **Resiliência e persistência local:** reconexão automática após bloqueio de tela ou oscilação de Wi-Fi, idempotência contra votos duplicados e salvamento atômico em JSON (`data/sessions.json`) com recuperação após reinício do servidor.
 
 ---

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, Check, Film, Info, Popcorn, Sparkles, Star } from 'lucide-react';
+import { ArrowLeft, Check, Dices, Film, Info, Popcorn, Sparkles, Star } from 'lucide-react';
 import { motion } from 'motion/react';
 import type { ClientRoomSnapshot, MovieSummary } from '@cine-match/shared';
 import { screenVariants, SPRING_SNAPPY } from '../../animations/presets';
@@ -10,6 +10,7 @@ import styles from './DecisionScreen.module.css';
 
 interface DecisionScreenProps {
   snapshot: ClientRoomSnapshot;
+  onSpinRoulette?: () => Promise<string | null>;
   onPropose: (tmdbId: number) => Promise<string | null>;
   onConfirm: (tmdbId: number) => Promise<string | null>;
   onReturnToVoting: () => Promise<string | null>;
@@ -19,6 +20,7 @@ interface DecisionScreenProps {
 
 export function DecisionScreen({
   snapshot,
+  onSpinRoulette,
   onPropose,
   onConfirm,
   onReturnToVoting,
@@ -27,6 +29,7 @@ export function DecisionScreen({
 }: DecisionScreenProps) {
   const [confirmEndOpen, setConfirmEndOpen] = useState(false);
   const [submittingId, setSubmittingId] = useState<number | null>(null);
+  const [spinning, setSpinning] = useState(false);
 
   const activeMatches = snapshot.matches.filter((m) => m.match.status === 'ACTIVE');
   const proposal = snapshot.finalProposal;
@@ -112,6 +115,23 @@ export function DecisionScreen({
               Toque em um dos matches para sugerir. Quando os dois confirmarem, a noite está fechada!
             </p>
           </div>
+
+          {activeMatches.length >= 2 && onSpinRoulette && (
+            <Button
+              variant="secondary"
+              size="md"
+              fullWidth
+              loading={spinning}
+              icon={<Dices size={18} color="#FBBF24" />}
+              onClick={() => {
+                setSpinning(true);
+                void onSpinRoulette().finally(() => setSpinning(false));
+              }}
+              data-testid="decision-spin-roulette-btn"
+            >
+              Em dúvida? Sortear na roleta ({activeMatches.length} filmes)
+            </Button>
+          )}
 
           {proposal && proposedItem && (
             <motion.div

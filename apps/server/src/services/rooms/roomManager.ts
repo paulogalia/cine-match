@@ -13,11 +13,14 @@ import {
   type PersistedStore,
   type PublicParticipant,
   type Room,
+  type RouletteSpin,
   type SessionHistoryEntry,
   type VoteDecision,
+  type WatchedMovieEntry,
 } from '@cine-match/shared';
 import type { CatalogPageResult, CatalogProvider } from '../catalog/catalogProvider';
 import { fetchOscarCatalogPage } from '../catalog/oscarCatalog';
+import { fetchPeopleCatalogPage } from '../catalog/peopleCatalog';
 import { SeedCatalogProvider } from '../catalog/seedCatalogProvider';
 import type { JsonStore } from '../persistence/jsonStore';
 import {
@@ -25,8 +28,14 @@ import {
   confirmFinalMovie,
   dismissMatchFromInterestList,
   proposeFinalMovie,
+  spinRouletteForActiveMatches,
 } from '../matching/matchingService';
-import { applyVote, type ApplyVoteResult } from '../voting/votingService';
+import {
+  applyVote,
+  undoLastVote as undoLastVoteInRoom,
+  type ApplyVoteResult,
+  type UndoVoteResult,
+} from '../voting/votingService';
 import { generateRoomCode, generateServerId } from './roomCode';
 import { DomainError, sanitizeDisplayText } from '../../utils/sanitize';
 import { shuffleArray } from '../../utils/shuffle';
@@ -43,6 +52,7 @@ export class RoomManager {
   private readonly rng: () => number;
   private readonly roomsByCode = new Map<string, Room>();
   private history: SessionHistoryEntry[] = [];
+  private watchedMovies: WatchedMovieEntry[] = [];
   private expirationTimer: ReturnType<typeof setInterval> | null = null;
 
   constructor(options: RoomManagerOptions) {
@@ -55,6 +65,7 @@ export class RoomManager {
     const persisted = await this.store.load();
     this.roomsByCode.clear();
     this.history = [...persisted.history];
+    this.watchedMovies = [...(persisted.watchedMovies ?? [])];
 
     for (const room of Object.values(persisted.activeRooms)) {
       for (const participant of room.participants) {
@@ -87,6 +98,20 @@ export class RoomManager {
 
   getHistory(): SessionHistoryEntry[] {
     return [...this.history];
+  }
+
+  getWatchedMovies(): WatchedMovieEntry[] {
+    return [...this.watchedMovies];
+  }
+
+  unmarkWatchedMovie(tmdbId: number): boolean {
+    const before = this.watchedMovies.length;
+    this.watchedMovies = this.watchedMovies.filter((m) => m.tmdbId !== tmdbId);
+    const removed = this.watchedMovies.length < before;
+    if (removed) {
+      this.persistSoon();
+    }
+    return removed;
   }
 
   getRoomByCode(code: string): Room | undefined {
@@ -456,6 +481,84 @@ export class RoomManager {
     return { room, result };
   }
 
+  undoLastVote(
+    roomCode: string,
+    participantId: string,
+  ): { room: Room; result: UndoVoteResult } {
+    const room = this.requireRoom(roomCode);
+    const result = undoLastVoteInRoom(room, participantId);
+
+    this.touchRoom(room);
+    this.persistSoon();
+    return { room, result };
+  }
+
+  markMovieWatched(
+    roomCode: string,
+    participantId: string,
+    tmdbId: number,
+  ): { room: Room; entry: WatchedMovieEntry } {
+    const room = this.requireRoom(roomCode);
+    const participant = this.requireParticipant(room, participantId);
+
+    if (room.status !== 'IN_PROGRESS' && room.status !== 'PAUSED') {
+      throw new DomainError(
+        ERROR_CODES.INVALID_STATE_TRANSITION,
+        'Só é possível marcar filmes como assistidos durante a sessão.',
+      );
+    }
+
+    const movieKey = String(tmdbId);
+    const movie = room.moviesById[movieKey];
+    if (!movie) {
+      throw new DomainError(ERROR_CODES.MOVIE_NOT_FOUND, 'Filme não encontrado nesta sala.');
+    }
+
+    const nowIso = new Date().toISOString();
+    const existing = this.watchedMovies.find((w) => w.tmdbId === tmdbId);
+    const entry: WatchedMovieEntry = existing ?? {
+      tmdbId,
+      title: movie.title,
+      posterPath: movie.posterPath,
+      releaseYear: movie.releaseYear,
+      markedAt: nowIso,
+      markedBy: participant.name,
+    };
+
+    if (!existing) {
+      this.watchedMovies.unshift(entry);
+      if (this.watchedMovies.length > 500) {
+        this.watchedMovies = this.watchedMovies.slice(0, 500);
+      }
+    }
+
+    // Remove o filme da fila pendente de TODOS os participantes da sala
+    for (const p of room.participants) {
+      const queue = room.queues[p.id];
+      if (!queue) continue;
+      const idx = queue.movieIds.indexOf(tmdbId);
+      if (idx !== -1) {
+        queue.movieIds.splice(idx, 1);
+      }
+    }
+
+    // Se já era um match ativo, dispensa da lista de interesse automaticamente
+    const match = room.matches[movieKey];
+    if (match && match.status === 'ACTIVE') {
+      match.status = 'DISMISSED';
+      match.dismissedBy = participantId;
+      match.dismissedAt = nowIso;
+      if (room.finalProposal?.tmdbId === tmdbId) {
+        room.finalProposal = null;
+      }
+    }
+
+    this.touchRoom(room);
+    this.persistSoon();
+
+    return { room, entry };
+  }
+
   dismissMatch(roomCode: string, participantId: string, tmdbId: number): Room {
     const room = this.requireRoom(roomCode);
     this.requireParticipant(room, participantId);
@@ -499,6 +602,19 @@ export class RoomManager {
     this.touchRoom(room);
     this.persistSoon();
     return room;
+  }
+
+  spinDecisionRoulette(
+    roomCode: string,
+    participantId: string,
+  ): { room: Room; spin: RouletteSpin; proposal: FinalDecisionProposal } {
+    const room = this.requireRoom(roomCode);
+    this.requireParticipant(room, participantId);
+
+    const { spin, proposal } = spinRouletteForActiveMatches(room, participantId, this.rng);
+    this.touchRoom(room);
+    this.persistSoon();
+    return { room, spin, proposal };
   }
 
   proposeFinalMovie(
@@ -617,6 +733,7 @@ export class RoomManager {
       catalogExhausted: room.catalogExhausted,
       myVotesCount: myVotes.length,
       myVotedMovieIds: myVotes.map((v) => v.tmdbId),
+      canUndo: room.status === 'IN_PROGRESS' && myVotes.length > 0,
       matches: this.getClientMatches(room),
       finalProposal: room.finalProposal,
       chosenMovie,
@@ -646,24 +763,40 @@ export class RoomManager {
     await this.store.flush();
   }
 
-  // ==================== Motor de Carregamento, Oscar, Random Discovery e Histórico ====================
+  // ==================== Motor de Carregamento ====================
 
-  private getHistoryExcludedMovieIds(): Set<number> {
+  private getExcludedMovieIds(includeHistory: boolean): Set<number> {
     const ids = new Set<number>();
-    for (const entry of this.history) {
-      if (entry.chosenMovie) ids.add(entry.chosenMovie.tmdbId);
-      for (const m of entry.matches) {
-        ids.add(m.movie.tmdbId);
+
+    // Filmes marcados permanentemente como "Já assistimos" nunca reaparecem
+    for (const w of this.watchedMovies) {
+      ids.add(w.tmdbId);
+    }
+
+    if (includeHistory) {
+      for (const entry of this.history) {
+        if (entry.chosenMovie) ids.add(entry.chosenMovie.tmdbId);
+        for (const m of entry.matches) {
+          ids.add(m.movie.tmdbId);
+        }
       }
     }
+
     return ids;
   }
 
   private pickNextCatalogPage(room: Room): number | null {
     const visited = new Set(room.visitedCatalogPages ?? []);
     const isOscar = Boolean(room.filters.oscar?.enabled);
+    const isPeopleFilter =
+      (room.filters.directors?.length ?? 0) > 0 || (room.filters.actors?.length ?? 0) > 0;
 
-    if (room.filters.randomDiscovery && !isOscar && this.catalogProvider.source === 'tmdb') {
+    if (
+      room.filters.randomDiscovery &&
+      !isOscar &&
+      !isPeopleFilter &&
+      this.catalogProvider.source === 'tmdb'
+    ) {
       const hasNarrowFilters =
         Boolean(room.filters.originalLanguage) ||
         (room.filters.watchProviderIds?.length ?? 0) > 0 ||
@@ -690,6 +823,9 @@ export class RoomManager {
   }
 
   private async fetchUnifiedPage(filters: FilterCriteria, page: number): Promise<CatalogPageResult> {
+    if ((filters.directors?.length ?? 0) > 0 || (filters.actors?.length ?? 0) > 0) {
+      return fetchPeopleCatalogPage(filters, page, this.catalogProvider);
+    }
     if (filters.oscar?.enabled) {
       return fetchOscarCatalogPage(filters, page, this.catalogProvider);
     }
@@ -697,9 +833,7 @@ export class RoomManager {
   }
 
   private async loadNextMoviesIntoRoom(room: Room): Promise<number[]> {
-    const excludedHistory = room.filters.excludeHistory
-      ? this.getHistoryExcludedMovieIds()
-      : new Set<number>();
+    const excludedIds = this.getExcludedMovieIds(Boolean(room.filters.excludeHistory));
 
     const visited = room.visitedCatalogPages ?? [];
     room.visitedCatalogPages = visited;
@@ -713,7 +847,6 @@ export class RoomManager {
     let pageResult = await this.fetchUnifiedPage(room.filters, chosenPage);
     if (!visited.includes(chosenPage)) visited.push(chosenPage);
 
-    // Fallback seguro: se uma página sorteada no modo Descoberta Aleatória vier vazia, busca página 1
     if (
       pageResult.movies.length === 0 &&
       room.filters.randomDiscovery &&
@@ -727,9 +860,8 @@ export class RoomManager {
 
     room.catalogPage = chosenPage;
 
-    let filteredMovies = pageResult.movies.filter((m) => !excludedHistory.has(m.tmdbId));
+    let filteredMovies = pageResult.movies.filter((m) => !excludedIds.has(m.tmdbId));
 
-    // Se o filtro de histórico eliminou todos da página atual e há mais páginas, tenta a próxima
     if (filteredMovies.length === 0 && pageResult.hasMore) {
       const next = this.pickNextCatalogPage(room);
       if (next !== null) {
@@ -737,11 +869,16 @@ export class RoomManager {
         if (!visited.includes(next)) visited.push(next);
         room.catalogPage = next;
         pageResult = secondResult;
-        filteredMovies = secondResult.movies.filter((m) => !excludedHistory.has(m.tmdbId));
+        filteredMovies = secondResult.movies.filter((m) => !excludedIds.has(m.tmdbId));
       }
     }
 
-    if (room.filters.randomDiscovery && !room.filters.oscar?.enabled && this.catalogProvider.source === 'tmdb') {
+    const isCustomCatalog =
+      Boolean(room.filters.oscar?.enabled) ||
+      (room.filters.directors?.length ?? 0) > 0 ||
+      (room.filters.actors?.length ?? 0) > 0;
+
+    if (room.filters.randomDiscovery && !isCustomCatalog && this.catalogProvider.source === 'tmdb') {
       room.catalogExhausted = !pageResult.hasMore && visited.includes(1);
     } else {
       room.catalogExhausted = !pageResult.hasMore;
@@ -806,6 +943,7 @@ export class RoomManager {
       savedAt: new Date().toISOString(),
       activeRooms,
       history: this.history,
+      watchedMovies: this.watchedMovies,
     };
   }
 

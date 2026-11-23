@@ -15,10 +15,12 @@ export interface ApplyVoteResult {
   movie: MovieSummary;
 }
 
-/**
- * Executa o registro de voto e a detecção de match de forma estritamente síncrona
- * em memória, garantindo idempotência e evitando race conditions em likes simultâneos.
- */
+export interface UndoVoteResult {
+  undoneVote: Vote;
+  matchReverted: boolean;
+  movie: MovieSummary | null;
+}
+
 export function applyVote(
   room: Room,
   participantId: string,
@@ -47,7 +49,6 @@ export function applyVote(
     throw new DomainError(ERROR_CODES.MOVIE_NOT_FOUND, 'Filme não encontrado no catálogo da sala.');
   }
 
-  // 1. Idempotência exata por operationId (ex: reenvio de rede após reconexão)
   const existingByOperation = room.votes.find(
     (v) => v.operationId === operationId && v.participantId === participantId,
   );
@@ -60,7 +61,6 @@ export function applyVote(
     };
   }
 
-  // 2. Regra de negócio: um participante não pode votar duas vezes no mesmo filme
   const existingByMovie = room.votes.find(
     (v) => v.participantId === participantId && v.tmdbId === tmdbId,
   );
@@ -84,7 +84,6 @@ export function applyVote(
 
   room.votes.push(vote);
 
-  // Remove o filme da fila pendente deste participante
   const queue = room.queues[participantId];
   if (queue) {
     const idx = queue.movieIds.indexOf(tmdbId);
@@ -94,7 +93,6 @@ export function applyVote(
     }
   }
 
-  // 3. Detecção idempotente de match: exige LIKE de ambos os participantes
   let matchCreated: MatchRecord | null = null;
   if (decision === 'LIKE') {
     const partner = room.participants.find((p) => p.id !== participantId);
@@ -123,5 +121,81 @@ export function applyVote(
     duplicate: false,
     matchCreated,
     movie,
+  };
+}
+
+/**
+ * Desfaz o último voto do participante, recolocando o filme no topo da sua fila
+ * e revertendo o match caso esse voto tenha sido o responsável por criá-lo.
+ */
+export function undoLastVote(room: Room, participantId: string): UndoVoteResult {
+  const participant = room.participants.find((p) => p.id === participantId);
+  if (!participant) {
+    throw new DomainError(
+      ERROR_CODES.PARTICIPANT_NOT_IN_ROOM,
+      'Participante não pertence a esta sala.',
+    );
+  }
+
+  if (room.status !== 'IN_PROGRESS') {
+    throw new DomainError(
+      ERROR_CODES.INVALID_STATE_TRANSITION,
+      'Só é possível desfazer votos enquanto a votação está em andamento.',
+    );
+  }
+
+  let lastIdx = -1;
+  for (let i = room.votes.length - 1; i >= 0; i--) {
+    if (room.votes[i]?.participantId === participantId) {
+      lastIdx = i;
+      break;
+    }
+  }
+
+  if (lastIdx === -1) {
+    throw new DomainError(
+      ERROR_CODES.INVALID_STATE_TRANSITION,
+      'Você ainda não tem nenhum voto para desfazer.',
+    );
+  }
+
+  const lastVote = room.votes[lastIdx]!;
+  const movieKey = String(lastVote.tmdbId);
+  const existingMatch = room.matches[movieKey];
+
+  if (existingMatch?.status === 'CHOSEN') {
+    throw new DomainError(
+      ERROR_CODES.INVALID_STATE_TRANSITION,
+      'Não é possível desfazer o voto de um filme já escolhido.',
+    );
+  }
+
+  // Remove o voto
+  room.votes.splice(lastIdx, 1);
+
+  // Reverte match se o voto desfeito era um LIKE que gerou o match
+  let matchReverted = false;
+  if (lastVote.decision === 'LIKE' && existingMatch) {
+    delete room.matches[movieKey];
+    if (room.finalProposal?.tmdbId === lastVote.tmdbId) {
+      room.finalProposal = null;
+    }
+    matchReverted = true;
+  }
+
+  // Recoloca o filme no topo da fila individual do participante
+  const queue = room.queues[participantId] ?? { participantId, movieIds: [], cursor: 0 };
+  const currentIdx = queue.movieIds.indexOf(lastVote.tmdbId);
+  if (currentIdx !== -1) {
+    queue.movieIds.splice(currentIdx, 1);
+  }
+  queue.movieIds.unshift(lastVote.tmdbId);
+  queue.cursor = Math.max(0, queue.cursor - 1);
+  room.queues[participantId] = queue;
+
+  return {
+    undoneVote: lastVote,
+    matchReverted,
+    movie: room.moviesById[movieKey] ?? null,
   };
 }

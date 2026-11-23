@@ -1,12 +1,29 @@
 import { useEffect, useState } from 'react';
-import { Calendar, Clock, ExternalLink, Globe, Star, Tv } from 'lucide-react';
-import type { MovieDetails, MovieSummary, WatchProvider } from '@cine-match/shared';
+import {
+  Calendar,
+  Clapperboard,
+  Clock,
+  ExternalLink,
+  Globe,
+  Play,
+  Star,
+  Tv,
+  User,
+} from 'lucide-react';
+import type {
+  MovieDetails,
+  MovieSummary,
+  PersonRole,
+  SelectedPerson,
+  WatchProvider,
+} from '@cine-match/shared';
 import { fetchMovieDetails } from '../../services/api';
 import { getGenreName } from '../../utils/genres';
 import {
   formatLanguageLabel,
   formatRuntime,
   getBackdropUrl,
+  getProfileUrl,
   getProviderLogoUrl,
 } from '../../utils/tmdbImages';
 import { Modal } from '../ui/Modal';
@@ -17,6 +34,7 @@ import styles from './MovieDetailsModal.module.css';
 interface MovieDetailsModalProps {
   movie: MovieSummary | null;
   onClose: () => void;
+  onFilterByPerson?: (person: SelectedPerson, role: PersonRole) => void;
 }
 
 const PROVIDER_TYPE_LABELS: Record<WatchProvider['type'], string> = {
@@ -25,11 +43,17 @@ const PROVIDER_TYPE_LABELS: Record<WatchProvider['type'], string> = {
   buy: 'Compra',
 };
 
-export function MovieDetailsModal({ movie, onClose }: MovieDetailsModalProps) {
+export function MovieDetailsModal({
+  movie,
+  onClose,
+  onFilterByPerson,
+}: MovieDetailsModalProps) {
   const [details, setDetails] = useState<MovieDetails | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showTrailer, setShowTrailer] = useState(false);
 
   useEffect(() => {
+    setShowTrailer(false);
     if (!movie) {
       setDetails(null);
       return;
@@ -57,6 +81,12 @@ export function MovieDetailsModal({ movie, onClose }: MovieDetailsModalProps) {
   const genres = details
     ? details.genres.map((g) => g.name)
     : (movie?.genreIds.map(getGenreName) ?? []);
+
+  const handleSelectPerson = (person: SelectedPerson, role: PersonRole) => {
+    if (!onFilterByPerson) return;
+    onFilterByPerson(person, role);
+    onClose();
+  };
 
   return (
     <Modal open={Boolean(movie)} title="Detalhes do filme" onClose={onClose}>
@@ -126,6 +156,51 @@ export function MovieDetailsModal({ movie, onClose }: MovieDetailsModalProps) {
             </span>
           </div>
 
+          {/* Trailer Oficial */}
+          {details?.trailer && (
+            <div className={styles.trailerBox}>
+              {!showTrailer ? (
+                <button
+                  type="button"
+                  className={styles.trailerBtn}
+                  onClick={() => setShowTrailer(true)}
+                  data-testid="details-play-trailer-btn"
+                >
+                  <Play size={16} fill="#FFFFFF" />
+                  <span>Assistir trailer</span>
+                </button>
+              ) : (
+                <>
+                  <div className={styles.trailerFrameWrap} data-testid="details-trailer-player">
+                    <iframe
+                      className={styles.trailerIframe}
+                      src={`https://www.youtube-nocookie.com/embed/${details.trailer.key}?rel=0&autoplay=1`}
+                      title={details.trailer.name}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                  <a
+                    href={`https://www.youtube.com/watch?v=${details.trailer.key}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 5,
+                      fontSize: 12,
+                      color: 'var(--text-secondary)',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <span>Abrir no YouTube</span>
+                    <ExternalLink size={12} />
+                  </a>
+                </>
+              )}
+            </div>
+          )}
+
           {genres.length > 0 && (
             <div className={styles.section}>
               <span className={styles.sectionTitle}>Gêneros</span>
@@ -135,6 +210,83 @@ export function MovieDetailsModal({ movie, onClose }: MovieDetailsModalProps) {
                     {g}
                   </span>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {/* Direção clicável */}
+          {details && details.directors.length > 0 && (
+            <div className={styles.section}>
+              <span className={styles.sectionTitle}>
+                Direção {onFilterByPerson ? '• toque para ver filmografia' : ''}
+              </span>
+              <div className={styles.genresRow}>
+                {details.directors.map((dir) => (
+                  <button
+                    key={dir.id}
+                    type="button"
+                    disabled={!onFilterByPerson}
+                    className={styles.directorChip}
+                    onClick={() =>
+                      handleSelectPerson(
+                        { id: dir.id, name: dir.name, profilePath: dir.profilePath },
+                        'director',
+                      )
+                    }
+                    data-testid={`details-director-${dir.id}`}
+                  >
+                    <Clapperboard size={13} />
+                    <span>{dir.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Elenco principal clicável */}
+          {details && details.cast.length > 0 && (
+            <div className={styles.section}>
+              <span className={styles.sectionTitle}>
+                Elenco {onFilterByPerson ? '• toque para filtrar' : ''}
+              </span>
+              <div className={styles.castStrip}>
+                {details.cast.map((member) => {
+                  const photo = getProfileUrl(member.profilePath);
+                  return (
+                    <button
+                      key={member.id}
+                      type="button"
+                      disabled={!onFilterByPerson}
+                      className={styles.castCard}
+                      onClick={() =>
+                        handleSelectPerson(
+                          { id: member.id, name: member.name, profilePath: member.profilePath },
+                          'actor',
+                        )
+                      }
+                      data-testid={`details-actor-${member.id}`}
+                    >
+                      <div className={styles.castAvatar}>
+                        {photo ? (
+                          <img
+                            src={photo}
+                            alt=""
+                            width={48}
+                            height={48}
+                            style={{ objectFit: 'cover' }}
+                            loading="lazy"
+                          />
+                        ) : (
+                          <User size={20} />
+                        )}
+                      </div>
+                      <span className={styles.castName}>{member.name}</span>
+                      {member.character && (
+                        <span className={styles.castChar}>{member.character}</span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}

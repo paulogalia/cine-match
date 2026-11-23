@@ -20,6 +20,14 @@ export const SortBySchema = z.enum([
   'primary_release_date.desc',
 ]);
 
+export const PersonRoleSchema = z.enum(['director', 'actor']);
+
+export const SelectedPersonSchema = z.object({
+  id: z.number().int().positive(),
+  name: z.string().trim().min(1).max(80),
+  profilePath: z.string().nullable().optional(),
+});
+
 export const OscarCategorySchema = z.enum([
   'best_picture',
   'best_director',
@@ -62,6 +70,8 @@ export const FilterCriteriaSchema = z.object({
   minRuntime: z.number().int().min(1).max(600).optional(),
   maxRuntime: z.number().int().min(1).max(600).optional(),
   watchProviderIds: z.array(z.number().int().positive()).max(15).optional(),
+  directors: z.array(SelectedPersonSchema).max(5).optional(),
+  actors: z.array(SelectedPersonSchema).max(5).optional(),
   randomDiscovery: z.boolean().optional(),
   excludeHistory: z.boolean().optional(),
   presetId: z.string().trim().max(40).optional(),
@@ -82,6 +92,15 @@ export const MovieSummarySchema = z.object({
   originalLanguage: z.string(),
   runtime: z.number().int().positive().nullable().optional(),
   oscarBadge: z.string().max(90).optional(),
+});
+
+export const WatchedMovieEntrySchema = z.object({
+  tmdbId: z.number().int().positive(),
+  title: z.string().min(1),
+  posterPath: z.string().nullable(),
+  releaseYear: z.number().int().nullable(),
+  markedAt: z.string(),
+  markedBy: z.string().min(1),
 });
 
 export const ParticipantSchema = z.object({
@@ -121,6 +140,15 @@ export const ParticipantQueueSchema = z.object({
   participantId: z.string().min(1),
   movieIds: z.array(z.number().int().positive()),
   cursor: z.number().int().min(0),
+});
+
+export const RouletteSpinSchema = z.object({
+  spinId: z.string().min(1),
+  triggeredBy: z.string().min(1),
+  candidateIds: z.array(z.number().int().positive()).min(2),
+  winnerMovieId: z.number().int().positive(),
+  startedAt: z.string(),
+  durationMs: z.number().int().positive(),
 });
 
 export const FinalDecisionProposalSchema = z.object({
@@ -173,6 +201,7 @@ export const PersistedStoreSchema = z.object({
   savedAt: z.string(),
   activeRooms: z.record(z.string(), RoomSchema),
   history: z.array(SessionHistoryEntrySchema),
+  watchedMovies: z.array(WatchedMovieEntrySchema).default([]),
 });
 
 export const NetworkInterfaceInfoSchema = z.object({
@@ -194,15 +223,19 @@ export type ConnectionStatus = z.infer<typeof ConnectionStatusSchema>;
 export type ParticipantRole = z.infer<typeof ParticipantRoleSchema>;
 export type VoteDecision = z.infer<typeof VoteDecisionSchema>;
 export type MatchStatus = z.infer<typeof MatchStatusSchema>;
+export type PersonRole = z.infer<typeof PersonRoleSchema>;
+export type SelectedPerson = z.infer<typeof SelectedPersonSchema>;
 export type OscarCategory = z.infer<typeof OscarCategorySchema>;
 export type OscarFilter = z.infer<typeof OscarFilterSchema>;
 export type FilterCriteria = z.infer<typeof FilterCriteriaSchema>;
 export type MovieSummary = z.infer<typeof MovieSummarySchema>;
+export type WatchedMovieEntry = z.infer<typeof WatchedMovieEntrySchema>;
 export type Participant = z.infer<typeof ParticipantSchema>;
 export type PublicParticipant = z.infer<typeof PublicParticipantSchema>;
 export type Vote = z.infer<typeof VoteSchema>;
 export type MatchRecord = z.infer<typeof MatchRecordSchema>;
 export type ParticipantQueue = z.infer<typeof ParticipantQueueSchema>;
+export type RouletteSpin = z.infer<typeof RouletteSpinSchema>;
 export type FinalDecisionProposal = z.infer<typeof FinalDecisionProposalSchema>;
 export type Room = z.infer<typeof RoomSchema>;
 export type SessionHistoryEntry = z.infer<typeof SessionHistoryEntrySchema>;
@@ -237,6 +270,7 @@ export interface ClientRoomSnapshot {
   catalogExhausted: boolean;
   myVotesCount: number;
   myVotedMovieIds: number[];
+  canUndo?: boolean;
   matches: ClientMatchItem[];
   finalProposal: FinalDecisionProposal | null;
   chosenMovie: MovieSummary | null;

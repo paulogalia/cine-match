@@ -12,10 +12,12 @@ import type {
   PartnerProgress,
   PublicParticipant,
   RoomStatus,
+  RouletteSpin,
   WatchProviderOption,
 } from '@cine-match/shared';
 import { localPersistence } from '../services/storage';
 import { POPULAR_GENRES } from '../utils/genres';
+import { loadSoundPreference, saveSoundPreference } from '../utils/sounds';
 
 export type SocketConnectionState =
   | 'connecting'
@@ -42,12 +44,14 @@ interface SessionStoreState {
   catalogStatus: CatalogStatus;
   genres: Genre[];
   watchProviders: WatchProviderOption[];
+  soundEnabled: boolean;
   snapshot: ClientRoomSnapshot | null;
   pendingVoteMovieIds: number[];
   loadingMoreMovies: boolean;
   matchQueue: MovieSummary[];
   celebratedMatchIds: number[];
   selectedMovieForDetails: MovieSummary | null;
+  activeRouletteSpin: RouletteSpin | null;
   historyOpen: boolean;
   diagnosticsOpen: boolean;
   toast: ToastMessage | null;
@@ -61,6 +65,7 @@ interface SessionStoreState {
   setCatalogStatus: (status: CatalogStatus) => void;
   setGenres: (genres: Genre[]) => void;
   setWatchProviders: (providers: WatchProviderOption[]) => void;
+  toggleSound: () => void;
   setSnapshot: (snapshot: ClientRoomSnapshot | null) => void;
   setLoadingMoreMovies: (loading: boolean) => void;
   setDiagnosticsOpen: (open: boolean) => void;
@@ -73,6 +78,7 @@ interface SessionStoreState {
   dismissCurrentMatchCelebration: () => void;
   openMovieDetails: (movie: MovieSummary) => void;
   closeMovieDetails: () => void;
+  setActiveRouletteSpin: (spin: RouletteSpin | null) => void;
 
   addPendingVote: (tmdbId: number) => void;
   removePendingVote: (tmdbId: number) => void;
@@ -82,6 +88,24 @@ interface SessionStoreState {
     queue: MovieSummary[];
     queueTotalRemaining: number;
     catalogExhausted: boolean;
+    stateVersion: number;
+  }) => void;
+  applyUndoResult: (payload: {
+    undoneMovieId: number;
+    myVotesCount: number;
+    canUndo: boolean;
+    queue: MovieSummary[];
+    queueTotalRemaining: number;
+    catalogExhausted: boolean;
+    matches: ClientMatchItem[];
+    stateVersion: number;
+  }) => void;
+  applyWatchedRemoved: (payload: {
+    tmdbId: number;
+    queue: MovieSummary[];
+    queueTotalRemaining: number;
+    catalogExhausted: boolean;
+    matches: ClientMatchItem[];
     stateVersion: number;
   }) => void;
   applyQueueUpdate: (payload: {
@@ -126,21 +150,23 @@ export const useSessionStore = create<SessionStoreState>((set) => ({
   catalogStatus: { source: 'seed', tmdbConfigured: false },
   genres: POPULAR_GENRES,
   watchProviders: [
-    { providerId: 8, name: "Netflix", logoPath: null },
-    { providerId: 119, name: "Amazon Prime Video", logoPath: null },
-    { providerId: 1899, name: "Max", logoPath: null },
-    { providerId: 337, name: "Disney+", logoPath: null },
-    { providerId: 307, name: "Globoplay", logoPath: null },
-    { providerId: 350, name: "Apple TV+", logoPath: null },
-    { providerId: 11, name: "MUBI", logoPath: null },
-    { providerId: 531, name: "Paramount+", logoPath: null },
+    { providerId: 8, name: 'Netflix', logoPath: null },
+    { providerId: 119, name: 'Amazon Prime Video', logoPath: null },
+    { providerId: 1899, name: 'Max', logoPath: null },
+    { providerId: 337, name: 'Disney+', logoPath: null },
+    { providerId: 307, name: 'Globoplay', logoPath: null },
+    { providerId: 350, name: 'Apple TV+', logoPath: null },
+    { providerId: 11, name: 'MUBI', logoPath: null },
+    { providerId: 531, name: 'Paramount+', logoPath: null },
   ],
+  soundEnabled: loadSoundPreference(),
   snapshot: null,
   pendingVoteMovieIds: [],
   loadingMoreMovies: false,
   matchQueue: [],
   celebratedMatchIds: [],
   selectedMovieForDetails: null,
+  activeRouletteSpin: null,
   historyOpen: false,
   diagnosticsOpen: false,
   toast: null,
@@ -156,23 +182,28 @@ export const useSessionStore = create<SessionStoreState>((set) => ({
   setNetworkInfo: (networkInfo) => set({ networkInfo }),
   setCatalogStatus: (catalogStatus) => set({ catalogStatus }),
   setGenres: (genres) => set({ genres: genres.length > 0 ? genres : POPULAR_GENRES }),
-  setWatchProviders: (watchProviders) => set((state) => ({ watchProviders: watchProviders.length > 0 ? watchProviders : state.watchProviders })),
+  setWatchProviders: (watchProviders) =>
+    set((state) => ({
+      watchProviders: watchProviders.length > 0 ? watchProviders : state.watchProviders,
+    })),
+  toggleSound: () =>
+    set((state) => {
+      const next = !state.soundEnabled;
+      saveSoundPreference(next);
+      return { soundEnabled: next };
+    }),
   setSnapshot: (snapshot) =>
     set((state) => {
       if (snapshot) {
         localPersistence.saveActiveRoomCode(snapshot.code);
       }
-
       const isSameRoom = Boolean(snapshot && state.snapshot?.code === snapshot.code);
       const existingMatchIds = snapshot ? snapshot.matches.map((m) => m.movie.tmdbId) : [];
 
       return {
         snapshot,
         pendingVoteMovieIds: [],
-        // Em carga inicial / reload, marca matches antigos como já vistos para não reabrir overlays antigos
-        celebratedMatchIds: isSameRoom
-          ? state.celebratedMatchIds
-          : existingMatchIds,
+        celebratedMatchIds: isSameRoom ? state.celebratedMatchIds : existingMatchIds,
       };
     }),
   setLoadingMoreMovies: (loadingMoreMovies) => set({ loadingMoreMovies }),
@@ -200,6 +231,7 @@ export const useSessionStore = create<SessionStoreState>((set) => ({
     set((state) => ({ matchQueue: state.matchQueue.slice(1) })),
   openMovieDetails: (movie) => set({ selectedMovieForDetails: movie }),
   closeMovieDetails: () => set({ selectedMovieForDetails: null }),
+  setActiveRouletteSpin: (activeRouletteSpin) => set({ activeRouletteSpin }),
 
   addPendingVote: (tmdbId) =>
     set((state) => ({
@@ -230,6 +262,7 @@ export const useSessionStore = create<SessionStoreState>((set) => ({
           ...state.snapshot,
           myVotesCount,
           myVotedMovieIds,
+          canUndo: state.snapshot.status === 'IN_PROGRESS' && myVotesCount > 0,
           queue,
           queueTotalRemaining,
           catalogExhausted,
@@ -237,6 +270,61 @@ export const useSessionStore = create<SessionStoreState>((set) => ({
         },
       };
     }),
+
+  applyUndoResult: ({
+    undoneMovieId,
+    myVotesCount,
+    canUndo,
+    queue,
+    queueTotalRemaining,
+    catalogExhausted,
+    matches,
+    stateVersion,
+  }) =>
+    set((state) => {
+      if (!state.snapshot) return state;
+      return {
+        pendingVoteMovieIds: state.pendingVoteMovieIds.filter((id) => id !== undoneMovieId),
+        celebratedMatchIds: state.celebratedMatchIds.filter((id) => id !== undoneMovieId),
+        matchQueue: state.matchQueue.filter((m) => m.tmdbId !== undoneMovieId),
+        snapshot: {
+          ...state.snapshot,
+          myVotesCount,
+          myVotedMovieIds: state.snapshot.myVotedMovieIds.filter((id) => id !== undoneMovieId),
+          canUndo,
+          queue,
+          queueTotalRemaining,
+          catalogExhausted,
+          matches,
+          stateVersion: Math.max(state.snapshot.stateVersion, stateVersion),
+        },
+      };
+    }),
+
+  applyWatchedRemoved: ({
+    tmdbId,
+    queue,
+    queueTotalRemaining,
+    catalogExhausted,
+    matches,
+    stateVersion,
+  }) =>
+    set((state) => {
+      if (!state.snapshot || stateVersion < state.snapshot.stateVersion) return state;
+      return {
+        pendingVoteMovieIds: state.pendingVoteMovieIds.filter((id) => id !== tmdbId),
+        matchQueue: state.matchQueue.filter((m) => m.tmdbId !== tmdbId),
+        snapshot: {
+          ...state.snapshot,
+          queue,
+          queueTotalRemaining,
+          catalogExhausted,
+          matches,
+          stateVersion,
+        },
+      };
+    }),
+
   applyQueueUpdate: ({ queue, queueTotalRemaining, catalogExhausted }) =>
     set((state) => {
       if (!state.snapshot) return state;
@@ -277,7 +365,15 @@ export const useSessionStore = create<SessionStoreState>((set) => ({
   applyRoomStatus: (status, version) =>
     set((state) => {
       if (!state.snapshot || version < state.snapshot.stateVersion) return state;
-      return { snapshot: { ...state.snapshot, status, stateVersion: version } };
+      return {
+        activeRouletteSpin: status === 'DECIDING' ? state.activeRouletteSpin : null,
+        snapshot: {
+          ...state.snapshot,
+          status,
+          canUndo: status === 'IN_PROGRESS' && state.snapshot.myVotesCount > 0,
+          stateVersion: version,
+        },
+      };
     }),
   applyFiltersUpdated: (filters, queue, queueTotalRemaining, catalogExhausted, version) =>
     set((state) => {
@@ -309,9 +405,11 @@ export const useSessionStore = create<SessionStoreState>((set) => ({
       if (!state.snapshot || version < state.snapshot.stateVersion) return state;
       return {
         matchQueue: [],
+        activeRouletteSpin: null,
         snapshot: {
           ...state.snapshot,
           status: 'FINISHED',
+          canUndo: false,
           chosenMovie,
           matches,
           stateVersion: version,
@@ -331,6 +429,7 @@ export const useSessionStore = create<SessionStoreState>((set) => ({
       matchQueue: [],
       celebratedMatchIds: [],
       selectedMovieForDetails: null,
+      activeRouletteSpin: null,
     });
   },
 }));

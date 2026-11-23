@@ -3,24 +3,33 @@ import {
   type FilterCriteria,
   type Genre,
   type MovieDetails,
+  type MovieSummary,
+  type PersonRole,
+  type PersonSearchResult,
   type WatchProviderOption,
 } from '@cine-match/shared';
 import type { CatalogPageResult, CatalogProvider } from '../catalog/catalogProvider';
+import { getSuggestedPeople } from '../catalog/peopleFallback';
 import { FALLBACK_GENRES_PT } from '../catalog/seedCatalogProvider';
 import { FALLBACK_WATCH_PROVIDERS_BR } from '../catalog/watchProvidersFallback';
 import { DomainError } from '../../utils/sanitize';
 import { TtlCache } from './tmdbCache';
 import {
   mapTmdbMovieDetails,
+  mapTmdbPersonCredits,
+  mapTmdbPersonSearchList,
   normalizeTmdbMovieList,
   type TmdbRawMovieDetail,
   type TmdbRawMovieItem,
+  type TmdbRawPersonCreditsResponse,
+  type TmdbRawPersonItem,
 } from './tmdbMapper';
 
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 const CATALOG_TTL_MS = 10 * 60 * 1000;
 const SEARCH_TTL_MS = 5 * 60 * 1000;
 const DETAILS_TTL_MS = 6 * 60 * 60 * 1000;
+const PERSON_CREDITS_TTL_MS = 6 * 60 * 60 * 1000;
 const GENRES_TTL_MS = 24 * 60 * 60 * 1000;
 const PROVIDERS_TTL_MS = 24 * 60 * 60 * 1000;
 
@@ -34,6 +43,10 @@ interface TmdbPagedResponse {
   page: number;
   total_pages: number;
   results: TmdbRawMovieItem[];
+}
+
+interface TmdbPersonSearchResponse {
+  results: TmdbRawPersonItem[];
 }
 
 interface TmdbGenresResponse {
@@ -60,6 +73,8 @@ export class TmdbCatalogProvider implements CatalogProvider {
 
   private readonly catalogCache = new TtlCache<CatalogPageResult>(200);
   private readonly detailsCache = new TtlCache<MovieDetails>(500);
+  private readonly peopleSearchCache = new TtlCache<PersonSearchResult[]>(200);
+  private readonly personCreditsCache = new TtlCache<MovieSummary[]>(200);
   private readonly genresCache = new TtlCache<Genre[]>(4);
   private readonly providersCache = new TtlCache<WatchProviderOption[]>(4);
 
@@ -125,6 +140,62 @@ export class TmdbCatalogProvider implements CatalogProvider {
     }
   }
 
+  async searchPeople(query: string, role?: PersonRole): Promise<PersonSearchResult[]> {
+    const trimmed = query.trim();
+    if (trimmed.length < 2) {
+      return getSuggestedPeople(role);
+    }
+
+    const params = new URLSearchParams({
+      language: 'pt-BR',
+      include_adult: 'false',
+      query: trimmed,
+      page: '1',
+    });
+
+    const cacheKey = `people:${role ?? 'all'}:${trimmed.toLowerCase()}`;
+    const cached = this.peopleSearchCache.get(cacheKey);
+    if (cached) return cached;
+
+    try {
+      const payload = await this.request<TmdbPersonSearchResponse>('/search/person', params);
+      const mapped = mapTmdbPersonSearchList(payload.results ?? [], role);
+      this.peopleSearchCache.set(cacheKey, mapped, CATALOG_TTL_MS);
+      return mapped;
+    } catch (err) {
+      const stale = this.peopleSearchCache.getStale(cacheKey);
+      if (stale) return stale;
+      throw err;
+    }
+  }
+
+  async getPersonMovies(personId: number, role: PersonRole): Promise<MovieSummary[]> {
+    const cacheKey = `person-credits:${role}:${personId}`;
+    const cached = this.personCreditsCache.get(cacheKey);
+    if (cached) return cached;
+
+    const params = new URLSearchParams({
+      language: 'pt-BR',
+    });
+
+    try {
+      const payload = await this.request<TmdbRawPersonCreditsResponse>(
+        `/person/${personId}/movie_credits`,
+        params,
+        true,
+      );
+      if (!payload) return [];
+
+      const movies = mapTmdbPersonCredits(payload, role);
+      this.personCreditsCache.set(cacheKey, movies, PERSON_CREDITS_TTL_MS);
+      return movies;
+    } catch (err) {
+      const stale = this.personCreditsCache.getStale(cacheKey);
+      if (stale) return stale;
+      throw err;
+    }
+  }
+
   async getMovieDetails(tmdbId: number): Promise<MovieDetails | null> {
     const cacheKey = `movie:${tmdbId}`;
     const cached = this.detailsCache.get(cacheKey);
@@ -132,7 +203,8 @@ export class TmdbCatalogProvider implements CatalogProvider {
 
     const params = new URLSearchParams({
       language: 'pt-BR',
-      append_to_response: 'watch/providers',
+      append_to_response: 'watch/providers,credits,videos',
+      include_video_language: 'pt,en,null',
     });
 
     try {

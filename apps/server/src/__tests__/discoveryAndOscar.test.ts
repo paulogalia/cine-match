@@ -140,6 +140,12 @@ describe('Novos Filtros — Oscar, Streaming BR, Descoberta Aleatória e Histór
       async getWatchProvidersBR() {
         return [];
       },
+      async searchPeople() {
+        return [];
+      },
+      async getPersonMovies() {
+        return [];
+      },
       async searchMovies() {
         return { movies: [], page: 1, hasMore: false };
       },

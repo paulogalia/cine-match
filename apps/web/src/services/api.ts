@@ -3,7 +3,10 @@ import type {
   Genre,
   MovieDetails,
   NetworkInfoResponse,
+  PersonRole,
+  PersonSearchResult,
   SessionHistoryEntry,
+  WatchedMovieEntry,
   WatchProviderOption,
 } from '@cine-match/shared';
 
@@ -49,6 +52,22 @@ export async function fetchWatchProviders(): Promise<WatchProviderOption[] | nul
   }
 }
 
+export async function searchPeople(
+  query: string,
+  role: PersonRole,
+): Promise<PersonSearchResult[]> {
+  try {
+    const params = new URLSearchParams({ role });
+    if (query.trim()) params.set('q', query.trim());
+    const res = await fetch(`/api/people/search?${params.toString()}`);
+    if (!res.ok) return [];
+    const data = (await res.json()) as { people: PersonSearchResult[] };
+    return data.people ?? [];
+  } catch {
+    return [];
+  }
+}
+
 export async function fetchHistory(): Promise<SessionHistoryEntry[]> {
   try {
     const res = await fetch('/api/history', { cache: 'no-store' });
@@ -57,6 +76,28 @@ export async function fetchHistory(): Promise<SessionHistoryEntry[]> {
     return data.history ?? [];
   } catch {
     return [];
+  }
+}
+
+export async function fetchWatchedMovies(): Promise<WatchedMovieEntry[]> {
+  try {
+    const res = await fetch('/api/watched', { cache: 'no-store' });
+    if (!res.ok) return [];
+    const data = (await res.json()) as { watchedMovies: WatchedMovieEntry[] };
+    return data.watchedMovies ?? [];
+  } catch {
+    return [];
+  }
+}
+
+export async function unmarkWatchedMovie(tmdbId: number): Promise<WatchedMovieEntry[] | null> {
+  try {
+    const res = await fetch(`/api/watched/${tmdbId}`, { method: 'DELETE' });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { watchedMovies: WatchedMovieEntry[] };
+    return data.watchedMovies ?? [];
+  } catch {
+    return null;
   }
 }
 

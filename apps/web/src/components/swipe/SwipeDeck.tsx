@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Heart, X } from 'lucide-react';
+import { EyeOff, Heart, RotateCcw, X } from 'lucide-react';
 import {
   AnimatePresence,
   motion,
@@ -15,10 +15,20 @@ import styles from './SwipeDeck.module.css';
 interface SwipeDeckProps {
   movies: MovieSummary[];
   disabled?: boolean;
+  canUndo?: boolean;
   onVote: (tmdbId: number, decision: VoteDecision) => void;
+  onUndo?: () => void;
+  onMarkWatched?: (tmdbId: number) => void;
 }
 
-export function SwipeDeck({ movies, disabled = false, onVote }: SwipeDeckProps) {
+export function SwipeDeck({
+  movies,
+  disabled = false,
+  canUndo = false,
+  onVote,
+  onUndo,
+  onMarkWatched,
+}: SwipeDeckProps) {
   const reducedMotion = useReducedMotion();
   const [exitDirection, setExitDirection] = useState<VoteDecision>('LIKE');
   const lastSubmittedIdRef = useRef<number | null>(null);
@@ -45,6 +55,19 @@ export function SwipeDeck({ movies, disabled = false, onVote }: SwipeDeckProps) 
     onVote(tmdbId, decision);
   };
 
+  const commitWatched = (tmdbId: number) => {
+    if (disabled || !onMarkWatched || lastSubmittedIdRef.current === tmdbId) return;
+    lastSubmittedIdRef.current = tmdbId;
+    setExitDirection('DISLIKE');
+    onMarkWatched(tmdbId);
+  };
+
+  const handleUndo = () => {
+    if (disabled || !canUndo || !onUndo) return;
+    lastSubmittedIdRef.current = null;
+    onUndo();
+  };
+
   useEffect(() => {
     if (disabled || !topMovie) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -61,11 +84,14 @@ export function SwipeDeck({ movies, disabled = false, onVote }: SwipeDeckProps) 
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
         commitVote(topMovie.tmdbId, 'DISLIKE');
+      } else if ((e.key === 'z' || e.key === 'Z' || e.key === 'Backspace') && canUndo && onUndo) {
+        e.preventDefault();
+        handleUndo();
       }
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [disabled, topMovie]);
+  }, [disabled, topMovie, canUndo, onUndo]);
 
   if (!topMovie) {
     return null;
@@ -110,6 +136,19 @@ export function SwipeDeck({ movies, disabled = false, onVote }: SwipeDeckProps) 
       <div className={styles.actionsRow}>
         <motion.button
           type="button"
+          className={`${styles.secondaryBtn} ${styles.undoBtn}`}
+          disabled={disabled || !canUndo || !onUndo}
+          whileTap={disabled || !canUndo ? undefined : { scale: 0.9 }}
+          onClick={handleUndo}
+          aria-label="Desfazer último voto"
+          title="Desfazer último voto"
+          data-testid="vote-undo-btn"
+        >
+          <RotateCcw size={19} />
+        </motion.button>
+
+        <motion.button
+          type="button"
           className={`${styles.voteBtn} ${styles.nopeBtn}`}
           disabled={disabled}
           whileTap={disabled ? undefined : { scale: 0.9 }}
@@ -117,7 +156,7 @@ export function SwipeDeck({ movies, disabled = false, onVote }: SwipeDeckProps) 
           aria-label={`Passar ${topMovie.title}`}
           data-testid="vote-dislike-btn"
         >
-          <X size={30} strokeWidth={2.5} />
+          <X size={28} strokeWidth={2.5} />
         </motion.button>
 
         <motion.button
@@ -129,11 +168,26 @@ export function SwipeDeck({ movies, disabled = false, onVote }: SwipeDeckProps) 
           aria-label={`Gostei de ${topMovie.title}`}
           data-testid="vote-like-btn"
         >
-          <Heart size={29} fill="#FFFFFF" strokeWidth={2.2} />
+          <Heart size={27} fill="#FFFFFF" strokeWidth={2.2} />
+        </motion.button>
+
+        <motion.button
+          type="button"
+          className={`${styles.secondaryBtn} ${styles.watchedBtn}`}
+          disabled={disabled || !onMarkWatched}
+          whileTap={disabled ? undefined : { scale: 0.9 }}
+          onClick={() => commitWatched(topMovie.tmdbId)}
+          aria-label={`Marcar ${topMovie.title} como já assistido`}
+          title="Já assistimos (não mostrar mais)"
+          data-testid="vote-watched-btn"
+        >
+          <EyeOff size={19} />
         </motion.button>
       </div>
 
-      <p className={styles.hintText}>Arraste o card, toque nos botões ou use ← / →</p>
+      <p className={styles.hintText}>
+        Desfazer • Passar • Gostei • Já assistimos
+      </p>
     </>
   );
 }

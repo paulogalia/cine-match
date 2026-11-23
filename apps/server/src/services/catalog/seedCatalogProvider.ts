@@ -1,4 +1,5 @@
-import type { FilterCriteria, Genre, MovieDetails, MovieSummary, WatchProviderOption } from '@cine-match/shared';
+import type { FilterCriteria, Genre, MovieDetails, MovieSummary, PersonRole, PersonSearchResult, WatchProviderOption } from '@cine-match/shared';
+import { CURATED_ACTORS, CURATED_DIRECTORS, getSeedCreditsForMovie, getSuggestedPeople } from './peopleFallback';
 import { FALLBACK_WATCH_PROVIDERS_BR } from './watchProvidersFallback';
 import type { CatalogPageResult, CatalogProvider } from './catalogProvider';
 
@@ -421,6 +422,7 @@ export class SeedCatalogProvider implements CatalogProvider {
     if (!movie) return null;
 
     const genreMap = new Map(FALLBACK_GENRES_PT.map((g) => [g.id, g.name]));
+    const credits = getSeedCreditsForMovie(tmdbId);
     return {
       ...movie,
       runtime: movie.runtime ?? null,
@@ -428,6 +430,9 @@ export class SeedCatalogProvider implements CatalogProvider {
         id,
         name: genreMap.get(id) ?? `Gênero #${id}`,
       })),
+      directors: credits.directors,
+      cast: credits.cast,
+      trailer: null,
       watchProvidersBR: {
         link: null,
         available: false,
@@ -443,6 +448,25 @@ export class SeedCatalogProvider implements CatalogProvider {
 
   async getGenres(): Promise<Genre[]> {
     return FALLBACK_GENRES_PT;
+  }
+
+  async searchPeople(query: string, role?: PersonRole): Promise<PersonSearchResult[]> {
+    const trimmed = query.trim().toLowerCase();
+    const base = getSuggestedPeople(role);
+    if (!trimmed) return base;
+    return base.filter(
+      (person) =>
+        person.name.toLowerCase().includes(trimmed) ||
+        person.knownForTitles.some((t) => t.toLowerCase().includes(trimmed)),
+    );
+  }
+
+  async getPersonMovies(personId: number, role: PersonRole): Promise<MovieSummary[]> {
+    const source = role === "director" ? CURATED_DIRECTORS : CURATED_ACTORS;
+    const person = source.find((p) => p.id === personId);
+    if (!person) return [];
+    const idSet = new Set(person.seedMovieIds);
+    return this.movies.filter((m) => idSet.has(m.tmdbId));
   }
 
   async searchMovies(query: string, page = 1): Promise<CatalogPageResult> {

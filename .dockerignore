@@ -1,0 +1,16 @@
+node_modules
+**/node_modules
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+data
+test-results
+playwright-report
+e2e
+docs
+apps/server/dist
+apps/web/dist
+*.log
+setup-*.sh

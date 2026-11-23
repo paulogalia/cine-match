@@ -8,6 +8,7 @@ function createEmptyStore(): PersistedStore {
     savedAt: new Date().toISOString(),
     activeRooms: {},
     history: [],
+    watchedMovies: [],
   };
 }
 

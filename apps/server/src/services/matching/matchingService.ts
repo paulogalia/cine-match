@@ -3,8 +3,10 @@ import {
   type FinalDecisionProposal,
   type MovieSummary,
   type Room,
+  type RouletteSpin,
   type SessionHistoryEntry,
 } from '@cine-match/shared';
+import { generateServerId } from '../rooms/roomCode';
 import { DomainError } from '../../utils/sanitize';
 
 export function dismissMatchFromInterestList(
@@ -150,4 +152,56 @@ export function buildHistoryEntry(room: Room): SessionHistoryEntry {
     matches,
     chosenMovie,
   };
+}
+
+export function spinRouletteForActiveMatches(
+  room: Room,
+  participantId: string,
+  rng: () => number = Math.random,
+): { spin: RouletteSpin; proposal: FinalDecisionProposal } {
+  if (room.status !== "DECIDING") {
+    throw new DomainError(
+      ERROR_CODES.INVALID_STATE_TRANSITION,
+      "A roleta só pode ser girada na tela de decisão final.",
+    );
+  }
+
+  const activeMatches = Object.values(room.matches)
+    .filter((m) => m.status === "ACTIVE" && Boolean(room.moviesById[String(m.tmdbId)]))
+    .sort((a, b) => b.matchedAt.localeCompare(a.matchedAt));
+
+  if (activeMatches.length < 2) {
+    throw new DomainError(
+      ERROR_CODES.INVALID_STATE_TRANSITION,
+      "É preciso ter pelo menos 2 matches ativos para girar a roleta.",
+    );
+  }
+
+  const candidateIds = activeMatches.map((m) => m.tmdbId);
+  const winnerIdx = Math.min(
+    candidateIds.length - 1,
+    Math.max(0, Math.floor(rng() * candidateIds.length)),
+  );
+  const winnerMovieId = candidateIds[winnerIdx]!;
+  const nowIso = new Date().toISOString();
+
+  const spin: RouletteSpin = {
+    spinId: generateServerId("spin"),
+    triggeredBy: participantId,
+    candidateIds,
+    winnerMovieId,
+    startedAt: nowIso,
+    durationMs: 3600,
+  };
+
+  const proposal: FinalDecisionProposal = {
+    tmdbId: winnerMovieId,
+    proposedBy: participantId,
+    proposedAt: nowIso,
+    confirmedBy: [participantId],
+  };
+
+  room.finalProposal = proposal;
+
+  return { spin, proposal };
 }

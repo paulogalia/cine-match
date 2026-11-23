@@ -1,11 +1,17 @@
 import { useCallback, useEffect } from 'react';
 import { APP_LIMITS, type FilterCriteria, type VoteDecision } from '@cine-match/shared';
-import { fetchCatalogStatus, fetchGenres, fetchNetworkInfo, fetchWatchProviders } from '../services/api';
+import {
+  fetchCatalogStatus,
+  fetchGenres,
+  fetchNetworkInfo,
+  fetchWatchProviders,
+} from '../services/api';
 import { createClientSocket, type TypedClientSocket } from '../services/socket';
 import { localPersistence } from '../services/storage';
 import { useSessionStore } from '../stores/sessionStore';
 import { haptics } from '../utils/haptics';
 import { generateId } from '../utils/id';
+import { sounds } from '../utils/sounds';
 
 let sharedSocket: TypedClientSocket | null = null;
 let initializedListeners = false;
@@ -62,7 +68,6 @@ export function useSocketController() {
 
             current.setSnapshot(ack.data.snapshot);
 
-            // Se reconectou na mesma sala e surgiu um match enquanto estava offline, celebra agora
             if (prevSnapshot && prevSnapshot.code === ack.data.snapshot.code) {
               for (const item of ack.data.snapshot.matches) {
                 if (item.match.status === 'ACTIVE') {
@@ -132,18 +137,39 @@ export function useSocketController() {
         s.applyFiltersUpdated(filters, queue, queueTotalRemaining, catalogExhausted, stateVersion);
         s.showToast('Filtros da sessão atualizados.', 'info');
       });
+      socket.on('movie:watched_removed', ({ tmdbId, title, markedBy, queue, queueTotalRemaining, catalogExhausted, matches, stateVersion }) => {
+        const s = useSessionStore.getState();
+        s.applyWatchedRemoved({
+          tmdbId,
+          queue,
+          queueTotalRemaining,
+          catalogExhausted,
+          matches,
+          stateVersion,
+        });
+        s.showToast(`${markedBy} marcou "${title}" como já assistido.`, 'info');
+      });
       socket.on('match:created', ({ movie }) => {
         haptics.match();
+        sounds.match(useSessionStore.getState().soundEnabled);
         useSessionStore.getState().enqueueMatchCelebration(movie);
       });
       socket.on('matches:updated', ({ matches, stateVersion }) => {
         useSessionStore.getState().applyMatchesUpdated(matches, stateVersion);
       });
+      socket.on('decision:roulette_spun', ({ spin, finalProposal, stateVersion }) => {
+        const s = useSessionStore.getState();
+        s.applyFinalProposal(finalProposal, stateVersion);
+        s.setActiveRouletteSpin(spin);
+      });
       socket.on('decision:proposal_updated', ({ finalProposal, stateVersion }) => {
         useSessionStore.getState().applyFinalProposal(finalProposal, stateVersion);
       });
       socket.on('session:finalized', ({ chosenMovie, matches, stateVersion }) => {
-        if (chosenMovie) haptics.match();
+        if (chosenMovie) {
+          haptics.match();
+          sounds.match(useSessionStore.getState().soundEnabled);
+        }
         useSessionStore.getState().applyFinalized(chosenMovie, matches, stateVersion);
       });
       socket.on('server:error', ({ message }) => {
@@ -317,8 +343,13 @@ export function useSocketController() {
       }
       if (snapshot.status !== 'IN_PROGRESS') return false;
 
-      if (decision === 'LIKE') haptics.like();
-      else haptics.dislike();
+      if (decision === 'LIKE') {
+        haptics.like();
+        sounds.like(state.soundEnabled);
+      } else {
+        haptics.dislike();
+        sounds.dislike(state.soundEnabled);
+      }
 
       state.addPendingVote(tmdbId);
       const operationId = generateId('op', 16);
@@ -349,6 +380,94 @@ export function useSocketController() {
               catalogExhausted: ack.data.catalogExhausted,
               stateVersion: ack.data.stateVersion,
             });
+            if (
+              ack.data.queueTotalRemaining <= APP_LIMITS.QUEUE_LOW_WATERMARK &&
+              !ack.data.catalogExhausted
+            ) {
+              void requestMoreMovies();
+            }
+            resolve(true);
+          } else {
+            s.removePendingVote(tmdbId);
+            s.showToast(ack.error.message, 'error');
+            resolve(false);
+          }
+        });
+      });
+    },
+    [requestMoreMovies],
+  );
+
+  const undoLastVote = useCallback(async (): Promise<boolean> => {
+    const socket = getSharedSocket();
+    const state = useSessionStore.getState();
+    const snapshot = state.snapshot;
+
+    if (!socket.connected || state.connectionState !== 'connected' || !snapshot) {
+      state.showToast('Sem conexão com o servidor para desfazer.', 'error');
+      return false;
+    }
+
+    haptics.undo();
+    sounds.undo(state.soundEnabled);
+
+    return new Promise((resolve) => {
+      socket.emit('vote:undo', { roomCode: snapshot.code }, (ack) => {
+        const s = useSessionStore.getState();
+        if (ack.ok) {
+          s.applyUndoResult({
+            undoneMovieId: ack.data.undoneMovieId,
+            myVotesCount: ack.data.myVotesCount,
+            canUndo: ack.data.canUndo,
+            queue: ack.data.queue,
+            queueTotalRemaining: ack.data.queueTotalRemaining,
+            catalogExhausted: ack.data.catalogExhausted,
+            matches: ack.data.matches,
+            stateVersion: ack.data.stateVersion,
+          });
+          s.showToast(
+            ack.data.matchReverted
+              ? 'Último voto desfeito e match revertido.'
+              : 'Último voto desfeito.',
+            'info',
+          );
+          resolve(true);
+        } else {
+          s.showToast(ack.error.message, 'error');
+          resolve(false);
+        }
+      });
+    });
+  }, []);
+
+  const markMovieWatched = useCallback(
+    async (tmdbId: number): Promise<boolean> => {
+      const socket = getSharedSocket();
+      const state = useSessionStore.getState();
+      const snapshot = state.snapshot;
+
+      if (!socket.connected || state.connectionState !== 'connected' || !snapshot) {
+        state.showToast('Sem conexão com o servidor.', 'error');
+        return false;
+      }
+
+      haptics.watched();
+      sounds.watched(state.soundEnabled);
+      state.addPendingVote(tmdbId);
+
+      return new Promise((resolve) => {
+        socket.emit('movie:mark_watched', { roomCode: snapshot.code, tmdbId }, (ack) => {
+          const s = useSessionStore.getState();
+          if (ack.ok) {
+            s.applyWatchedRemoved({
+              tmdbId: ack.data.tmdbId,
+              queue: ack.data.queue,
+              queueTotalRemaining: ack.data.queueTotalRemaining,
+              catalogExhausted: ack.data.catalogExhausted,
+              matches: ack.data.matches,
+              stateVersion: ack.data.stateVersion,
+            });
+            s.showToast(`"${ack.data.title}" marcado como já assistido.`, 'info');
             if (
               ack.data.queueTotalRemaining <= APP_LIMITS.QUEUE_LOW_WATERMARK &&
               !ack.data.catalogExhausted
@@ -442,6 +561,26 @@ export function useSocketController() {
     });
   }, []);
 
+  const spinRoulette = useCallback(async (): Promise<string | null> => {
+    const socket = getSharedSocket();
+    const snapshot = useSessionStore.getState().snapshot;
+    if (!socket.connected || !snapshot) return 'Sem conexão com o servidor.';
+
+    return new Promise((resolve) => {
+      socket.emit('decision:spin_roulette', { roomCode: snapshot.code }, (ack) => {
+        if (ack.ok) {
+          const s = useSessionStore.getState();
+          s.applyFinalProposal(ack.data.finalProposal, ack.data.stateVersion);
+          s.setActiveRouletteSpin(ack.data.spin);
+          resolve(null);
+        } else {
+          useSessionStore.getState().showToast(ack.error.message, 'error');
+          resolve(ack.error.message);
+        }
+      });
+    });
+  }, []);
+
   const proposeFinalMovie = useCallback(async (tmdbId: number): Promise<string | null> => {
     const socket = getSharedSocket();
     const snapshot = useSessionStore.getState().snapshot;
@@ -508,12 +647,15 @@ export function useSocketController() {
     updateFilters,
     startSession,
     submitVote,
+    undoLastVote,
+    markMovieWatched,
     requestMoreMovies,
     dismissMatch,
     pauseSession,
     resumeSession,
     enterDeciding,
     returnToVoting,
+    spinRoulette,
     proposeFinalMovie,
     confirmFinalMovie,
     endSession,

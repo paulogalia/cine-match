@@ -1,4 +1,13 @@
-import type { MovieDetails, MovieSummary, WatchProvider } from '@cine-match/shared';
+import type {
+  CastMember,
+  DirectorCredit,
+  MovieDetails,
+  MovieSummary,
+  MovieTrailer,
+  PersonRole,
+  PersonSearchResult,
+  WatchProvider,
+} from '@cine-match/shared';
 
 export interface TmdbRawMovieItem {
   id: number;
@@ -12,6 +21,9 @@ export interface TmdbRawMovieItem {
   release_date?: string | null;
   genre_ids?: number[] | null;
   original_language?: string | null;
+  popularity?: number | null;
+  job?: string | null;
+  character?: string | null;
 }
 
 export interface TmdbRawProviderEntry {
@@ -27,12 +39,62 @@ export interface TmdbRawRegionProviders {
   buy?: TmdbRawProviderEntry[];
 }
 
+export interface TmdbRawVideoItem {
+  key?: string | null;
+  name?: string | null;
+  site?: string | null;
+  type?: string | null;
+  official?: boolean | null;
+  iso_639_1?: string | null;
+}
+
+export interface TmdbRawCastItem {
+  id: number;
+  name?: string | null;
+  character?: string | null;
+  profile_path?: string | null;
+  order?: number | null;
+}
+
+export interface TmdbRawCrewItem {
+  id: number;
+  name?: string | null;
+  job?: string | null;
+  department?: string | null;
+  profile_path?: string | null;
+}
+
 export interface TmdbRawMovieDetail extends TmdbRawMovieItem {
   runtime?: number | null;
   genres?: Array<{ id: number; name: string }>;
+  credits?: {
+    cast?: TmdbRawCastItem[];
+    crew?: TmdbRawCrewItem[];
+  };
+  videos?: {
+    results?: TmdbRawVideoItem[];
+  };
   'watch/providers'?: {
     results?: Record<string, TmdbRawRegionProviders | undefined>;
   };
+}
+
+export interface TmdbRawPersonItem {
+  id: number;
+  name?: string | null;
+  profile_path?: string | null;
+  known_for_department?: string | null;
+  popularity?: number | null;
+  known_for?: Array<{
+    title?: string | null;
+    name?: string | null;
+    original_title?: string | null;
+  }>;
+}
+
+export interface TmdbRawPersonCreditsResponse {
+  cast?: TmdbRawMovieItem[];
+  crew?: TmdbRawMovieItem[];
 }
 
 function parseReleaseYear(releaseDate?: string | null): number | null {
@@ -60,9 +122,6 @@ export function mapTmdbMovieSummary(raw: TmdbRawMovieItem): MovieSummary {
   };
 }
 
-/**
- * Deduplica resultados por tmdbId e prioriza filmes que possuem pôster disponível.
- */
 export function normalizeTmdbMovieList(items: TmdbRawMovieItem[]): MovieSummary[] {
   const seen = new Set<number>();
   const withPoster: MovieSummary[] = [];
@@ -82,6 +141,36 @@ export function normalizeTmdbMovieList(items: TmdbRawMovieItem[]): MovieSummary[
   }
 
   return withPoster.length > 0 ? withPoster : withoutPoster;
+}
+
+function pickBestTrailer(videos?: TmdbRawVideoItem[]): MovieTrailer | null {
+  if (!Array.isArray(videos) || videos.length === 0) return null;
+
+  const youtubeOnly = videos.filter(
+    (v) => v.site === 'YouTube' && Boolean(v.key) && (v.type === 'Trailer' || v.type === 'Teaser'),
+  );
+  if (youtubeOnly.length === 0) return null;
+
+  const scoreVideo = (v: TmdbRawVideoItem): number => {
+    let score = 0;
+    if (v.type === 'Trailer') score += 40;
+    if (v.official) score += 20;
+    if (v.iso_639_1 === 'pt') score += 30;
+    else if (v.iso_639_1 === 'en') score += 15;
+    return score;
+  };
+
+  const sorted = [...youtubeOnly].sort((a, b) => scoreVideo(b) - scoreVideo(a));
+  const best = sorted[0];
+  if (!best?.key) return null;
+
+  return {
+    key: best.key,
+    name: (best.name ?? 'Trailer oficial').trim() || 'Trailer oficial',
+    site: 'YouTube',
+    type: best.type ?? 'Trailer',
+    language: best.iso_639_1 ?? 'en',
+  };
 }
 
 export function mapTmdbMovieDetails(raw: TmdbRawMovieDetail): MovieDetails {
@@ -116,10 +205,40 @@ export function mapTmdbMovieDetails(raw: TmdbRawMovieDetail): MovieDetails {
   appendGroup(brProviders?.rent, 'rent');
   appendGroup(brProviders?.buy, 'buy');
 
+  // Diretores (estritamente job === 'Director')
+  const seenDirectorIds = new Set<number>();
+  const directors: DirectorCredit[] = [];
+  for (const member of raw.credits?.crew ?? []) {
+    if (member.job !== 'Director' || !member.name || seenDirectorIds.has(member.id)) {
+      continue;
+    }
+    seenDirectorIds.add(member.id);
+    directors.push({
+      id: member.id,
+      name: member.name.trim(),
+      profilePath: member.profile_path ?? null,
+    });
+  }
+
+  // Elenco principal (top 8 ordenado por créditos)
+  const cast: CastMember[] = [...(raw.credits?.cast ?? [])]
+    .filter((c) => Number.isInteger(c.id) && c.id > 0 && Boolean(c.name))
+    .sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
+    .slice(0, 8)
+    .map((c) => ({
+      id: c.id,
+      name: c.name!.trim(),
+      character: (c.character ?? '').trim(),
+      profilePath: c.profile_path ?? null,
+    }));
+
   return {
     ...summary,
     runtime: typeof raw.runtime === 'number' && raw.runtime > 0 ? raw.runtime : null,
     genres: Array.isArray(raw.genres) ? raw.genres : [],
+    directors,
+    cast,
+    trailer: pickBestTrailer(raw.videos?.results),
     watchProvidersBR: {
       link: brProviders?.link ?? null,
       available: providers.length > 0,
@@ -127,4 +246,68 @@ export function mapTmdbMovieDetails(raw: TmdbRawMovieDetail): MovieDetails {
     },
     fetchedAt: new Date().toISOString(),
   };
+}
+
+export function mapTmdbPersonSearchList(
+  items: TmdbRawPersonItem[],
+  preferredRole?: PersonRole,
+): PersonSearchResult[] {
+  const preferredDept =
+    preferredRole === 'director'
+      ? 'Directing'
+      : preferredRole === 'actor'
+        ? 'Acting'
+        : null;
+
+  const valid = items.filter((p) => Number.isInteger(p.id) && p.id > 0 && Boolean(p.name));
+
+  const sorted = [...valid].sort((a, b) => {
+    const aMatch = preferredDept && a.known_for_department === preferredDept ? 1 : 0;
+    const bMatch = preferredDept && b.known_for_department === preferredDept ? 1 : 0;
+    if (aMatch !== bMatch) return bMatch - aMatch;
+    return (b.popularity ?? 0) - (a.popularity ?? 0);
+  });
+
+  return sorted.slice(0, 12).map((p) => ({
+    id: p.id,
+    name: p.name!.trim(),
+    profilePath: p.profile_path ?? null,
+    knownForDepartment: p.known_for_department ?? 'Acting',
+    knownForTitles: (p.known_for ?? [])
+      .map((k) => (k.title ?? k.name ?? k.original_title ?? '').trim())
+      .filter(Boolean)
+      .slice(0, 3),
+  }));
+}
+
+export function mapTmdbPersonCredits(
+  raw: TmdbRawPersonCreditsResponse,
+  role: PersonRole,
+): MovieSummary[] {
+  if (role === 'director') {
+    const directed = (raw.crew ?? []).filter((item) => item.job === 'Director');
+    const ordered = [...directed].sort(
+      (a, b) => (b.vote_count ?? 0) - (a.vote_count ?? 0) || (b.popularity ?? 0) - (a.popularity ?? 0),
+    );
+    return normalizeTmdbMovieList(ordered);
+  }
+
+  // Para atores, exclui aparições como "Self / Himself / Herself" em documentários/especiais
+  const acted = (raw.cast ?? []).filter((item) => {
+    const char = (item.character ?? '').trim().toLowerCase();
+    const isSelf =
+      char === 'self' ||
+      char.startsWith('self ') ||
+      char.startsWith('self -') ||
+      char === 'himself' ||
+      char === 'herself' ||
+      char.includes('(archive footage)');
+    return !isSelf;
+  });
+
+  const pool = acted.length > 0 ? acted : (raw.cast ?? []);
+  const ordered = [...pool].sort(
+    (a, b) => (b.vote_count ?? 0) - (a.vote_count ?? 0) || (b.popularity ?? 0) - (a.popularity ?? 0),
+  );
+  return normalizeTmdbMovieList(ordered);
 }

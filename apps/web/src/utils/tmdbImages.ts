@@ -30,6 +30,14 @@ export function getProviderLogoUrl(logoPath: string | null | undefined): string 
   return `${TMDB_IMAGE_BASE}/w92${logoPath}`;
 }
 
+export function getProfileUrl(profilePath: string | null | undefined): string | null {
+  if (!profilePath) return null;
+  if (profilePath.startsWith('http://') || profilePath.startsWith('https://')) {
+    return profilePath;
+  }
+  return `${TMDB_IMAGE_BASE}/w185${profilePath}`;
+}
+
 export function formatRuntime(minutes?: number | null): string | null {
   if (!minutes || minutes <= 0) return null;
   const h = Math.floor(minutes / 60);

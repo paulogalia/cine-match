@@ -10,12 +10,14 @@ import type {
   MatchDismissPayload,
   MatchRecord,
   MovieSummary,
+  MovieWatchedPayload,
   PartnerProgress,
   PublicParticipant,
   RoomActionPayload,
   RoomCreatePayload,
   RoomJoinPayload,
   RoomStatus,
+  RouletteSpin,
   SessionEndPayload,
   SessionSyncPayload,
   VoteDecision,
@@ -37,6 +39,28 @@ export interface VoteSubmitAckData {
   queue: MovieSummary[];
   queueTotalRemaining: number;
   catalogExhausted: boolean;
+  stateVersion: number;
+}
+
+export interface VoteUndoAckData {
+  undoneMovieId: number;
+  matchReverted: boolean;
+  myVotesCount: number;
+  canUndo: boolean;
+  queue: MovieSummary[];
+  queueTotalRemaining: number;
+  catalogExhausted: boolean;
+  matches: ClientMatchItem[];
+  stateVersion: number;
+}
+
+export interface MovieWatchedAckData {
+  tmdbId: number;
+  title: string;
+  queue: MovieSummary[];
+  queueTotalRemaining: number;
+  catalogExhausted: boolean;
+  matches: ClientMatchItem[];
   stateVersion: number;
 }
 
@@ -83,6 +107,14 @@ export interface ClientToServerEvents {
     payload: VoteSubmitPayload,
     ack: (res: SocketAck<VoteSubmitAckData>) => void,
   ) => void;
+  'vote:undo': (
+    payload: RoomActionPayload,
+    ack: (res: SocketAck<VoteUndoAckData>) => void,
+  ) => void;
+  'movie:mark_watched': (
+    payload: MovieWatchedPayload,
+    ack: (res: SocketAck<MovieWatchedAckData>) => void,
+  ) => void;
   'match:dismiss': (
     payload: MatchDismissPayload,
     ack: (res: SocketAck<{ matches: ClientMatchItem[]; stateVersion: number }>) => void,
@@ -94,6 +126,16 @@ export interface ClientToServerEvents {
   'decision:return': (
     payload: RoomActionPayload,
     ack: (res: SocketAck<{ status: RoomStatus; stateVersion: number }>) => void,
+  ) => void;
+  'decision:spin_roulette': (
+    payload: RoomActionPayload,
+    ack: (
+      res: SocketAck<{
+        spin: RouletteSpin;
+        finalProposal: FinalDecisionProposal;
+        stateVersion: number;
+      }>,
+    ) => void,
   ) => void;
   'decision:propose': (
     payload: DecisionMoviePayload,
@@ -149,6 +191,16 @@ export interface ServerToClientEvents {
     decision: VoteDecision;
     myVotesCount: number;
   }) => void;
+  'movie:watched_removed': (payload: {
+    tmdbId: number;
+    title: string;
+    markedBy: string;
+    queue: MovieSummary[];
+    queueTotalRemaining: number;
+    catalogExhausted: boolean;
+    matches: ClientMatchItem[];
+    stateVersion: number;
+  }) => void;
   'match:created': (payload: {
     match: MatchRecord;
     movie: MovieSummary;
@@ -156,6 +208,11 @@ export interface ServerToClientEvents {
   }) => void;
   'matches:updated': (payload: {
     matches: ClientMatchItem[];
+    stateVersion: number;
+  }) => void;
+  'decision:roulette_spun': (payload: {
+    spin: RouletteSpin;
+    finalProposal: FinalDecisionProposal;
     stateVersion: number;
   }) => void;
   'decision:proposal_updated': (payload: {

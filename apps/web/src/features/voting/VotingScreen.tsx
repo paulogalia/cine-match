@@ -1,5 +1,14 @@
 import { useMemo, useState } from 'react';
-import { Heart, Pause, Play, SlidersHorizontal, Sparkles, WifiOff } from 'lucide-react';
+import {
+  Heart,
+  Pause,
+  Play,
+  SlidersHorizontal,
+  Sparkles,
+  Volume2,
+  VolumeX,
+  WifiOff,
+} from 'lucide-react';
 import type { ClientRoomSnapshot, FilterCriteria, MovieSummary, VoteDecision } from '@cine-match/shared';
 import { SwipeDeck } from '../../components/swipe/SwipeDeck';
 import { Button } from '../../components/ui/Button';
@@ -14,6 +23,8 @@ import styles from './VotingScreen.module.css';
 interface VotingScreenProps {
   snapshot: ClientRoomSnapshot;
   onVote: (tmdbId: number, decision: VoteDecision) => Promise<boolean>;
+  onUndo?: () => Promise<boolean>;
+  onMarkWatched?: (tmdbId: number) => Promise<boolean>;
   onRequestMore: () => Promise<void>;
   onUpdateFilters: (filters: FilterCriteria) => Promise<string | null>;
   onDismissMatch: (tmdbId: number) => Promise<void>;
@@ -26,6 +37,8 @@ interface VotingScreenProps {
 export function VotingScreen({
   snapshot,
   onVote,
+  onUndo,
+  onMarkWatched,
   onRequestMore,
   onUpdateFilters,
   onDismissMatch,
@@ -37,6 +50,8 @@ export function VotingScreen({
   const connectionState = useSessionStore((s) => s.connectionState);
   const pendingVoteMovieIds = useSessionStore((s) => s.pendingVoteMovieIds);
   const loadingMoreMovies = useSessionStore((s) => s.loadingMoreMovies);
+  const soundEnabled = useSessionStore((s) => s.soundEnabled);
+  const toggleSound = useSessionStore((s) => s.toggleSound);
   const setDiagnosticsOpen = useSessionStore((s) => s.setDiagnosticsOpen);
 
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -58,11 +73,14 @@ export function VotingScreen({
     snapshot.filters.minRating !== undefined ||
     Boolean(snapshot.filters.originalLanguage) ||
     Boolean(snapshot.filters.oscar?.enabled) ||
+    (snapshot.filters.directors?.length ?? 0) > 0 ||
+    (snapshot.filters.actors?.length ?? 0) > 0 ||
     (snapshot.filters.watchProviderIds?.length ?? 0) > 0 ||
     Boolean(snapshot.filters.randomDiscovery) ||
     Boolean(snapshot.filters.excludeHistory) ||
     snapshot.filters.sortBy !== 'popularity.desc';
 
+  const canUndo = Boolean(snapshot.canUndo ?? snapshot.myVotesCount > 0);
   const partner = snapshot.participants.find((p) => p.id !== snapshot.myParticipantId);
   const isConnected = connectionState === 'connected';
 
@@ -89,6 +107,18 @@ export function VotingScreen({
         </div>
 
         <div className={styles.headerActions}>
+          <button
+            type="button"
+            className={styles.iconBtn}
+            onClick={toggleSound}
+            aria-label={soundEnabled ? 'Silenciar efeitos sonoros' : 'Ativar efeitos sonoros'}
+            title={soundEnabled ? 'Som ativo' : 'Som silenciado'}
+            data-testid="sound-toggle-btn"
+            style={{ padding: '0 9px' }}
+          >
+            {soundEnabled ? <Volume2 size={15} /> : <VolumeX size={15} color="var(--text-muted)" />}
+          </button>
+
           <button
             type="button"
             className={`${styles.iconBtn} ${hasActiveFilters ? styles.iconBtnActive : ''}`}
@@ -136,7 +166,7 @@ export function VotingScreen({
             className={styles.iconBtn}
             onClick={() => void (snapshot.status === 'PAUSED' ? onResume() : onPause())}
             aria-label={snapshot.status === 'PAUSED' ? 'Retomar sessão' : 'Pausar sessão'}
-            style={{ padding: '0 10px' }}
+            style={{ padding: '0 9px' }}
           >
             {snapshot.status === 'PAUSED' ? <Play size={15} /> : <Pause size={15} />}
           </button>
@@ -186,13 +216,18 @@ export function VotingScreen({
           <SwipeDeck
             movies={visibleQueue}
             disabled={!isConnected}
+            canUndo={canUndo}
             onVote={(tmdbId, decision) => void onVote(tmdbId, decision)}
+            onUndo={onUndo ? () => void onUndo() : undefined}
+            onMarkWatched={onMarkWatched ? (tmdbId) => void onMarkWatched(tmdbId) : undefined}
           />
         ) : (
           <WaitingQueueView
             snapshot={snapshot}
             loadingMore={loadingMoreMovies}
             activeMatchesCount={activeMatchesCount}
+            canUndo={canUndo}
+            onUndo={onUndo}
             onRequestMore={onRequestMore}
             onOpenMatches={() => setMatchesOpen(true)}
             onOpenFilters={() => setFiltersOpen(true)}

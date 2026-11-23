@@ -183,3 +183,15 @@
   gap: 14px;
   padding: 24px;
 }
+
+@media (max-width: 400px) {
+  .headerActions {
+    gap: 5px;
+  }
+
+  .iconBtn {
+    height: 34px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+}

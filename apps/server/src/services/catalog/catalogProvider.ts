@@ -3,6 +3,8 @@ import type {
   Genre,
   MovieDetails,
   MovieSummary,
+  PersonRole,
+  PersonSearchResult,
   WatchProviderOption,
 } from '@cine-match/shared';
 
@@ -19,4 +21,6 @@ export interface CatalogProvider {
   getGenres(): Promise<Genre[]>;
   getWatchProvidersBR(): Promise<WatchProviderOption[]>;
   searchMovies(query: string, page?: number): Promise<CatalogPageResult>;
+  searchPeople(query: string, role?: PersonRole): Promise<PersonSearchResult[]>;
+  getPersonMovies(personId: number, role: PersonRole): Promise<MovieSummary[]>;
 }

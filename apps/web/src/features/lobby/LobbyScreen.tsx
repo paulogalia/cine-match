@@ -48,6 +48,12 @@ export function LobbyScreen({ snapshot, onUpdateFilters, onStartSession }: Lobby
 
   const activeFiltersSummary: string[] = [];
   if (snapshot.filters.oscar?.enabled) activeFiltersSummary.push('Oscar');
+  if ((snapshot.filters.directors?.length ?? 0) > 0) {
+    activeFiltersSummary.push(snapshot.filters.directors!.map((d) => d.name).join(', '));
+  }
+  if ((snapshot.filters.actors?.length ?? 0) > 0) {
+    activeFiltersSummary.push(snapshot.filters.actors!.map((a) => a.name).join(', '));
+  }
   if ((snapshot.filters.watchProviderIds?.length ?? 0) > 0) {
     activeFiltersSummary.push(`${snapshot.filters.watchProviderIds!.length} streaming(s)`);
   }
@@ -194,7 +200,7 @@ export function LobbyScreen({ snapshot, onUpdateFilters, onStartSession }: Lobby
             onClick={() => setFiltersOpen(true)}
             data-testid="lobby-open-filters-btn"
           >
-            Personalizar Oscar, Streamings e Filtros
+            Oscar, Diretores, Atores e Streamings
           </Button>
         )}
       </div>

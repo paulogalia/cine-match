@@ -42,6 +42,11 @@ export const VoteSubmitPayloadSchema = z.object({
   decision: VoteDecisionSchema,
 });
 
+export const MovieWatchedPayloadSchema = z.object({
+  roomCode: RoomCodeSchema,
+  tmdbId: z.number().int().positive(),
+});
+
 export const MatchDismissPayloadSchema = z.object({
   roomCode: RoomCodeSchema,
   tmdbId: z.number().int().positive(),
@@ -63,6 +68,7 @@ export type SessionSyncPayload = z.infer<typeof SessionSyncPayloadSchema>;
 export type RoomActionPayload = z.infer<typeof RoomActionPayloadSchema>;
 export type FiltersUpdatePayload = z.infer<typeof FiltersUpdatePayloadSchema>;
 export type VoteSubmitPayload = z.infer<typeof VoteSubmitPayloadSchema>;
+export type MovieWatchedPayload = z.infer<typeof MovieWatchedPayloadSchema>;
 export type MatchDismissPayload = z.infer<typeof MatchDismissPayloadSchema>;
 export type DecisionMoviePayload = z.infer<typeof DecisionMoviePayloadSchema>;
 export type SessionEndPayload = z.infer<typeof SessionEndPayloadSchema>;
