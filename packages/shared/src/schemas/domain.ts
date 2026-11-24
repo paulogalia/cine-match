@@ -21,6 +21,9 @@ export const SortBySchema = z.enum([
 ]);
 
 export const PersonRoleSchema = z.enum(['director', 'actor']);
+export const TitleLanguageSchema = z.enum(['pt-BR', 'en-US', 'original']);
+export const LetterboxdWatchedModeSchema = z.enum(['hide', 'warn', 'ignore']);
+export const GroupMatchModeSchema = z.enum(['all', 'majority']);
 
 export const SelectedPersonSchema = z.object({
   id: z.number().int().positive(),
@@ -76,11 +79,14 @@ export const FilterCriteriaSchema = z.object({
   excludeHistory: z.boolean().optional(),
   presetId: z.string().trim().max(40).optional(),
   oscar: OscarFilterSchema.optional(),
+  letterboxdWatchedMode: LetterboxdWatchedModeSchema.optional(),
+  groupMatchMode: GroupMatchModeSchema.optional(),
 });
 
 export const MovieSummarySchema = z.object({
   tmdbId: z.number().int().positive(),
   title: z.string().min(1),
+  englishTitle: z.string().min(1).optional(),
   originalTitle: z.string().min(1),
   overview: z.string(),
   posterPath: z.string().nullable(),
@@ -108,6 +114,8 @@ export const ParticipantSchema = z.object({
   deviceId: DeviceIdSchema,
   name: ParticipantNameSchema,
   avatarColor: z.string().min(1),
+  avatarDataUrl: z.string().max(45_000).nullable().optional(),
+  publicProfileId: z.string().min(1).optional(),
   role: ParticipantRoleSchema,
   connectionStatus: ConnectionStatusSchema,
   socketId: z.string().nullable(),
@@ -132,6 +140,7 @@ export const MatchRecordSchema = z.object({
   tmdbId: z.number().int().positive(),
   matchedAt: z.string(),
   status: MatchStatusSchema,
+  likedByParticipantIds: z.array(z.string()).optional(),
   dismissedBy: z.string().optional(),
   dismissedAt: z.string().optional(),
 });
@@ -204,6 +213,85 @@ export const PersistedStoreSchema = z.object({
   watchedMovies: z.array(WatchedMovieEntrySchema).default([]),
 });
 
+export const ProfileLetterboxdDataSchema = z.object({
+  watchedKeys: z.array(z.string()).default([]),
+  watchedCount: z.number().int().min(0).default(0),
+  watchlistKeys: z.array(z.string()).default([]),
+  watchlistCount: z.number().int().min(0).default(0),
+  importedAt: z.string().nullable().default(null),
+});
+
+export const PairAgreementSchema = z.object({
+  partnerPublicId: z.string().min(1),
+  partnerName: z.string().min(1),
+  agreed: z.number().int().min(0),
+  total: z.number().int().min(0),
+});
+
+export const ProfileStatsSchema = z.object({
+  totalVotes: z.number().int().min(0).default(0),
+  totalLikes: z.number().int().min(0).default(0),
+  totalDislikes: z.number().int().min(0).default(0),
+  totalSessions: z.number().int().min(0).default(0),
+  totalMatches: z.number().int().min(0).default(0),
+  chosenMoviesCount: z.number().int().min(0).default(0),
+  watchedWithAppIds: z.array(z.number().int().positive()).default([]),
+  genreLikes: z.record(z.string(), z.number().int().min(0)).default({}),
+  pairAgreements: z.record(z.string(), PairAgreementSchema).default({}),
+});
+
+export const UserProfileSchema = z.object({
+  id: DeviceIdSchema,
+  publicId: z.string().min(1),
+  recoveryCode: z.string().min(4).max(20),
+  name: ParticipantNameSchema.optional(),
+  avatarColor: z.string().min(1),
+  avatarDataUrl: z.string().max(45_000).nullable().default(null),
+  titleLanguage: TitleLanguageSchema.default('pt-BR'),
+  letterboxd: ProfileLetterboxdDataSchema.default({
+    watchedKeys: [],
+    watchedCount: 0,
+    watchlistKeys: [],
+    watchlistCount: 0,
+    importedAt: null,
+  }),
+  stats: ProfileStatsSchema.default({
+    totalVotes: 0,
+    totalLikes: 0,
+    totalDislikes: 0,
+    totalSessions: 0,
+    totalMatches: 0,
+    chosenMoviesCount: 0,
+    watchedWithAppIds: [],
+    genreLikes: {},
+    pairAgreements: {},
+  }),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+export const ProfileUpdatePayloadSchema = z.object({
+  name: ParticipantNameSchema.optional(),
+  avatarColor: z.string().min(1).max(32).optional(),
+  avatarDataUrl: z.string().max(45_000).nullable().optional(),
+  titleLanguage: TitleLanguageSchema.optional(),
+});
+
+export const ProfileRecoverPayloadSchema = z.object({
+  recoveryCode: z.string().trim().min(4).max(20),
+});
+
+export const LetterboxdImportPayloadSchema = z.object({
+  kind: z.enum(['watched', 'watchlist']),
+  csvText: z.string().min(1).max(2_000_000),
+});
+
+export const PersistedProfilesStoreSchema = z.object({
+  schemaVersion: z.literal(1),
+  savedAt: z.string(),
+  profiles: z.record(z.string(), UserProfileSchema),
+});
+
 export const NetworkInterfaceInfoSchema = z.object({
   interfaceName: z.string(),
   address: z.string(),
@@ -224,6 +312,9 @@ export type ParticipantRole = z.infer<typeof ParticipantRoleSchema>;
 export type VoteDecision = z.infer<typeof VoteDecisionSchema>;
 export type MatchStatus = z.infer<typeof MatchStatusSchema>;
 export type PersonRole = z.infer<typeof PersonRoleSchema>;
+export type TitleLanguage = z.infer<typeof TitleLanguageSchema>;
+export type LetterboxdWatchedMode = z.infer<typeof LetterboxdWatchedModeSchema>;
+export type GroupMatchMode = z.infer<typeof GroupMatchModeSchema>;
 export type SelectedPerson = z.infer<typeof SelectedPersonSchema>;
 export type OscarCategory = z.infer<typeof OscarCategorySchema>;
 export type OscarFilter = z.infer<typeof OscarFilterSchema>;
@@ -240,6 +331,14 @@ export type FinalDecisionProposal = z.infer<typeof FinalDecisionProposalSchema>;
 export type Room = z.infer<typeof RoomSchema>;
 export type SessionHistoryEntry = z.infer<typeof SessionHistoryEntrySchema>;
 export type PersistedStore = z.infer<typeof PersistedStoreSchema>;
+export type ProfileLetterboxdData = z.infer<typeof ProfileLetterboxdDataSchema>;
+export type PairAgreement = z.infer<typeof PairAgreementSchema>;
+export type ProfileStats = z.infer<typeof ProfileStatsSchema>;
+export type UserProfile = z.infer<typeof UserProfileSchema>;
+export type ProfileUpdatePayload = z.infer<typeof ProfileUpdatePayloadSchema>;
+export type ProfileRecoverPayload = z.infer<typeof ProfileRecoverPayloadSchema>;
+export type LetterboxdImportPayload = z.infer<typeof LetterboxdImportPayloadSchema>;
+export type PersistedProfilesStore = z.infer<typeof PersistedProfilesStoreSchema>;
 export type NetworkInterfaceInfo = z.infer<typeof NetworkInterfaceInfoSchema>;
 export type NetworkInfoResponse = z.infer<typeof NetworkInfoResponseSchema>;
 
@@ -264,6 +363,7 @@ export interface ClientRoomSnapshot {
   myParticipantId: string;
   participants: PublicParticipant[];
   partnerProgress: PartnerProgress | null;
+  partnerProgressList?: PartnerProgress[];
   filters: FilterCriteria;
   queue: MovieSummary[];
   queueTotalRemaining: number;
@@ -274,4 +374,8 @@ export interface ClientRoomSnapshot {
   matches: ClientMatchItem[];
   finalProposal: FinalDecisionProposal | null;
   chosenMovie: MovieSummary | null;
+  watchedByByMovieId?: Record<string, string[]>;
+  watchlistedByByMovieId?: Record<string, string[]>;
+  likeCountsByMovieId?: Record<string, number>;
+  requiredLikesForMatch?: number;
 }

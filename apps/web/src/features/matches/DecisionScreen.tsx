@@ -43,6 +43,13 @@ export function DecisionScreen({
   const iProposed = proposal?.proposedBy === snapshot.myParticipantId;
   const iConfirmed = proposal?.confirmedBy.includes(snapshot.myParticipantId) ?? false;
 
+  const totalParticipants = snapshot.participants.length;
+  const onlineCount = snapshot.participants.filter((p) => p.connectionStatus === 'ONLINE').length;
+  const effectiveActive = Math.min(totalParticipants, Math.max(2, onlineCount));
+  const neededConfirmations =
+    totalParticipants <= 2 ? 2 : Math.floor(effectiveActive / 2) + 1;
+  const currentConfirmations = proposal?.confirmedBy.length ?? 0;
+
   const handleSelectMovie = async (tmdbId: number) => {
     setSubmittingId(tmdbId);
     if (proposal && proposal.tmdbId === tmdbId && !iConfirmed) {
@@ -94,7 +101,7 @@ export function DecisionScreen({
           </motion.div>
           <h1 style={{ fontSize: 24 }}>A pipoca ainda está esperando!</h1>
           <p style={{ fontSize: 14.5, color: 'var(--text-secondary)', maxWidth: 300 }}>
-            Vocês ainda não tiveram nenhum match nesta sessão. Voltem para o deck e dêem mais alguns swipes — o filme perfeito pode ser o próximo card!
+            Ainda não houve nenhum match nesta sessão. Voltem para o deck e dêem mais alguns swipes — o filme perfeito pode ser o próximo card!
           </p>
           <div style={{ width: '100%', maxWidth: 280, marginTop: 8 }}>
             <Button
@@ -112,7 +119,9 @@ export function DecisionScreen({
           <div className={styles.hero}>
             <h1 className={styles.title}>Escolher o filme da noite</h1>
             <p className={styles.subtitle}>
-              Toque em um dos matches para sugerir. Quando os dois confirmarem, a noite está fechada!
+              {totalParticipants <= 2
+                ? 'Toque em um dos matches para sugerir. Quando os dois confirmarem, a noite está fechada!'
+                : `Toque em um dos matches para sugerir. Ao atingir ${neededConfirmations} confirmações, o filme é escolhido!`}
             </p>
           </div>
 
@@ -147,13 +156,13 @@ export function DecisionScreen({
                 <span className={styles.proposalTitle}>
                   {iProposed
                     ? `Você sugeriu "${proposedItem.movie.title}"`
-                    : `${proposer?.name ?? 'Seu par'} sugeriu "${proposedItem.movie.title}"`}
+                    : `${proposer?.name ?? 'Alguém da turma'} sugeriu "${proposedItem.movie.title}"`}
                 </span>
               </div>
 
               {iConfirmed ? (
                 <span style={{ fontSize: 13, color: '#e2e8f0' }}>
-                  Aguardando confirmação do outro aparelho... (você ainda pode sugerir outro filme abaixo)
+                  Confirmado por {currentConfirmations} de {neededConfirmations} necessários... (você ainda pode sugerir outro filme abaixo)
                 </span>
               ) : (
                 <Button
@@ -164,7 +173,7 @@ export function DecisionScreen({
                   onClick={() => void handleSelectMovie(proposedItem.movie.tmdbId)}
                   data-testid="confirm-proposal-btn"
                 >
-                  Confirmar para assistir hoje
+                  Confirmar para assistir hoje ({currentConfirmations}/{neededConfirmations})
                 </Button>
               )}
             </motion.div>
@@ -247,7 +256,7 @@ export function DecisionScreen({
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <p style={{ fontSize: 14.5, color: 'var(--text-secondary)' }}>
-            A sessão será encerrada para os dois participantes e salva no histórico com os matches encontrados até agora.
+            A sessão será encerrada para todos os participantes e salva no histórico com os matches encontrados até agora.
           </p>
           <div style={{ display: 'flex', gap: 10 }}>
             <Button variant="secondary" fullWidth onClick={() => setConfirmEndOpen(false)}>

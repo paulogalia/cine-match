@@ -13,6 +13,8 @@ import type {
   PublicParticipant,
   RoomStatus,
   RouletteSpin,
+  TitleLanguage,
+  UserProfile,
   WatchProviderOption,
 } from '@cine-match/shared';
 import { localPersistence } from '../services/storage';
@@ -37,6 +39,9 @@ export interface ToastMessage {
 interface SessionStoreState {
   deviceId: string;
   savedName: string;
+  profile: UserProfile | null;
+  profileOpen: boolean;
+  titleLanguage: TitleLanguage;
   view: AppView;
   prefilledJoinCode: string;
   connectionState: SocketConnectionState;
@@ -60,6 +65,10 @@ interface SessionStoreState {
   setView: (view: AppView) => void;
   setPrefilledJoinCode: (code: string) => void;
   setSavedName: (name: string) => void;
+  setProfile: (profile: UserProfile | null) => void;
+  applyRecoveredProfile: (profile: UserProfile) => void;
+  setProfileOpen: (open: boolean) => void;
+  setTitleLanguage: (language: TitleLanguage) => void;
   setConnectionState: (state: SocketConnectionState) => void;
   setNetworkInfo: (info: NetworkInfoResponse | null) => void;
   setCatalogStatus: (status: CatalogStatus) => void;
@@ -114,8 +123,17 @@ interface SessionStoreState {
     catalogExhausted: boolean;
   }) => void;
 
-  applyParticipantJoined: (participant: PublicParticipant, roomStatus: RoomStatus, version: number) => void;
-  applyParticipantStatus: (participantId: string, status: ConnectionStatus, lastSeenAt: string, version: number) => void;
+  applyParticipantJoined: (
+    participant: PublicParticipant,
+    roomStatus: RoomStatus,
+    version: number,
+  ) => void;
+  applyParticipantStatus: (
+    participantId: string,
+    status: ConnectionStatus,
+    lastSeenAt: string,
+    version: number,
+  ) => void;
   applyPartnerProgress: (progress: PartnerProgress) => void;
   applyRoomStatus: (status: RoomStatus, version: number) => void;
   applyFiltersUpdated: (
@@ -127,7 +145,11 @@ interface SessionStoreState {
   ) => void;
   applyMatchesUpdated: (matches: ClientMatchItem[], version: number) => void;
   applyFinalProposal: (proposal: FinalDecisionProposal | null, version: number) => void;
-  applyFinalized: (chosenMovie: MovieSummary | null, matches: ClientMatchItem[], version: number) => void;
+  applyFinalized: (
+    chosenMovie: MovieSummary | null,
+    matches: ClientMatchItem[],
+    version: number,
+  ) => void;
   leaveSessionLocal: () => void;
 }
 
@@ -140,9 +162,22 @@ function getInitialJoinCodeFromUrl(): string {
 
 const initialJoinCode = getInitialJoinCodeFromUrl();
 
+function computeRequiredLikes(
+  participants: PublicParticipant[],
+  groupMatchMode?: FilterCriteria['groupMatchMode'],
+): number {
+  if (participants.length <= 2) return 2;
+  const onlineCount = participants.filter((p) => p.connectionStatus === 'ONLINE').length;
+  const effectiveActive = Math.min(participants.length, Math.max(2, onlineCount));
+  return groupMatchMode === 'majority' ? Math.floor(effectiveActive / 2) + 1 : effectiveActive;
+}
+
 export const useSessionStore = create<SessionStoreState>((set) => ({
   deviceId: typeof window !== 'undefined' ? localPersistence.getDeviceId() : 'dev_ssr_fallback',
   savedName: typeof window !== 'undefined' ? localPersistence.getSavedName() : '',
+  profile: null,
+  profileOpen: false,
+  titleLanguage: typeof window !== 'undefined' ? localPersistence.getTitleLanguage() : 'pt-BR',
   view: initialJoinCode ? 'join' : 'home',
   prefilledJoinCode: initialJoinCode,
   connectionState: 'connecting',
@@ -177,6 +212,43 @@ export const useSessionStore = create<SessionStoreState>((set) => ({
   setSavedName: (name) => {
     localPersistence.saveName(name);
     set({ savedName: name.trim() });
+  },
+  setProfile: (profile) =>
+    set((state) => {
+      if (!profile) return { profile: null };
+      const trimmedName = profile.name?.trim();
+      if (trimmedName) {
+        localPersistence.saveName(trimmedName);
+      }
+      const nextLang = profile.titleLanguage ?? state.titleLanguage;
+      localPersistence.saveTitleLanguage(nextLang);
+      return {
+        profile,
+        savedName: trimmedName || state.savedName,
+        titleLanguage: nextLang,
+      };
+    }),
+  applyRecoveredProfile: (profile) => {
+    localPersistence.setDeviceId(profile.id);
+    const trimmedName = profile.name?.trim() ?? '';
+    if (trimmedName) {
+      localPersistence.saveName(trimmedName);
+    }
+    localPersistence.saveTitleLanguage(profile.titleLanguage);
+    set({
+      deviceId: profile.id,
+      profile,
+      savedName: trimmedName,
+      titleLanguage: profile.titleLanguage,
+    });
+  },
+  setProfileOpen: (profileOpen) => set({ profileOpen }),
+  setTitleLanguage: (titleLanguage) => {
+    localPersistence.saveTitleLanguage(titleLanguage);
+    set((state) => ({
+      titleLanguage,
+      profile: state.profile ? { ...state.profile, titleLanguage } : state.profile,
+    }));
   },
   setConnectionState: (connectionState) => set({ connectionState }),
   setNetworkInfo: (networkInfo) => set({ networkInfo }),
@@ -340,27 +412,64 @@ export const useSessionStore = create<SessionStoreState>((set) => ({
       const participants = exists
         ? state.snapshot.participants.map((p) => (p.id === participant.id ? participant : p))
         : [...state.snapshot.participants, participant];
+      const existingList = state.snapshot.partnerProgressList ?? [];
+      const nextProgressList =
+        participant.id === state.snapshot.myParticipantId
+          ? existingList
+          : existingList.some((item) => item.participantId === participant.id)
+            ? existingList
+            : [
+                ...existingList,
+                { participantId: participant.id, votedCount: 0, queueRemaining: 0 },
+              ];
       return {
-        snapshot: { ...state.snapshot, participants, status: roomStatus, stateVersion: version },
+        snapshot: {
+          ...state.snapshot,
+          participants,
+          partnerProgress: nextProgressList[0] ?? state.snapshot.partnerProgress,
+          partnerProgressList: nextProgressList,
+          requiredLikesForMatch: computeRequiredLikes(
+            participants,
+            state.snapshot.filters.groupMatchMode,
+          ),
+          status: roomStatus,
+          stateVersion: version,
+        },
       };
     }),
   applyParticipantStatus: (participantId, connectionStatus, lastSeenAt, version) =>
     set((state) => {
       if (!state.snapshot || version < state.snapshot.stateVersion) return state;
+      const participants = state.snapshot.participants.map((p) =>
+        p.id === participantId ? { ...p, connectionStatus, lastSeenAt } : p,
+      );
       return {
         snapshot: {
           ...state.snapshot,
           stateVersion: version,
-          participants: state.snapshot.participants.map((p) =>
-            p.id === participantId ? { ...p, connectionStatus, lastSeenAt } : p,
+          participants,
+          requiredLikesForMatch: computeRequiredLikes(
+            participants,
+            state.snapshot.filters.groupMatchMode,
           ),
         },
       };
     }),
-  applyPartnerProgress: (partnerProgress) =>
+  applyPartnerProgress: (progress) =>
     set((state) => {
       if (!state.snapshot) return state;
-      return { snapshot: { ...state.snapshot, partnerProgress } };
+      const prevList = state.snapshot.partnerProgressList ?? [];
+      const found = prevList.some((p) => p.participantId === progress.participantId);
+      const nextList = found
+        ? prevList.map((p) => (p.participantId === progress.participantId ? progress : p))
+        : [...prevList, progress];
+      return {
+        snapshot: {
+          ...state.snapshot,
+          partnerProgress: nextList[0] ?? progress,
+          partnerProgressList: nextList,
+        },
+      };
     }),
   applyRoomStatus: (status, version) =>
     set((state) => {
@@ -383,6 +492,10 @@ export const useSessionStore = create<SessionStoreState>((set) => ({
         snapshot: {
           ...state.snapshot,
           filters,
+          requiredLikesForMatch: computeRequiredLikes(
+            state.snapshot.participants,
+            filters.groupMatchMode,
+          ),
           queue,
           queueTotalRemaining,
           catalogExhausted,

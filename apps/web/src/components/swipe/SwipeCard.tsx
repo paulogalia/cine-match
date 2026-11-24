@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Award, ChevronDown, ChevronUp, Clock, Star } from 'lucide-react';
+import { Award, Bookmark, ChevronDown, ChevronUp, Clock, Eye, Heart, Star } from 'lucide-react';
 import {
   AnimatePresence,
   motion,
@@ -13,7 +13,9 @@ import {
 } from 'motion/react';
 import type { MovieSummary, VoteDecision } from '@cine-match/shared';
 import { SPRING_SNAPPY } from '../../animations/presets';
+import { useSessionStore } from '../../stores/sessionStore';
 import { getGenreName } from '../../utils/genres';
+import { resolveMovieTitle } from '../../utils/movieTitle';
 import { formatLanguageLabel, formatRuntime } from '../../utils/tmdbImages';
 import { MoviePoster } from '../movie/MoviePoster';
 import styles from './SwipeCard.module.css';
@@ -22,14 +24,34 @@ interface SwipeCardProps {
   movie: MovieSummary;
   disabled?: boolean;
   deckProgress: MotionValue<number>;
+  watchedBy?: string[];
+  watchlistedBy?: string[];
+  groupLikesCount?: number;
+  requiredLikesForMatch?: number;
   onSwipeVote: (tmdbId: number, decision: VoteDecision) => void;
 }
 
 const SWIPE_DISTANCE_THRESHOLD = 112;
 const SWIPE_VELOCITY_THRESHOLD = 520;
 
-export function SwipeCard({ movie, disabled = false, deckProgress, onSwipeVote }: SwipeCardProps) {
+function formatNamesList(names: string[]): string {
+  if (names.length === 1) return names[0] ?? '';
+  if (names.length === 2) return `${names[0]} e ${names[1]}`;
+  return `${names[0]}, ${names[1]} +${names.length - 2}`;
+}
+
+export function SwipeCard({
+  movie,
+  disabled = false,
+  deckProgress,
+  watchedBy,
+  watchlistedBy,
+  groupLikesCount,
+  requiredLikesForMatch,
+  onSwipeVote,
+}: SwipeCardProps) {
   const reducedMotion = Boolean(useReducedMotion());
+  const titleLanguage = useSessionStore((s) => s.titleLanguage);
   const [expanded, setExpanded] = useState(false);
 
   const x = useMotionValue(0);
@@ -81,8 +103,21 @@ export function SwipeCard({ movie, disabled = false, deckProgress, onSwipeVote }
     }
   };
 
+  const resolvedTitle = useMemo(
+    () => resolveMovieTitle(movie, titleLanguage),
+    [movie, titleLanguage],
+  );
   const runtimeLabel = formatRuntime(movie.runtime);
   const genres = movie.genreIds.slice(0, 3).map(getGenreName);
+
+  const hasWatchedBadge = Boolean(watchedBy && watchedBy.length > 0);
+  const hasWatchlistBadge = Boolean(watchlistedBy && watchlistedBy.length > 0);
+  const hasGroupLikesBadge = Boolean(
+    groupLikesCount &&
+      groupLikesCount > 0 &&
+      requiredLikesForMatch &&
+      requiredLikesForMatch >= 3,
+  );
 
   return (
     <motion.article
@@ -104,7 +139,7 @@ export function SwipeCard({ movie, disabled = false, deckProgress, onSwipeVote }
       <div className={styles.posterLayer}>
         <MoviePoster
           posterPath={movie.posterPath}
-          title={movie.title}
+          title={resolvedTitle.primary}
           releaseYear={movie.releaseYear}
           priority
         />
@@ -144,8 +179,97 @@ export function SwipeCard({ movie, disabled = false, deckProgress, onSwipeVote }
       </motion.div>
 
       <div className={styles.infoOverlay}>
+        {(hasGroupLikesBadge || hasWatchedBadge || hasWatchlistBadge) && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 6 }}>
+            {hasGroupLikesBadge && (
+              <span
+                data-testid="group-likes-badge"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 5,
+                  padding: '3px 8px',
+                  borderRadius: 999,
+                  fontSize: 11.5,
+                  fontWeight: 600,
+                  background: 'rgba(225, 29, 72, 0.28)',
+                  border: '1px solid rgba(251, 113, 133, 0.6)',
+                  color: '#FFE4E6',
+                  backdropFilter: 'blur(6px)',
+                }}
+              >
+                <Heart size={11} fill="#FB7185" color="#FB7185" />
+                <span>
+                  {groupLikesCount}/{requiredLikesForMatch} curtiram
+                </span>
+              </span>
+            )}
+            {hasWatchedBadge && watchedBy && (
+              <span
+                data-testid="letterboxd-watched-badge"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 5,
+                  padding: '3px 8px',
+                  borderRadius: 999,
+                  fontSize: 11.5,
+                  fontWeight: 600,
+                  background: 'rgba(245, 158, 11, 0.24)',
+                  border: '1px solid rgba(251, 191, 36, 0.55)',
+                  color: '#FEF3C7',
+                  backdropFilter: 'blur(6px)',
+                }}
+              >
+                <Eye size={12} />
+                <span>
+                  {formatNamesList(watchedBy)}{' '}
+                  {watchedBy.length === 1 ? 'já viu' : 'já viram'}
+                </span>
+              </span>
+            )}
+            {hasWatchlistBadge && watchlistedBy && (
+              <span
+                data-testid="letterboxd-watchlist-badge"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 5,
+                  padding: '3px 8px',
+                  borderRadius: 999,
+                  fontSize: 11.5,
+                  fontWeight: 600,
+                  background: 'rgba(16, 185, 129, 0.24)',
+                  border: '1px solid rgba(52, 211, 153, 0.55)',
+                  color: '#D1FAE5',
+                  backdropFilter: 'blur(6px)',
+                }}
+              >
+                <Bookmark size={12} />
+                <span>Watchlist: {formatNamesList(watchlistedBy)}</span>
+              </span>
+            )}
+          </div>
+        )}
+
         <div className={styles.titleRow}>
-          <h2 className={styles.title}>{movie.title}</h2>
+          <div style={{ minWidth: 0, flex: 1 }}>
+            <h2 className={styles.title}>{resolvedTitle.primary}</h2>
+            {resolvedTitle.secondary && (
+              <p
+                style={{
+                  margin: '2px 0 0',
+                  fontSize: 12.5,
+                  color: 'rgba(255, 255, 255, 0.72)',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {resolvedTitle.secondary}
+              </p>
+            )}
+          </div>
           <button
             type="button"
             className={styles.expandBtn}
@@ -191,9 +315,9 @@ export function SwipeCard({ movie, disabled = false, deckProgress, onSwipeVote }
           >
             <div className={styles.expandedHeader}>
               <div>
-                <h3 style={{ fontSize: 20, fontWeight: 700 }}>{movie.title}</h3>
-                {movie.originalTitle !== movie.title && (
-                  <p className={styles.originalTitle}>{movie.originalTitle}</p>
+                <h3 style={{ fontSize: 20, fontWeight: 700 }}>{resolvedTitle.primary}</h3>
+                {resolvedTitle.secondary && (
+                  <p className={styles.originalTitle}>{resolvedTitle.secondary}</p>
                 )}
               </div>
               <button

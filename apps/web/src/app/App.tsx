@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { AnimatePresence, MotionConfig } from 'motion/react';
 import type { PersonRole, SelectedPerson } from '@cine-match/shared';
 import { MatchOverlay } from '../components/match/MatchOverlay';
@@ -14,8 +15,10 @@ import { JoinRoomScreen } from '../features/lobby/JoinRoomScreen';
 import { LobbyScreen } from '../features/lobby/LobbyScreen';
 import { DecisionScreen } from '../features/matches/DecisionScreen';
 import { FinalChosenScreen } from '../features/matches/FinalChosenScreen';
+import { ProfileModal } from '../features/profile/ProfileModal';
 import { VotingScreen } from '../features/voting/VotingScreen';
 import { useSocketController } from '../hooks/useSocketController';
+import { fetchProfile } from '../services/api';
 import { useSessionStore } from '../stores/sessionStore';
 import styles from './App.module.css';
 
@@ -40,15 +43,19 @@ export function App() {
     endSession,
   } = useSocketController();
 
+  const deviceId = useSessionStore((s) => s.deviceId);
   const view = useSessionStore((s) => s.view);
   const snapshot = useSessionStore((s) => s.snapshot);
   const connectionState = useSessionStore((s) => s.connectionState);
   const matchQueue = useSessionStore((s) => s.matchQueue);
   const selectedMovieForDetails = useSessionStore((s) => s.selectedMovieForDetails);
   const historyOpen = useSessionStore((s) => s.historyOpen);
+  const profileOpen = useSessionStore((s) => s.profileOpen);
   const activeRouletteSpin = useSessionStore((s) => s.activeRouletteSpin);
   const setActiveRouletteSpin = useSessionStore((s) => s.setActiveRouletteSpin);
 
+  const setProfile = useSessionStore((s) => s.setProfile);
+  const setProfileOpen = useSessionStore((s) => s.setProfileOpen);
   const setDiagnosticsOpen = useSessionStore((s) => s.setDiagnosticsOpen);
   const setHistoryOpen = useSessionStore((s) => s.setHistoryOpen);
   const dismissCurrentMatchCelebration = useSessionStore((s) => s.dismissCurrentMatchCelebration);
@@ -57,25 +64,38 @@ export function App() {
   const leaveSessionLocal = useSessionStore((s) => s.leaveSessionLocal);
   const showToast = useSessionStore((s) => s.showToast);
 
+  useEffect(() => {
+    let cancelled = false;
+    void fetchProfile(deviceId).then((loaded) => {
+      if (!cancelled && loaded) {
+        setProfile(loaded);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [deviceId, setProfile]);
+
   const canFilterFromDetails =
     Boolean(snapshot) &&
-    snapshot?.status !== "FINISHED" &&
-    (snapshot?.status === "IN_PROGRESS" ||
-      snapshot?.status === "PAUSED" ||
-      snapshot?.status === "DECIDING" ||
-      snapshot?.participants.find((part) => part.id === snapshot.myParticipantId)?.role === "HOST");
+    snapshot?.status !== 'FINISHED' &&
+    (snapshot?.status === 'IN_PROGRESS' ||
+      snapshot?.status === 'PAUSED' ||
+      snapshot?.status === 'DECIDING' ||
+      snapshot?.participants.find((part) => part.id === snapshot.myParticipantId)?.role === 'HOST');
 
   const handleFilterByPerson = (person: SelectedPerson, role: PersonRole) => {
     if (!snapshot) return;
     void updateFilters({
       genreIds: [],
-      sortBy: "popularity.desc",
+      sortBy: 'popularity.desc',
       watchProviderIds: snapshot.filters.watchProviderIds,
       excludeHistory: snapshot.filters.excludeHistory,
-      directors: role === "director" ? [person] : undefined,
-      actors: role === "actor" ? [person] : undefined,
+      letterboxdWatchedMode: snapshot.filters.letterboxdWatchedMode,
+      directors: role === 'director' ? [person] : undefined,
+      actors: role === 'actor' ? [person] : undefined,
     });
-    showToast(`Filtrando filmes de ${person.name}`, "success");
+    showToast(`Filtrando filmes de ${person.name}`, 'success');
   };
 
   const isImmersiveSession =
@@ -172,7 +192,7 @@ export function App() {
           <RouletteOverlay
             spin={activeRouletteSpin}
             matches={snapshot?.matches ?? []}
-            myParticipantId={snapshot?.myParticipantId ?? ""}
+            myParticipantId={snapshot?.myParticipantId ?? ''}
             triggerName={
               snapshot?.participants.find((p) => p.id === activeRouletteSpin?.triggeredBy)?.name
             }
@@ -192,6 +212,11 @@ export function App() {
             open={historyOpen}
             onClose={() => setHistoryOpen(false)}
             onOpenMovieDetails={(movie) => openMovieDetails(movie)}
+          />
+
+          <ProfileModal
+            open={profileOpen}
+            onClose={() => setProfileOpen(false)}
           />
 
           <Toast />

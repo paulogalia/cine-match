@@ -78,10 +78,15 @@ export function VotingScreen({
     (snapshot.filters.watchProviderIds?.length ?? 0) > 0 ||
     Boolean(snapshot.filters.randomDiscovery) ||
     Boolean(snapshot.filters.excludeHistory) ||
+    (snapshot.filters.letterboxdWatchedMode !== undefined &&
+      snapshot.filters.letterboxdWatchedMode !== 'warn') ||
+    snapshot.filters.groupMatchMode === 'majority' ||
     snapshot.filters.sortBy !== 'popularity.desc';
 
   const canUndo = Boolean(snapshot.canUndo ?? snapshot.myVotesCount > 0);
-  const partner = snapshot.participants.find((p) => p.id !== snapshot.myParticipantId);
+  const others = snapshot.participants.filter((p) => p.id !== snapshot.myParticipantId);
+  const partner = others[0];
+  const progressList = snapshot.partnerProgressList ?? [];
   const isConnected = connectionState === 'connected';
 
   const connDotClass =
@@ -90,6 +95,13 @@ export function VotingScreen({
       : connectionState === 'reconnecting' || connectionState === 'connecting'
         ? styles.connWarn
         : styles.connError;
+
+  const groupVotesSummary = useMemo(() => {
+    if (others.length <= 1) return null;
+    const totalOthersVotes = progressList.reduce((acc, item) => acc + item.votedCount, 0);
+    const onlineOthersCount = others.filter((p) => p.connectionStatus === 'ONLINE').length;
+    return `${onlineOthersCount}/${others.length} amigos online • ${totalOthersVotes} votos`;
+  }, [others, progressList]);
 
   return (
     <section className={styles.screen}>
@@ -175,10 +187,21 @@ export function VotingScreen({
 
       <div className={styles.statusBar}>
         <div className={styles.partnerPill}>
-          {partner && (
+          {others.length === 1 && partner ? (
             <>
-              <span className={styles.miniAvatar} style={{ background: partner.avatarColor }}>
-                {getInitials(partner.name)}
+              <span
+                className={styles.miniAvatar}
+                style={{ background: partner.avatarColor, overflow: 'hidden' }}
+              >
+                {partner.avatarDataUrl ? (
+                  <img
+                    src={partner.avatarDataUrl}
+                    alt={partner.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                ) : (
+                  getInitials(partner.name)
+                )}
               </span>
               <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {partner.name}:{' '}
@@ -187,6 +210,10 @@ export function VotingScreen({
                   : 'reconectando...'}
               </span>
             </>
+          ) : (
+            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {groupVotesSummary}
+            </span>
           )}
         </div>
         <span data-testid="my-votes-counter">
@@ -217,6 +244,10 @@ export function VotingScreen({
             movies={visibleQueue}
             disabled={!isConnected}
             canUndo={canUndo}
+            watchedByByMovieId={snapshot.watchedByByMovieId}
+            watchlistedByByMovieId={snapshot.watchlistedByByMovieId}
+            likeCountsByMovieId={snapshot.likeCountsByMovieId}
+            requiredLikesForMatch={snapshot.requiredLikesForMatch}
             onVote={(tmdbId, decision) => void onVote(tmdbId, decision)}
             onUndo={onUndo ? () => void onUndo() : undefined}
             onMarkWatched={onMarkWatched ? (tmdbId) => void onMarkWatched(tmdbId) : undefined}
@@ -261,7 +292,7 @@ export function VotingScreen({
             {activeMatchesCount > 0
               ? `Vocês têm ${activeMatchesCount} ${
                   activeMatchesCount === 1 ? 'match' : 'matches'
-                }. Vamos abrir a tela de escolha final nos dois aparelhos — e vocês ainda podem voltar para votar depois.`
+                }. Vamos abrir a tela de escolha final nos aparelhos — e vocês ainda podem voltar para votar depois.`
               : 'Vocês ainda não têm matches. Deseja abrir a tela de decisão mesmo assim?'}
           </p>
           <div style={{ display: 'flex', gap: 10 }}>

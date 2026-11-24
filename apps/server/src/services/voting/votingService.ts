@@ -21,6 +21,81 @@ export interface UndoVoteResult {
   movie: MovieSummary | null;
 }
 
+/**
+ * Calcula quantos LIKEs são necessários para formar um match na sala:
+ * - Considera os participantes ONLINE (com piso mínimo de 2 e teto pelo total da sala).
+ * - Modo 'majority': maioria simples (floor(active / 2) + 1).
+ * - Modo 'all' (padrão): unanimidade entre os participantes ativos.
+ */
+export function getRequiredLikesForRoom(room: Room): number {
+  const totalParticipants = room.participants.length;
+  if (totalParticipants <= 2) return 2;
+
+  const onlineCount = room.participants.filter((p) => p.connectionStatus === 'ONLINE').length;
+  const effectiveActive = Math.min(totalParticipants, Math.max(2, onlineCount));
+
+  if (room.filters.groupMatchMode === 'majority') {
+    return Math.floor(effectiveActive / 2) + 1;
+  }
+
+  return effectiveActive;
+}
+
+export function getLikeParticipantIdsForMovie(room: Room, tmdbId: number): string[] {
+  const validIds = new Set(room.participants.map((p) => p.id));
+  const liked = new Set<string>();
+  for (const vote of room.votes) {
+    if (vote.tmdbId === tmdbId && vote.decision === 'LIKE' && validIds.has(vote.participantId)) {
+      liked.add(vote.participantId);
+    }
+  }
+  return Array.from(liked);
+}
+
+/**
+ * Reavalia se algum filme pendente atingiu o quórum após mudança de regra ou desconexão.
+ */
+export function evaluateGroupMatchesForRoom(room: Room): MatchRecord[] {
+  const required = getRequiredLikesForRoom(room);
+  const likesByMovie = new Map<number, Set<string>>();
+  const validIds = new Set(room.participants.map((p) => p.id));
+
+  for (const vote of room.votes) {
+    if (vote.decision !== 'LIKE' || !validIds.has(vote.participantId)) continue;
+    let set = likesByMovie.get(vote.tmdbId);
+    if (!set) {
+      set = new Set<string>();
+      likesByMovie.set(vote.tmdbId, set);
+    }
+    set.add(vote.participantId);
+  }
+
+  const created: MatchRecord[] = [];
+  const now = new Date().toISOString();
+
+  for (const [tmdbId, likerSet] of likesByMovie.entries()) {
+    const movieKey = String(tmdbId);
+    const existing = room.matches[movieKey];
+    if (existing) {
+      existing.likedByParticipantIds = Array.from(likerSet);
+      continue;
+    }
+
+    if (likerSet.size >= required && room.moviesById[movieKey]) {
+      const record: MatchRecord = {
+        tmdbId,
+        matchedAt: now,
+        status: 'ACTIVE',
+        likedByParticipantIds: Array.from(likerSet),
+      };
+      room.matches[movieKey] = record;
+      created.push(record);
+    }
+  }
+
+  return created;
+}
+
 export function applyVote(
   room: Room,
   participantId: string,
@@ -95,24 +170,21 @@ export function applyVote(
 
   let matchCreated: MatchRecord | null = null;
   if (decision === 'LIKE') {
-    const partner = room.participants.find((p) => p.id !== participantId);
-    if (partner) {
-      const partnerLiked = room.votes.some(
-        (v) =>
-          v.participantId === partner.id &&
-          v.tmdbId === tmdbId &&
-          v.decision === 'LIKE',
-      );
+    const likedIds = getLikeParticipantIdsForMovie(room, tmdbId);
+    const requiredLikes = getRequiredLikesForRoom(room);
+    const existingMatch = room.matches[movieKey];
 
-      if (partnerLiked && !room.matches[movieKey]) {
-        const record: MatchRecord = {
-          tmdbId,
-          matchedAt: now,
-          status: 'ACTIVE',
-        };
-        room.matches[movieKey] = record;
-        matchCreated = record;
-      }
+    if (existingMatch) {
+      existingMatch.likedByParticipantIds = likedIds;
+    } else if (likedIds.length >= requiredLikes) {
+      const record: MatchRecord = {
+        tmdbId,
+        matchedAt: now,
+        status: 'ACTIVE',
+        likedByParticipantIds: likedIds,
+      };
+      room.matches[movieKey] = record;
+      matchCreated = record;
     }
   }
 
@@ -126,7 +198,7 @@ export function applyVote(
 
 /**
  * Desfaz o último voto do participante, recolocando o filme no topo da sua fila
- * e revertendo o match caso esse voto tenha sido o responsável por criá-lo.
+ * e revertendo o match caso os likes restantes fiquem abaixo do quórum.
  */
 export function undoLastVote(room: Room, participantId: string): UndoVoteResult {
   const participant = room.participants.find((p) => p.id === participantId);
@@ -170,20 +242,24 @@ export function undoLastVote(room: Room, participantId: string): UndoVoteResult 
     );
   }
 
-  // Remove o voto
   room.votes.splice(lastIdx, 1);
 
-  // Reverte match se o voto desfeito era um LIKE que gerou o match
   let matchReverted = false;
   if (lastVote.decision === 'LIKE' && existingMatch) {
-    delete room.matches[movieKey];
-    if (room.finalProposal?.tmdbId === lastVote.tmdbId) {
-      room.finalProposal = null;
+    const remainingLikers = getLikeParticipantIdsForMovie(room, lastVote.tmdbId);
+    const requiredLikes = getRequiredLikesForRoom(room);
+
+    if (remainingLikers.length < requiredLikes) {
+      delete room.matches[movieKey];
+      if (room.finalProposal?.tmdbId === lastVote.tmdbId) {
+        room.finalProposal = null;
+      }
+      matchReverted = true;
+    } else {
+      existingMatch.likedByParticipantIds = remainingLikers;
     }
-    matchReverted = true;
   }
 
-  // Recoloca o filme no topo da fila individual do participante
   const queue = room.queues[participantId] ?? { participantId, movieIds: [], cursor: 0 };
   const currentIdx = queue.movieIds.indexOf(lastVote.tmdbId);
   if (currentIdx !== -1) {

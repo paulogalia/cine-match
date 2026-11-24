@@ -16,6 +16,10 @@ interface SwipeDeckProps {
   movies: MovieSummary[];
   disabled?: boolean;
   canUndo?: boolean;
+  watchedByByMovieId?: Record<string, string[]>;
+  watchlistedByByMovieId?: Record<string, string[]>;
+  likeCountsByMovieId?: Record<string, number>;
+  requiredLikesForMatch?: number;
   onVote: (tmdbId: number, decision: VoteDecision) => void;
   onUndo?: () => void;
   onMarkWatched?: (tmdbId: number) => void;
@@ -25,6 +29,10 @@ export function SwipeDeck({
   movies,
   disabled = false,
   canUndo = false,
+  watchedByByMovieId,
+  watchlistedByByMovieId,
+  likeCountsByMovieId,
+  requiredLikesForMatch,
   onVote,
   onUndo,
   onMarkWatched,
@@ -97,6 +105,10 @@ export function SwipeDeck({
     return null;
   }
 
+  const topWatchedBy = watchedByByMovieId?.[String(topMovie.tmdbId)];
+  const topWatchlistedBy = watchlistedByByMovieId?.[String(topMovie.tmdbId)];
+  const topLikesCount = likeCountsByMovieId?.[String(topMovie.tmdbId)];
+
   return (
     <>
       <div className="sr-only" aria-live="polite" data-testid="deck-aria-live">
@@ -128,6 +140,10 @@ export function SwipeDeck({
             movie={topMovie}
             disabled={disabled}
             deckProgress={deckProgress}
+            watchedBy={topWatchedBy}
+            watchlistedBy={topWatchlistedBy}
+            groupLikesCount={topLikesCount}
+            requiredLikesForMatch={requiredLikesForMatch}
             onSwipeVote={commitVote}
           />
         </AnimatePresence>

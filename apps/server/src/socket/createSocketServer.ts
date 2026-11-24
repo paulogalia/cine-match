@@ -306,6 +306,11 @@ export function createSocketServer(
             });
           }
         }
+
+        io.to(room.code).emit('matches:updated', {
+          matches: roomManager.getClientMatches(room),
+          stateVersion: room.stateVersion,
+        });
       } catch (err) {
         const payload = toErrorPayload(err);
         fail(ack, payload.code, payload.message);
@@ -727,6 +732,22 @@ export function createSocketServer(
           lastSeenAt: updated.participant.lastSeenAt,
           stateVersion: updated.room.stateVersion,
         });
+
+        if (updated.newlyMatched.length > 0) {
+          for (const match of updated.newlyMatched) {
+            const movie = updated.room.moviesById[String(match.tmdbId)];
+            if (!movie) continue;
+            io.to(updated.room.code).emit('match:created', {
+              match,
+              movie,
+              stateVersion: updated.room.stateVersion,
+            });
+          }
+          io.to(updated.room.code).emit('matches:updated', {
+            matches: roomManager.getClientMatches(updated.room),
+            stateVersion: updated.room.stateVersion,
+          });
+        }
       }
     });
   });

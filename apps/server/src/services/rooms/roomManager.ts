@@ -7,6 +7,7 @@ import {
   type ClientRoomSnapshot,
   type FilterCriteria,
   type FinalDecisionProposal,
+  type MatchRecord,
   type MovieSummary,
   type Participant,
   type PartnerProgress,
@@ -23,6 +24,7 @@ import { fetchOscarCatalogPage } from '../catalog/oscarCatalog';
 import { fetchPeopleCatalogPage } from '../catalog/peopleCatalog';
 import { SeedCatalogProvider } from '../catalog/seedCatalogProvider';
 import type { JsonStore } from '../persistence/jsonStore';
+import type { ProfileManager } from '../profiles/profileManager';
 import {
   buildHistoryEntry,
   confirmFinalMovie,
@@ -32,6 +34,9 @@ import {
 } from '../matching/matchingService';
 import {
   applyVote,
+  evaluateGroupMatchesForRoom,
+  getLikeParticipantIdsForMovie,
+  getRequiredLikesForRoom,
   undoLastVote as undoLastVoteInRoom,
   type ApplyVoteResult,
   type UndoVoteResult,
@@ -43,12 +48,14 @@ import { shuffleArray } from '../../utils/shuffle';
 export interface RoomManagerOptions {
   store: JsonStore;
   catalogProvider?: CatalogProvider;
+  profileManager?: ProfileManager;
   rng?: () => number;
 }
 
 export class RoomManager {
   private readonly store: JsonStore;
   private readonly catalogProvider: CatalogProvider;
+  private readonly profileManager?: ProfileManager;
   private readonly rng: () => number;
   private readonly roomsByCode = new Map<string, Room>();
   private history: SessionHistoryEntry[] = [];
@@ -58,10 +65,15 @@ export class RoomManager {
   constructor(options: RoomManagerOptions) {
     this.store = options.store;
     this.catalogProvider = options.catalogProvider ?? new SeedCatalogProvider();
+    this.profileManager = options.profileManager;
     this.rng = options.rng ?? Math.random;
   }
 
   async init(): Promise<void> {
+    if (this.profileManager) {
+      await this.profileManager.init();
+    }
+
     const persisted = await this.store.load();
     this.roomsByCode.clear();
     this.history = [...persisted.history];
@@ -140,12 +152,15 @@ export class RoomManager {
     const now = new Date();
     const nowIso = now.toISOString();
     const expiresIso = new Date(now.getTime() + APP_LIMITS.WAITING_ROOM_TTL_MS).toISOString();
+    const profile = this.profileManager?.getOrCreateProfile(deviceId, hostName);
 
     const host: Participant = {
       id: generateServerId('part'),
       deviceId,
       name: hostName,
-      avatarColor: AVATAR_COLORS[0],
+      avatarColor: profile?.avatarColor ?? AVATAR_COLORS[0],
+      avatarDataUrl: profile?.avatarDataUrl ?? null,
+      publicProfileId: profile?.publicId,
       role: 'HOST',
       connectionStatus: 'ONLINE',
       socketId,
@@ -202,6 +217,12 @@ export class RoomManager {
       if (cleanName.length >= APP_LIMITS.MIN_NAME_LENGTH) {
         existing.name = cleanName;
       }
+      const profile = this.profileManager?.getOrCreateProfile(deviceId, existing.name);
+      if (profile) {
+        existing.avatarColor = profile.avatarColor;
+        existing.avatarDataUrl = profile.avatarDataUrl;
+        existing.publicProfileId = profile.publicId;
+      }
       existing.connectionStatus = 'ONLINE';
       existing.socketId = socketId;
       existing.lastSeenAt = nowIso;
@@ -217,7 +238,7 @@ export class RoomManager {
     if (room.participants.length >= APP_LIMITS.MAX_PARTICIPANTS_PER_ROOM) {
       throw new DomainError(
         ERROR_CODES.ROOM_FULL,
-        'Esta sala já está ocupada por dois participantes.',
+        `Esta sala já atingiu o limite máximo de ${APP_LIMITS.MAX_PARTICIPANTS_PER_ROOM} participantes.`,
       );
     }
 
@@ -229,11 +250,17 @@ export class RoomManager {
       );
     }
 
+    const profile = this.profileManager?.getOrCreateProfile(deviceId, name);
+    const fallbackColor =
+      AVATAR_COLORS[room.participants.length % AVATAR_COLORS.length] ?? AVATAR_COLORS[1];
+
     const guest: Participant = {
       id: generateServerId('part'),
       deviceId,
       name,
-      avatarColor: AVATAR_COLORS[1],
+      avatarColor: profile?.avatarColor ?? fallbackColor,
+      avatarDataUrl: profile?.avatarDataUrl ?? null,
+      publicProfileId: profile?.publicId,
       role: 'GUEST',
       connectionStatus: 'ONLINE',
       socketId,
@@ -242,7 +269,20 @@ export class RoomManager {
     };
 
     room.participants.push(guest);
-    room.queues[guest.id] = { participantId: guest.id, movieIds: [], cursor: 0 };
+
+    // Se a sessão já está em andamento, entrega a fila de filmes atuais embaralhada para quem acabou de entrar
+    const activeMovieIds = Object.keys(room.moviesById)
+      .map(Number)
+      .filter((id) => Number.isInteger(id) && id > 0);
+
+    room.queues[guest.id] = {
+      participantId: guest.id,
+      movieIds:
+        room.status === 'IN_PROGRESS' || room.status === 'PAUSED' || room.status === 'DECIDING'
+          ? shuffleArray(activeMovieIds, this.rng)
+          : [],
+      cursor: 0,
+    };
 
     if (room.status === 'WAITING_PARTICIPANT') {
       room.status = 'READY';
@@ -273,6 +313,13 @@ export class RoomManager {
       );
     }
 
+    const profile = this.profileManager?.getProfile(deviceId);
+    if (profile) {
+      participant.avatarColor = profile.avatarColor;
+      participant.avatarDataUrl = profile.avatarDataUrl;
+      participant.publicProfileId = profile.publicId;
+    }
+
     participant.connectionStatus = 'ONLINE';
     participant.socketId = socketId;
     participant.lastSeenAt = new Date().toISOString();
@@ -286,7 +333,12 @@ export class RoomManager {
     roomCode: string,
     participantId: string,
     socketId: string,
-  ): { room: Room; participant: Participant; changed: boolean } | null {
+  ): {
+    room: Room;
+    participant: Participant;
+    changed: boolean;
+    newlyMatched: MatchRecord[];
+  } | null {
     const room = this.roomsByCode.get(roomCode);
     if (!room) return null;
 
@@ -294,16 +346,20 @@ export class RoomManager {
     if (!participant) return null;
 
     if (participant.socketId !== socketId) {
-      return { room, participant, changed: false };
+      return { room, participant, changed: false, newlyMatched: [] };
     }
 
     participant.connectionStatus = 'OFFLINE';
     participant.socketId = null;
     participant.lastSeenAt = new Date().toISOString();
+
+    const newlyMatched =
+      room.status === 'IN_PROGRESS' ? evaluateGroupMatchesForRoom(room) : [];
+
     this.touchRoom(room);
     this.persistSoon();
 
-    return { room, participant, changed: true };
+    return { room, participant, changed: true, newlyMatched };
   }
 
   async startSession(roomCode: string, participantId: string): Promise<Room> {
@@ -320,17 +376,15 @@ export class RoomManager {
     if (room.status !== 'READY') {
       throw new DomainError(
         ERROR_CODES.INVALID_STATE_TRANSITION,
-        'A sala precisa estar pronta com dois participantes para iniciar.',
+        'A sala precisa ter pelo menos dois participantes prontos para iniciar.',
       );
     }
 
-    if (
-      room.participants.length < APP_LIMITS.MAX_PARTICIPANTS_PER_ROOM ||
-      room.participants.some((p) => p.connectionStatus !== 'ONLINE')
-    ) {
+    const onlineParticipants = room.participants.filter((p) => p.connectionStatus === 'ONLINE');
+    if (room.participants.length < 2 || onlineParticipants.length < 2) {
       throw new DomainError(
         ERROR_CODES.INVALID_STATE_TRANSITION,
-        'Ambos os participantes precisam estar conectados para começar.',
+        'Pelo menos dois participantes precisam estar conectados para começar.',
       );
     }
 
@@ -414,6 +468,7 @@ export class RoomManager {
     room.catalogExhausted = false;
 
     if (room.status === 'IN_PROGRESS' || room.status === 'PAUSED' || room.status === 'DECIDING') {
+      evaluateGroupMatchesForRoom(room);
       const freshIds = await this.loadNextMoviesIntoRoom(room);
 
       for (const p of room.participants) {
@@ -474,6 +529,14 @@ export class RoomManager {
     const result = applyVote(room, participantId, operationId, tmdbId, decision);
 
     if (!result.duplicate) {
+      const participant = room.participants.find((p) => p.id === participantId);
+      if (participant && this.profileManager) {
+        this.profileManager.recordVote(
+          participant.deviceId,
+          room.moviesById[String(tmdbId)],
+          decision,
+        );
+      }
       this.touchRoom(room);
       this.persistSoon();
     }
@@ -486,7 +549,19 @@ export class RoomManager {
     participantId: string,
   ): { room: Room; result: UndoVoteResult } {
     const room = this.requireRoom(roomCode);
+    const lastVoteBefore = [...room.votes].reverse().find((v) => v.participantId === participantId);
     const result = undoLastVoteInRoom(room, participantId);
+
+    if (lastVoteBefore && this.profileManager) {
+      const participant = room.participants.find((p) => p.id === participantId);
+      if (participant) {
+        this.profileManager.revertVote(
+          participant.deviceId,
+          room.moviesById[String(lastVoteBefore.tmdbId)],
+          lastVoteBefore.decision,
+        );
+      }
+    }
 
     this.touchRoom(room);
     this.persistSoon();
@@ -532,7 +607,6 @@ export class RoomManager {
       }
     }
 
-    // Remove o filme da fila pendente de TODOS os participantes da sala
     for (const p of room.participants) {
       const queue = room.queues[p.id];
       if (!queue) continue;
@@ -542,7 +616,6 @@ export class RoomManager {
       }
     }
 
-    // Se já era um match ativo, dispensa da lista de interesse automaticamente
     const match = room.matches[movieKey];
     if (match && match.status === 'ACTIVE') {
       match.status = 'DISMISSED';
@@ -701,14 +774,13 @@ export class RoomManager {
       .filter((m): m is MovieSummary => Boolean(m));
 
     const myVotes = room.votes.filter((v) => v.participantId === participantId);
-    const partner = room.participants.find((p) => p.id !== participantId);
-    const partnerProgress: PartnerProgress | null = partner
-      ? {
-          participantId: partner.id,
-          votedCount: room.votes.filter((v) => v.participantId === partner.id).length,
-          queueRemaining: room.queues[partner.id]?.movieIds.length ?? 0,
-        }
-      : null;
+    const others = room.participants.filter((p) => p.id !== participantId);
+    const partnerProgressList: PartnerProgress[] = others.map((p) => ({
+      participantId: p.id,
+      votedCount: room.votes.filter((v) => v.participantId === p.id).length,
+      queueRemaining: room.queues[p.id]?.movieIds.length ?? 0,
+    }));
+    const partnerProgress: PartnerProgress | null = partnerProgressList[0] ?? null;
 
     const publicParticipants: PublicParticipant[] = room.participants.map(
       ({ socketId: _socketId, deviceId: _deviceId, ...rest }) => rest,
@@ -716,6 +788,25 @@ export class RoomManager {
 
     const chosenMovie =
       room.chosenMovieId !== null ? (room.moviesById[String(room.chosenMovieId)] ?? null) : null;
+
+    const matches = this.getClientMatches(room);
+    const visibleMovies: MovieSummary[] = [
+      ...queue,
+      ...matches.map((m) => m.movie),
+      ...(chosenMovie ? [chosenMovie] : []),
+    ];
+    const annotations =
+      room.filters.letterboxdWatchedMode === 'ignore' || !this.profileManager
+        ? { watchedByByMovieId: {}, watchlistedByByMovieId: {} }
+        : this.profileManager.getRoomMovieAnnotations(room.participants, visibleMovies);
+
+    const likeCountsByMovieId: Record<string, number> = {};
+    for (const movie of visibleMovies) {
+      const count = getLikeParticipantIdsForMovie(room, movie.tmdbId).length;
+      if (count > 0) {
+        likeCountsByMovieId[String(movie.tmdbId)] = count;
+      }
+    }
 
     return {
       id: room.id,
@@ -727,6 +818,7 @@ export class RoomManager {
       myParticipantId: participantId,
       participants: publicParticipants,
       partnerProgress,
+      partnerProgressList,
       filters: room.filters,
       queue,
       queueTotalRemaining: queueIds.length,
@@ -734,9 +826,13 @@ export class RoomManager {
       myVotesCount: myVotes.length,
       myVotedMovieIds: myVotes.map((v) => v.tmdbId),
       canUndo: room.status === 'IN_PROGRESS' && myVotes.length > 0,
-      matches: this.getClientMatches(room),
+      matches,
       finalProposal: room.finalProposal,
       chosenMovie,
+      watchedByByMovieId: annotations.watchedByByMovieId,
+      watchlistedByByMovieId: annotations.watchlistedByByMovieId,
+      likeCountsByMovieId,
+      requiredLikesForMatch: getRequiredLikesForRoom(room),
     };
   }
 
@@ -761,6 +857,9 @@ export class RoomManager {
 
   async flushPersistence(): Promise<void> {
     await this.store.flush();
+    if (this.profileManager) {
+      await this.profileManager.flush();
+    }
   }
 
   // ==================== Motor de Carregamento ====================
@@ -768,7 +867,6 @@ export class RoomManager {
   private getExcludedMovieIds(includeHistory: boolean): Set<number> {
     const ids = new Set<number>();
 
-    // Filmes marcados permanentemente como "Já assistimos" nunca reaparecem
     for (const w of this.watchedMovies) {
       ids.add(w.tmdbId);
     }
@@ -834,6 +932,18 @@ export class RoomManager {
 
   private async loadNextMoviesIntoRoom(room: Room): Promise<number[]> {
     const excludedIds = this.getExcludedMovieIds(Boolean(room.filters.excludeHistory));
+    const hideLetterboxdWatched = room.filters.letterboxdWatchedMode === 'hide';
+
+    const filterMovie = (m: MovieSummary): boolean => {
+      if (excludedIds.has(m.tmdbId)) return false;
+      if (
+        hideLetterboxdWatched &&
+        this.profileManager?.isMovieWatchedByAnyParticipant(room.participants, m)
+      ) {
+        return false;
+      }
+      return true;
+    };
 
     const visited = room.visitedCatalogPages ?? [];
     room.visitedCatalogPages = visited;
@@ -860,7 +970,7 @@ export class RoomManager {
 
     room.catalogPage = chosenPage;
 
-    let filteredMovies = pageResult.movies.filter((m) => !excludedIds.has(m.tmdbId));
+    let filteredMovies = pageResult.movies.filter(filterMovie);
 
     if (filteredMovies.length === 0 && pageResult.hasMore) {
       const next = this.pickNextCatalogPage(room);
@@ -869,7 +979,7 @@ export class RoomManager {
         if (!visited.includes(next)) visited.push(next);
         room.catalogPage = next;
         pageResult = secondResult;
-        filteredMovies = secondResult.movies.filter((m) => !excludedIds.has(m.tmdbId));
+        filteredMovies = secondResult.movies.filter(filterMovie);
       }
     }
 
@@ -900,6 +1010,7 @@ export class RoomManager {
       if (this.history.length > 50) {
         this.history = this.history.slice(0, 50);
       }
+      this.profileManager?.recordRoomFinished(room);
     }
   }
 

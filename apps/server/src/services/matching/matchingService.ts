@@ -9,6 +9,15 @@ import {
 import { generateServerId } from '../rooms/roomCode';
 import { DomainError } from '../../utils/sanitize';
 
+export function getRequiredConfirmationsForRoom(room: Room): number {
+  const totalParticipants = room.participants.length;
+  if (totalParticipants <= 2) return 2;
+
+  const onlineCount = room.participants.filter((p) => p.connectionStatus === 'ONLINE').length;
+  const effectiveActive = Math.min(totalParticipants, Math.max(2, onlineCount));
+  return Math.floor(effectiveActive / 2) + 1;
+}
+
 export function dismissMatchFromInterestList(
   room: Room,
   participantId: string,
@@ -27,7 +36,6 @@ export function dismissMatchFromInterestList(
     );
   }
 
-  // Preserva os votos originais; apenas marca o match como DISMISSED
   match.status = 'DISMISSED';
   match.dismissedBy = participantId;
   match.dismissedAt = new Date().toISOString();
@@ -99,8 +107,11 @@ export function confirmFinalMovie(
     proposal.confirmedBy.push(participantId);
   }
 
-  const allConfirmed = room.participants.every((p) => proposal.confirmedBy.includes(p.id));
-  if (!allConfirmed) {
+  const validIds = new Set(room.participants.map((p) => p.id));
+  const validConfirmations = proposal.confirmedBy.filter((id) => validIds.has(id)).length;
+  const required = getRequiredConfirmationsForRoom(room);
+
+  if (validConfirmations < required) {
     return {
       finalized: false,
       chosenMovie: null,
@@ -159,21 +170,21 @@ export function spinRouletteForActiveMatches(
   participantId: string,
   rng: () => number = Math.random,
 ): { spin: RouletteSpin; proposal: FinalDecisionProposal } {
-  if (room.status !== "DECIDING") {
+  if (room.status !== 'DECIDING') {
     throw new DomainError(
       ERROR_CODES.INVALID_STATE_TRANSITION,
-      "A roleta só pode ser girada na tela de decisão final.",
+      'A roleta só pode ser girada na tela de decisão final.',
     );
   }
 
   const activeMatches = Object.values(room.matches)
-    .filter((m) => m.status === "ACTIVE" && Boolean(room.moviesById[String(m.tmdbId)]))
+    .filter((m) => m.status === 'ACTIVE' && Boolean(room.moviesById[String(m.tmdbId)]))
     .sort((a, b) => b.matchedAt.localeCompare(a.matchedAt));
 
   if (activeMatches.length < 2) {
     throw new DomainError(
       ERROR_CODES.INVALID_STATE_TRANSITION,
-      "É preciso ter pelo menos 2 matches ativos para girar a roleta.",
+      'É preciso ter pelo menos 2 matches ativos para girar a roleta.',
     );
   }
 
@@ -186,7 +197,7 @@ export function spinRouletteForActiveMatches(
   const nowIso = new Date().toISOString();
 
   const spin: RouletteSpin = {
-    spinId: generateServerId("spin"),
+    spinId: generateServerId('spin'),
     triggeredBy: participantId,
     candidateIds,
     winnerMovieId,

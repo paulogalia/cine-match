@@ -92,9 +92,17 @@ export class TmdbCatalogProvider implements CatalogProvider {
     if (cached) return cached;
 
     try {
-      const payload = await this.request<TmdbPagedResponse>('/discover/movie', params);
+      const enParams = new URLSearchParams(params);
+      enParams.set('language', 'en-US');
+
+      const [payload, enPayload] = await Promise.all([
+        this.request<TmdbPagedResponse>('/discover/movie', params),
+        this.request<TmdbPagedResponse>('/discover/movie', enParams).catch(() => null),
+      ]);
+
+      const enMap = this.buildEnglishTitleMap(enPayload?.results);
       const result: CatalogPageResult = {
-        movies: normalizeTmdbMovieList(payload.results ?? []),
+        movies: normalizeTmdbMovieList(payload.results ?? [], enMap),
         page: payload.page ?? page,
         hasMore: (payload.page ?? page) < Math.min(payload.total_pages ?? 1, 500),
       };
@@ -125,9 +133,17 @@ export class TmdbCatalogProvider implements CatalogProvider {
     if (cached) return cached;
 
     try {
-      const payload = await this.request<TmdbPagedResponse>('/search/movie', params);
+      const enParams = new URLSearchParams(params);
+      enParams.set('language', 'en-US');
+
+      const [payload, enPayload] = await Promise.all([
+        this.request<TmdbPagedResponse>('/search/movie', params),
+        this.request<TmdbPagedResponse>('/search/movie', enParams).catch(() => null),
+      ]);
+
+      const enMap = this.buildEnglishTitleMap(enPayload?.results);
       const result: CatalogPageResult = {
-        movies: normalizeTmdbMovieList(payload.results ?? []),
+        movies: normalizeTmdbMovieList(payload.results ?? [], enMap),
         page: payload.page ?? page,
         hasMore: (payload.page ?? page) < Math.min(payload.total_pages ?? 1, 500),
       };
@@ -177,16 +193,24 @@ export class TmdbCatalogProvider implements CatalogProvider {
     const params = new URLSearchParams({
       language: 'pt-BR',
     });
+    const enParams = new URLSearchParams({
+      language: 'en-US',
+    });
 
     try {
-      const payload = await this.request<TmdbRawPersonCreditsResponse>(
-        `/person/${personId}/movie_credits`,
-        params,
-        true,
-      );
+      const [payload, enPayload] = await Promise.all([
+        this.request<TmdbRawPersonCreditsResponse>(`/person/${personId}/movie_credits`, params, true),
+        this.request<TmdbRawPersonCreditsResponse>(
+          `/person/${personId}/movie_credits`,
+          enParams,
+          true,
+        ).catch(() => null),
+      ]);
       if (!payload) return [];
 
-      const movies = mapTmdbPersonCredits(payload, role);
+      const enItems = role === 'director' ? enPayload?.crew : enPayload?.cast;
+      const enMap = this.buildEnglishTitleMap(enItems);
+      const movies = mapTmdbPersonCredits(payload, role, enMap);
       this.personCreditsCache.set(cacheKey, movies, PERSON_CREDITS_TTL_MS);
       return movies;
     } catch (err) {
@@ -203,7 +227,7 @@ export class TmdbCatalogProvider implements CatalogProvider {
 
     const params = new URLSearchParams({
       language: 'pt-BR',
-      append_to_response: 'watch/providers,credits,videos',
+      append_to_response: 'watch/providers,credits,videos,translations',
       include_video_language: 'pt,en,null',
     });
 
@@ -276,6 +300,17 @@ export class TmdbCatalogProvider implements CatalogProvider {
     } catch {
       return this.providersCache.getStale(cacheKey) ?? FALLBACK_WATCH_PROVIDERS_BR;
     }
+  }
+
+  private buildEnglishTitleMap(items?: TmdbRawMovieItem[]): Map<number, string> {
+    const map = new Map<number, string>();
+    for (const item of items ?? []) {
+      const title = (item.title ?? '').trim();
+      if (Number.isInteger(item.id) && title) {
+        map.set(item.id, title);
+      }
+    }
+    return map;
   }
 
   private buildDiscoverParams(filters: FilterCriteria, page: number): URLSearchParams {

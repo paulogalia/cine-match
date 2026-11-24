@@ -21,6 +21,7 @@ export function FinalChosenScreen({
 }: FinalChosenScreenProps) {
   const chosen = snapshot.chosenMovie;
   const activeMatchesCount = snapshot.matches.filter((m) => m.match.status !== 'DISMISSED').length;
+  const isGroup = snapshot.participants.length >= 3;
 
   return (
     <motion.section
@@ -59,7 +60,8 @@ export function FinalChosenScreen({
           <div className={styles.info}>
             <h1 className={styles.movieTitle}>{chosen.title}</h1>
             <p className={styles.meta}>
-              {chosen.releaseYear ?? '—'} • Nota {chosen.voteAverage.toFixed(1)} • Boa sessão para vocês!
+              {chosen.releaseYear ?? '—'} • Nota {chosen.voteAverage.toFixed(1)} •{' '}
+              {isGroup ? 'Boa sessão para a turma!' : 'Boa sessão para vocês!'}
             </p>
           </div>
 
@@ -99,7 +101,7 @@ export function FinalChosenScreen({
             <h1 className={styles.movieTitle}>Sessão encerrada</h1>
             <p className={styles.meta}>
               {activeMatchesCount > 0
-                ? `Vocês registraram ${activeMatchesCount} ${
+                ? `Foram registrados ${activeMatchesCount} ${
                     activeMatchesCount === 1 ? 'match' : 'matches'
                   } e tudo ficou salvo no histórico.`
                 : 'A sessão foi encerrada. Quando quiserem, é só começar uma nova busca!'}

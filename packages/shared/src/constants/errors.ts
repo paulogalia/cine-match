@@ -17,7 +17,7 @@ export const ERROR_CODES = {
 export type ErrorCode = (typeof ERROR_CODES)[keyof typeof ERROR_CODES];
 
 export const APP_LIMITS = {
-  MAX_PARTICIPANTS_PER_ROOM: 2,
+  MAX_PARTICIPANTS_PER_ROOM: 10,
   MIN_NAME_LENGTH: 2,
   MAX_NAME_LENGTH: 24,
   ROOM_CODE_LENGTH: 6,
@@ -28,9 +28,21 @@ export const APP_LIMITS = {
   ACTIVE_ROOM_TTL_MS: 24 * 60 * 60 * 1000,
 } as const;
 
-export const AVATAR_COLORS = ['#FF4D6D', '#8B5CF6', '#38BDF8', '#F59E0B'] as const;
+export const AVATAR_COLORS = [
+  '#FF4D6D',
+  '#8B5CF6',
+  '#38BDF8',
+  '#F59E0B',
+  '#10B981',
+  '#EC4899',
+  '#6366F1',
+  '#14B8A6',
+  '#F97316',
+  '#A855F7',
+] as const;
 
 export const DEFAULT_FILTERS = {
   genreIds: [] as number[],
   sortBy: 'popularity.desc' as const,
+  groupMatchMode: 'all' as const,
 };

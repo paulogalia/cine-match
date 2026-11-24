@@ -8,12 +8,15 @@ import {
   SlidersHorizontal,
   Sparkles,
   Tv,
+  Users,
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import {
+  APP_LIMITS,
   NIGHT_VIBE_PRESETS,
   type ClientRoomSnapshot,
   type FilterCriteria,
+  type GroupMatchMode,
 } from '@cine-match/shared';
 import { screenVariants } from '../../animations/presets';
 import { ParticipantSlot } from '../../components/session/ParticipantSlot';
@@ -37,14 +40,14 @@ export function LobbyScreen({ snapshot, onUpdateFilters, onStartSession }: Lobby
 
   const me = snapshot.participants.find((p) => p.id === snapshot.myParticipantId);
   const host = snapshot.participants.find((p) => p.role === 'HOST');
-  const guest = snapshot.participants.find((p) => p.role === 'GUEST');
   const isHost = me?.role === 'HOST';
 
-  const bothConnected =
-    snapshot.participants.length === 2 &&
-    snapshot.participants.every((p) => p.connectionStatus === 'ONLINE');
-
-  const canStart = isHost && snapshot.status === 'READY' && bothConnected;
+  const onlineParticipants = snapshot.participants.filter((p) => p.connectionStatus === 'ONLINE');
+  const readyToStart = snapshot.participants.length >= 2 && onlineParticipants.length >= 2;
+  const canStart = isHost && snapshot.status === 'READY' && readyToStart;
+  const isGroup = snapshot.participants.length >= 3;
+  const groupMatchMode: GroupMatchMode = snapshot.filters.groupMatchMode ?? 'all';
+  const showEmptyInviteSlot = snapshot.participants.length < APP_LIMITS.MAX_PARTICIPANTS_PER_ROOM;
 
   const activeFiltersSummary: string[] = [];
   if (snapshot.filters.oscar?.enabled) activeFiltersSummary.push('Oscar');
@@ -72,6 +75,8 @@ export function LobbyScreen({ snapshot, onUpdateFilters, onStartSession }: Lobby
         sortBy: 'popularity.desc',
         watchProviderIds: snapshot.filters.watchProviderIds,
         excludeHistory: snapshot.filters.excludeHistory,
+        letterboxdWatchedMode: snapshot.filters.letterboxdWatchedMode,
+        groupMatchMode: snapshot.filters.groupMatchMode,
       });
       return;
     }
@@ -80,8 +85,26 @@ export function LobbyScreen({ snapshot, onUpdateFilters, onStartSession }: Lobby
       ...presetFilters,
       watchProviderIds: snapshot.filters.watchProviderIds,
       excludeHistory: snapshot.filters.excludeHistory,
+      letterboxdWatchedMode: snapshot.filters.letterboxdWatchedMode,
+      groupMatchMode: snapshot.filters.groupMatchMode,
     });
   };
+
+  const setGroupMatchMode = (mode: GroupMatchMode) => {
+    if (!isHost || groupMatchMode === mode) return;
+    void onUpdateFilters({
+      ...snapshot.filters,
+      groupMatchMode: mode,
+    });
+  };
+
+  const requiredLikes =
+    snapshot.requiredLikesForMatch ??
+    (snapshot.participants.length <= 2
+      ? 2
+      : groupMatchMode === 'majority'
+        ? Math.floor(Math.max(2, onlineParticipants.length) / 2) + 1
+        : Math.max(2, onlineParticipants.length));
 
   return (
     <motion.section
@@ -94,12 +117,16 @@ export function LobbyScreen({ snapshot, onUpdateFilters, onStartSession }: Lobby
       <div className={styles.topRow}>
         <div className={styles.heading}>
           <h1 className={styles.title}>
-            {snapshot.status === 'WAITING_PARTICIPANT' ? 'Convide seu par' : 'Tudo pronto!'}
+            {snapshot.status === 'WAITING_PARTICIPANT'
+              ? 'Convide a turma'
+              : isGroup
+                ? `Sala com ${snapshot.participants.length} pessoas`
+                : 'Tudo pronto!'}
           </h1>
           <p className={styles.subtitle}>
             {snapshot.status === 'WAITING_PARTICIPANT'
-              ? 'Aponte a câmera do outro celular para o QR Code abaixo.'
-              : 'Escolha uma vibe, filtre por Oscar ou streamings e comece.'}
+              ? `Aponte a câmera dos celulares para o QR Code (até ${APP_LIMITS.MAX_PARTICIPANTS_PER_ROOM} pessoas).`
+              : `Vocês já podem começar ou convidar mais amigos pelo QR Code (até ${APP_LIMITS.MAX_PARTICIPANTS_PER_ROOM}).`}
           </p>
         </div>
 
@@ -114,16 +141,30 @@ export function LobbyScreen({ snapshot, onUpdateFilters, onStartSession }: Lobby
         </button>
       </div>
 
-      <div className={styles.slotsRow}>
-        <ParticipantSlot participant={host} isMe={host?.id === snapshot.myParticipantId} />
-        <ParticipantSlot
-          participant={guest}
-          isMe={guest?.id === snapshot.myParticipantId}
-          waitingLabel="Pessoa 2"
-        />
+      <div
+        className={styles.slotsRow}
+        style={{
+          gridTemplateColumns:
+            snapshot.participants.length + (showEmptyInviteSlot ? 1 : 0) > 2
+              ? 'repeat(auto-fill, minmax(128px, 1fr))'
+              : undefined,
+        }}
+      >
+        {snapshot.participants.map((participant) => (
+          <ParticipantSlot
+            key={participant.id}
+            participant={participant}
+            isMe={participant.id === snapshot.myParticipantId}
+          />
+        ))}
+        {showEmptyInviteSlot && (
+          <ParticipantSlot
+            waitingLabel={`Pessoa ${snapshot.participants.length + 1}`}
+          />
+        )}
       </div>
 
-      {snapshot.status === 'WAITING_PARTICIPANT' && (
+      {showEmptyInviteSlot && (
         <QrCodePanel roomCode={snapshot.code} networkInfo={networkInfo} />
       )}
 
@@ -131,16 +172,59 @@ export function LobbyScreen({ snapshot, onUpdateFilters, onStartSession }: Lobby
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`${styles.waitingBanner} ${bothConnected ? styles.readyBanner : ''}`}
+          className={`${styles.waitingBanner} ${readyToStart ? styles.readyBanner : ''}`}
           data-testid="lobby-ready-banner"
         >
           <CheckCircle2 size={18} />
           <span>
-            {bothConnected
-              ? 'Os dois aparelhos estão sincronizados na sala.'
-              : 'Aguardando a reconexão do outro participante...'}
+            {readyToStart
+              ? `${onlineParticipants.length} de ${snapshot.participants.length} aparelhos prontos na sala.`
+              : 'Aguardando pelo menos 2 participantes conectados...'}
           </span>
         </motion.div>
+      )}
+
+      {isGroup && (
+        <div className={styles.sectionCard} data-testid="group-match-rule-card">
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionTitle}>
+              <Users size={15} color="#38BDF8" />
+              <span>Regra de match do grupo</span>
+            </span>
+            <span className={styles.sectionHint}>
+              {requiredLikes} de {Math.max(2, onlineParticipants.length)} likes
+            </span>
+          </div>
+
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button
+              type="button"
+              disabled={!isHost}
+              onClick={() => setGroupMatchMode('all')}
+              className={`${styles.chip} ${groupMatchMode === 'all' ? styles.chipSelected : ''}`}
+              style={{ flex: 1, justifyContent: 'center' }}
+              data-testid="group-rule-all"
+            >
+              Todos (unanimidade)
+            </button>
+            <button
+              type="button"
+              disabled={!isHost}
+              onClick={() => setGroupMatchMode('majority')}
+              className={`${styles.chip} ${groupMatchMode === 'majority' ? styles.chipSelected : ''}`}
+              style={{ flex: 1, justifyContent: 'center' }}
+              data-testid="group-rule-majority"
+            >
+              Maioria simples
+            </button>
+          </div>
+
+          <p style={{ fontSize: 12, color: 'var(--text-secondary)', margin: 0 }}>
+            {groupMatchMode === 'majority'
+              ? `Um filme dá match quando pelo menos ${requiredLikes} participantes online curtem.`
+              : `Um filme dá match quando todos os ${requiredLikes} participantes online curtem (ajusta automaticamente se alguém cair).`}
+          </p>
+        </div>
       )}
 
       <div className={styles.sectionCard}>
@@ -216,7 +300,9 @@ export function LobbyScreen({ snapshot, onUpdateFilters, onStartSession }: Lobby
             onClick={() => void onStartSession()}
             data-testid="lobby-start-btn"
           >
-            {bothConnected ? 'Iniciar sessão' : 'Aguardando 2º participante...'}
+            {readyToStart
+              ? `Iniciar sessão (${onlineParticipants.length} pessoas)`
+              : 'Aguardando 2º participante...'}
           </Button>
         ) : (
           <div className={styles.waitingBanner} data-testid="guest-waiting-host">

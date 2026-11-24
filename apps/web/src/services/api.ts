@@ -5,10 +5,21 @@ import type {
   NetworkInfoResponse,
   PersonRole,
   PersonSearchResult,
+  ProfileUpdatePayload,
   SessionHistoryEntry,
+  UserProfile,
   WatchedMovieEntry,
   WatchProviderOption,
 } from '@cine-match/shared';
+
+async function readErrorMessage(res: Response, fallback: string): Promise<string> {
+  try {
+    const data = (await res.json()) as { error?: string };
+    return data.error?.trim() || fallback;
+  } catch {
+    return fallback;
+  }
+}
 
 export async function fetchNetworkInfo(): Promise<NetworkInfoResponse | null> {
   try {
@@ -117,5 +128,99 @@ export async function checkServerHealth(): Promise<boolean> {
     return res.ok;
   } catch {
     return false;
+  }
+}
+
+// ==================== Perfis & Letterboxd ====================
+
+export async function fetchProfile(profileId: string): Promise<UserProfile | null> {
+  try {
+    const res = await fetch(`/api/profiles/${encodeURIComponent(profileId)}`, {
+      cache: 'no-store',
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { profile: UserProfile };
+    return data.profile ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export async function updateProfileApi(
+  profileId: string,
+  patch: ProfileUpdatePayload,
+): Promise<{ profile?: UserProfile; error?: string }> {
+  try {
+    const res = await fetch(`/api/profiles/${encodeURIComponent(profileId)}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(patch),
+    });
+    if (!res.ok) {
+      return { error: await readErrorMessage(res, 'Não foi possível salvar o perfil.') };
+    }
+    const data = (await res.json()) as { profile: UserProfile };
+    return { profile: data.profile };
+  } catch {
+    return { error: 'Falha de conexão ao salvar o perfil.' };
+  }
+}
+
+export async function recoverProfileApi(
+  recoveryCode: string,
+): Promise<{ profile?: UserProfile; error?: string }> {
+  try {
+    const res = await fetch('/api/profiles/recover', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ recoveryCode }),
+    });
+    if (!res.ok) {
+      return { error: await readErrorMessage(res, 'Código de recuperação não encontrado.') };
+    }
+    const data = (await res.json()) as { profile: UserProfile };
+    return { profile: data.profile };
+  } catch {
+    return { error: 'Falha de conexão ao recuperar o perfil.' };
+  }
+}
+
+export async function importLetterboxdCsvApi(
+  profileId: string,
+  kind: 'watched' | 'watchlist',
+  csvText: string,
+): Promise<{ profile?: UserProfile; importedCount?: number; error?: string }> {
+  try {
+    const res = await fetch(`/api/profiles/${encodeURIComponent(profileId)}/letterboxd`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ kind, csvText }),
+    });
+    if (!res.ok) {
+      return { error: await readErrorMessage(res, 'Não foi possível importar o CSV.') };
+    }
+    const data = (await res.json()) as { profile: UserProfile; importedCount: number };
+    return { profile: data.profile, importedCount: data.importedCount };
+  } catch {
+    return { error: 'Falha de conexão ao enviar o arquivo do Letterboxd.' };
+  }
+}
+
+export async function clearLetterboxdListApi(
+  profileId: string,
+  kind: 'watched' | 'watchlist',
+): Promise<{ profile?: UserProfile; error?: string }> {
+  try {
+    const res = await fetch(
+      `/api/profiles/${encodeURIComponent(profileId)}/letterboxd/${kind}`,
+      { method: 'DELETE' },
+    );
+    if (!res.ok) {
+      return { error: await readErrorMessage(res, 'Não foi possível limpar a lista.') };
+    }
+    const data = (await res.json()) as { profile: UserProfile };
+    return { profile: data.profile };
+  } catch {
+    return { error: 'Falha de conexão ao limpar a lista.' };
   }
 }

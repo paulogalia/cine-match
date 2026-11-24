@@ -77,6 +77,15 @@ export interface TmdbRawMovieDetail extends TmdbRawMovieItem {
   'watch/providers'?: {
     results?: Record<string, TmdbRawRegionProviders | undefined>;
   };
+  translations?: {
+    translations?: Array<{
+      iso_3166_1?: string | null;
+      iso_639_1?: string | null;
+      data?: {
+        title?: string | null;
+      } | null;
+    }>;
+  };
 }
 
 export interface TmdbRawPersonItem {
@@ -103,13 +112,21 @@ function parseReleaseYear(releaseDate?: string | null): number | null {
   return Number.isInteger(year) && year >= 1880 && year <= 2100 ? year : null;
 }
 
-export function mapTmdbMovieSummary(raw: TmdbRawMovieItem): MovieSummary {
+export function mapTmdbMovieSummary(
+  raw: TmdbRawMovieItem,
+  englishTitleOverride?: string | null,
+): MovieSummary {
   const originalTitle = (raw.original_title ?? raw.title ?? 'Sem título').trim() || 'Sem título';
   const localizedTitle = (raw.title ?? '').trim();
+  const originalLanguage = (raw.original_language ?? 'en').trim() || 'en';
+  const resolvedEnglishTitle =
+    (englishTitleOverride ?? '').trim() ||
+    (originalLanguage === 'en' ? originalTitle : undefined);
 
   return {
     tmdbId: raw.id,
     title: localizedTitle || originalTitle,
+    ...(resolvedEnglishTitle ? { englishTitle: resolvedEnglishTitle } : {}),
     originalTitle,
     overview: (raw.overview ?? '').trim(),
     posterPath: raw.poster_path ?? null,
@@ -118,11 +135,14 @@ export function mapTmdbMovieSummary(raw: TmdbRawMovieItem): MovieSummary {
     voteCount: Math.max(0, Math.round(raw.vote_count ?? 0)),
     releaseYear: parseReleaseYear(raw.release_date),
     genreIds: Array.isArray(raw.genre_ids) ? raw.genre_ids : [],
-    originalLanguage: (raw.original_language ?? 'en').trim() || 'en',
+    originalLanguage,
   };
 }
 
-export function normalizeTmdbMovieList(items: TmdbRawMovieItem[]): MovieSummary[] {
+export function normalizeTmdbMovieList(
+  items: TmdbRawMovieItem[],
+  enTitleById?: ReadonlyMap<number, string>,
+): MovieSummary[] {
   const seen = new Set<number>();
   const withPoster: MovieSummary[] = [];
   const withoutPoster: MovieSummary[] = [];
@@ -132,7 +152,7 @@ export function normalizeTmdbMovieList(items: TmdbRawMovieItem[]): MovieSummary[
       continue;
     }
     seen.add(item.id);
-    const mapped = mapTmdbMovieSummary(item);
+    const mapped = mapTmdbMovieSummary(item, enTitleById?.get(item.id));
     if (mapped.posterPath) {
       withPoster.push(mapped);
     } else {
@@ -173,11 +193,25 @@ function pickBestTrailer(videos?: TmdbRawVideoItem[]): MovieTrailer | null {
   };
 }
 
+function pickEnglishTranslationTitle(raw: TmdbRawMovieDetail): string | undefined {
+  const list = raw.translations?.translations ?? [];
+  const us = list.find(
+    (t) => t.iso_639_1 === 'en' && t.iso_3166_1 === 'US' && Boolean(t.data?.title?.trim()),
+  );
+  if (us?.data?.title) return us.data.title.trim();
+
+  const anyEn = list.find((t) => t.iso_639_1 === 'en' && Boolean(t.data?.title?.trim()));
+  return anyEn?.data?.title?.trim() || undefined;
+}
+
 export function mapTmdbMovieDetails(raw: TmdbRawMovieDetail): MovieDetails {
-  const summary = mapTmdbMovieSummary({
-    ...raw,
-    genre_ids: raw.genres?.map((g) => g.id) ?? raw.genre_ids ?? [],
-  });
+  const summary = mapTmdbMovieSummary(
+    {
+      ...raw,
+      genre_ids: raw.genres?.map((g) => g.id) ?? raw.genre_ids ?? [],
+    },
+    pickEnglishTranslationTitle(raw),
+  );
 
   const brProviders = raw['watch/providers']?.results?.['BR'];
   const providers: WatchProvider[] = [];
@@ -283,13 +317,14 @@ export function mapTmdbPersonSearchList(
 export function mapTmdbPersonCredits(
   raw: TmdbRawPersonCreditsResponse,
   role: PersonRole,
+  enTitleById?: ReadonlyMap<number, string>,
 ): MovieSummary[] {
   if (role === 'director') {
     const directed = (raw.crew ?? []).filter((item) => item.job === 'Director');
     const ordered = [...directed].sort(
       (a, b) => (b.vote_count ?? 0) - (a.vote_count ?? 0) || (b.popularity ?? 0) - (a.popularity ?? 0),
     );
-    return normalizeTmdbMovieList(ordered);
+    return normalizeTmdbMovieList(ordered, enTitleById);
   }
 
   // Para atores, exclui aparições como "Self / Himself / Herself" em documentários/especiais
@@ -309,5 +344,5 @@ export function mapTmdbPersonCredits(
   const ordered = [...pool].sort(
     (a, b) => (b.vote_count ?? 0) - (a.vote_count ?? 0) || (b.popularity ?? 0) - (a.popularity ?? 0),
   );
-  return normalizeTmdbMovieList(ordered);
+  return normalizeTmdbMovieList(ordered, enTitleById);
 }

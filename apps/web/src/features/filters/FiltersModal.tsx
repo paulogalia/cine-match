@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import {
   Award,
   Clock,
+  Film,
   History,
   RotateCcw,
   Shuffle,
@@ -13,6 +14,7 @@ import {
   NIGHT_VIBE_PRESETS,
   OSCAR_CATEGORIES,
   type FilterCriteria,
+  type LetterboxdWatchedMode,
   type OscarCategory,
 } from '@cine-match/shared';
 import { Button } from '../../components/ui/Button';
@@ -64,15 +66,37 @@ const OSCAR_YEAR_PRESETS: Array<{ label: string; from?: number; to?: number }> =
 
 const RUNTIME_PRESETS: Array<{ label: string; min?: number; max?: number }> = [
   { label: 'Qualquer', min: undefined, max: undefined },
-  { label: 'Até 1h40', min: undefined, max: 100 },
-  { label: '1h30 – 2h15', min: 90, max: 135 },
-  { label: '2h+', min: 120, max: undefined },
+  { label: 'Até 95 min', min: undefined, max: 95 },
+  { label: '1h30 – 2h10', min: 90, max: 130 },
+  { label: 'Longos (2h+)', min: 120, max: undefined },
+];
+
+const LETTERBOXD_MODES: Array<{
+  value: LetterboxdWatchedMode;
+  label: string;
+  description: string;
+}> = [
+  {
+    value: 'hide',
+    label: 'Ocultar já vistos',
+    description: 'Corta filmes que qualquer participante já marcou como visto no Letterboxd.',
+  },
+  {
+    value: 'warn',
+    label: 'Apenas avisar',
+    description: 'Mantém na fila e exibe um selo "Fulano já viu" ou "Watchlist".',
+  },
+  {
+    value: 'ignore',
+    label: 'Não cruzar',
+    description: 'Ignora os dados do Letterboxd nesta sessão.',
+  },
 ];
 
 function parseOptionalInt(raw: string): number | undefined {
-  const cleaned = raw.replace(/\D/g, '');
-  if (!cleaned) return undefined;
-  const num = Number(cleaned);
+  const trimmed = raw.trim();
+  if (!trimmed) return undefined;
+  const num = Number(trimmed);
   return Number.isInteger(num) ? num : undefined;
 }
 
@@ -180,11 +204,11 @@ export function FiltersModal({ open, currentFilters, onClose, onApply }: Filters
   };
 
   const applyPreset = (presetFilters: FilterCriteria) => {
-    // Preserva streamings e excludeHistory escolhidos pelo casal ao trocar de vibe!
     const merged: FilterCriteria = {
       ...presetFilters,
       watchProviderIds: draft.watchProviderIds,
       excludeHistory: draft.excludeHistory,
+      letterboxdWatchedMode: draft.letterboxdWatchedMode,
     };
     setDraft(merged);
     setYearFromInput(merged.yearFrom ? String(merged.yearFrom) : '');
@@ -305,6 +329,8 @@ export function FiltersModal({ open, currentFilters, onClose, onApply }: Filters
   });
 
   const oscarEnabled = Boolean(draft.oscar?.enabled);
+  const currentLbMode: LetterboxdWatchedMode = draft.letterboxdWatchedMode ?? 'warn';
+  const activeLbOption = LETTERBOXD_MODES.find((m) => m.value === currentLbMode);
 
   return (
     <Modal open={open} title="Filtros da sessão" onClose={onClose}>
@@ -557,7 +583,7 @@ export function FiltersModal({ open, currentFilters, onClose, onApply }: Filters
           )}
         </div>
 
-        {/* 4. Variedade da lista (Descoberta Aleatória + Pular Histórico) */}
+        {/* 4. Variedade da lista (Descoberta Aleatória + Pular Histórico + Letterboxd) */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)' }}>
             Variedade da lista
@@ -606,6 +632,50 @@ export function FiltersModal({ open, currentFilters, onClose, onApply }: Filters
               {draft.excludeHistory ? 'ON' : 'OFF'}
             </strong>
           </button>
+
+          <div
+            style={{
+              padding: 12,
+              borderRadius: 'var(--radius-md)',
+              border: '1px solid var(--border-subtle)',
+              background: 'var(--bg-input)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
+            }}
+          >
+            <span
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: 'var(--text-primary)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 7,
+              }}
+            >
+              <Film size={15} color="#34D399" />
+              <span>Histórico do Letterboxd</span>
+            </span>
+            <div style={{ display: 'flex', gap: 6 }}>
+              {LETTERBOXD_MODES.map((mode) => (
+                <button
+                  key={mode.value}
+                  type="button"
+                  onClick={() => setDraft((p) => ({ ...p, letterboxdWatchedMode: mode.value }))}
+                  style={{ ...chipStyle(currentLbMode === mode.value), flex: 1, padding: '7px 6px' }}
+                  data-testid={`letterboxd-mode-${mode.value}`}
+                >
+                  {mode.label}
+                </button>
+              ))}
+            </div>
+            {activeLbOption && (
+              <span style={{ fontSize: 11.5, color: 'var(--text-secondary)' }}>
+                {activeLbOption.description}
+              </span>
+            )}
+          </div>
         </div>
 
         {/* 5. Gêneros */}

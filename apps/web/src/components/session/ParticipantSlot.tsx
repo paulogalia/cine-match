@@ -42,8 +42,19 @@ export function ParticipantSlot({
       className={`${styles.slot} ${styles.occupied}`}
     >
       <div className={styles.avatarWrap}>
-        <div className={styles.avatar} style={{ background: participant.avatarColor }}>
-          {getInitials(participant.name)}
+        <div
+          className={styles.avatar}
+          style={{ background: participant.avatarColor, overflow: 'hidden' }}
+        >
+          {participant.avatarDataUrl ? (
+            <img
+              src={participant.avatarDataUrl}
+              alt={participant.name}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          ) : (
+            getInitials(participant.name)
+          )}
         </div>
         <span
           className={`${styles.statusDot} ${isOnline ? styles.online : styles.offline}`}
